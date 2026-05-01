@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>오답노트 - 리눅스마스터 2급</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/storage.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="site-title">오답노트</h1>
+      <p class="site-desc">localStorage에 저장된 리눅스마스터 2급 CBT 오답 목록입니다.</p>
+      <nav class="navline"><a class="button secondary" href="../index.html">메인으로 돌아가기</a></nav>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <div class="summary-grid">
+      <div class="metric"><b id="wrongCount">0</b><span>전체 오답 개수</span></div>
+      <div class="metric"><b id="legacyCount">0</b><span>기존 CBT 오답 ID</span></div>
+    </div>
+
+    <div class="toolbar">
+      <select id="categoryFilter" aria-label="카테고리 필터">
+        <option value="all">전체 카테고리</option>
+      </select>
+      <button class="button secondary" type="button" id="refreshBtn">새로고침</button>
+      <button class="button danger" type="button" id="clearBtn">전체 오답 초기화</button>
+    </div>
+
+    <div id="emptyBox" class="empty">저장된 오답이 없습니다.</div>
+    <div class="table-wrap" id="tableWrap" hidden>
+      <table>
+        <thead>
+          <tr>
+            <th>문제 ID</th>
+            <th>과목/카테고리</th>
+            <th>문제 내용</th>
+            <th>내가 고른 답</th>
+            <th>정답</th>
+            <th>해설</th>
+            <th>틀린 날짜</th>
+          </tr>
+        </thead>
+        <tbody id="wrongBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="wrap">기존 CBT의 <code>lm2_wrong</code> 데이터는 삭제하지 않고 함께 읽습니다.</div></footer>
+
+  <script>
+    var filter = document.getElementById("categoryFilter");
+    var body = document.getElementById("wrongBody");
+    var tableWrap = document.getElementById("tableWrap");
+    var emptyBox = document.getElementById("emptyBox");
+
+    function text(value) {
+      return value === undefined || value === null || value === "" ? "-" : String(value);
+    }
+
+    function escapeHtml(value) {
+      return text(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getLegacyWrongIds() {
+      try {
+        var value = JSON.parse(localStorage.getItem("lm2_wrong") || "[]");
+        return Array.isArray(value) ? value : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function getRows() {
+      var data = window.LinuxMasterStudy.getStudyData();
+      var rows = Object.keys(data.wrongQuestions || {}).map(function (key) {
+        return data.wrongQuestions[key];
+      });
+      var knownIds = {};
+      rows.forEach(function (row) { knownIds[row.questionId] = true; });
+      getLegacyWrongIds().forEach(function (id) {
+        var questionId = "LM2-CBT01-" + String(Number(id) + 1).padStart(3, "0");
+        if (!knownIds[questionId]) {
+          rows.push({
+            questionId: questionId,
+            category: "기존 CBT 기록",
+            questionText: "기존 CBT의 lm2_wrong에 저장된 오답입니다. 문제 내용은 CBT 기록 연동 이후부터 상세 저장됩니다.",
+            selectedAnswer: "-",
+            correctAnswer: "-",
+            explanation: "-",
+            answeredAt: "-"
+          });
+        }
+      });
+      return rows;
+    }
+
+    function render() {
+      var rows = getRows();
+      var categories = Array.from(new Set(rows.map(function (row) { return row.category || "미분류"; }))).sort();
+      var current = filter.value || "all";
+      filter.innerHTML = '<option value="all">전체 카테고리</option>' + categories.map(function (category) {
+        return '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>';
+      }).join("");
+      filter.value = categories.indexOf(current) >= 0 ? current : "all";
+
+      var visible = filter.value === "all" ? rows : rows.filter(function (row) { return row.category === filter.value; });
+      document.getElementById("wrongCount").textContent = rows.length;
+      document.getElementById("legacyCount").textContent = getLegacyWrongIds().length;
+      emptyBox.hidden = visible.length > 0;
+      tableWrap.hidden = visible.length === 0;
+      body.innerHTML = visible.map(function (row) {
+        return "<tr><td>" + escapeHtml(row.questionId) + "</td><td>" + escapeHtml(row.category) + "</td><td>" + escapeHtml(row.questionText) + "</td><td>" + escapeHtml(row.selectedAnswer) + "</td><td>" + escapeHtml(row.correctAnswer) + "</td><td>" + escapeHtml(row.explanation) + "</td><td>" + escapeHtml(row.answeredAt) + "</td></tr>";
+      }).join("");
+    }
+
+    filter.addEventListener("change", render);
+    document.getElementById("refreshBtn").addEventListener("click", render);
+    document.getElementById("clearBtn").addEventListener("click", function () {
+      if (!confirm("공통 오답노트 데이터를 초기화할까요? 기존 CBT lm2_wrong 데이터는 유지됩니다.")) return;
+      var data = window.LinuxMasterStudy.getStudyData();
+      data.wrongQuestions = {};
+      window.LinuxMasterStudy.saveStudyData(data);
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

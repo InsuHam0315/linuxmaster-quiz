@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>학습 기록 - 리눅스마스터 2급</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/storage.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="site-title">학습 기록</h1>
+      <p class="site-desc">브라우저에 저장된 풀이 통계와 최근 풀이 로그입니다.</p>
+      <nav class="navline"><a class="button secondary" href="../index.html">메인으로 돌아가기</a></nav>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <div class="summary-grid">
+      <div class="metric"><b id="totalAnswered">0</b><span>총 풀이 수</span></div>
+      <div class="metric"><b id="correctCount">0</b><span>정답 수</span></div>
+      <div class="metric"><b id="wrongCount">0</b><span>오답 수</span></div>
+      <div class="metric"><b id="accuracy">0%</b><span>전체 정답률</span></div>
+    </div>
+    <p id="lastStudied">마지막 학습 시간: -</p>
+
+    <div class="toolbar">
+      <button class="button secondary" type="button" id="refreshBtn">기록 새로고침</button>
+      <button class="button secondary" type="button" id="exportBtn">학습 기록 JSON 내보내기</button>
+      <button class="button danger" type="button" id="resetBtn">학습 기록 초기화</button>
+    </div>
+
+    <h2 class="section-title">과목별 기록</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>과목/카테고리</th><th>풀이 수</th><th>정답 수</th><th>오답 수</th><th>정답률</th></tr></thead>
+        <tbody id="categoryBody"></tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">최근 풀이 로그 20개</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>시간</th><th>문제 ID</th><th>카테고리</th><th>결과</th><th>선택</th><th>정답</th></tr></thead>
+        <tbody id="sessionBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    function pct(correct, total) {
+      return total ? Math.round(correct / total * 100) + "%" : "0%";
+    }
+
+    function escapeHtml(value) {
+      return (value === undefined || value === null || value === "" ? "-" : String(value))
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function render() {
+      var data = window.LinuxMasterStudy.getStudyData();
+      document.getElementById("totalAnswered").textContent = data.totalAnswered;
+      document.getElementById("correctCount").textContent = data.correctCount;
+      document.getElementById("wrongCount").textContent = data.wrongCount;
+      document.getElementById("accuracy").textContent = pct(data.correctCount, data.totalAnswered);
+      document.getElementById("lastStudied").textContent = "마지막 학습 시간: " + (data.lastStudiedAt || "-");
+
+      var categoryRows = Object.keys(data.byCategory || {}).sort().map(function (category) {
+        var row = data.byCategory[category];
+        return "<tr><td>" + escapeHtml(category) + "</td><td>" + row.answered + "</td><td>" + row.correct + "</td><td>" + row.wrong + "</td><td>" + pct(row.correct, row.answered) + "</td></tr>";
+      });
+      document.getElementById("categoryBody").innerHTML = categoryRows.length ? categoryRows.join("") : '<tr><td colspan="5">저장된 과목별 기록이 없습니다.</td></tr>';
+
+      var logs = (data.sessions || []).slice(0, 20).map(function (row) {
+        return "<tr><td>" + escapeHtml(row.answeredAt) + "</td><td>" + escapeHtml(row.questionId) + "</td><td>" + escapeHtml(row.category) + "</td><td>" + (row.isCorrect ? "정답" : "오답") + "</td><td>" + escapeHtml(row.selectedAnswer) + "</td><td>" + escapeHtml(row.correctAnswer) + "</td></tr>";
+      });
+      document.getElementById("sessionBody").innerHTML = logs.length ? logs.join("") : '<tr><td colspan="6">최근 풀이 로그가 없습니다.</td></tr>';
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", render);
+    document.getElementById("exportBtn").addEventListener("click", function () {
+      var data = window.LinuxMasterStudy.getStudyData();
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "linuxmaster2-study-record.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      if (!confirm("학습 기록을 초기화할까요? 기존 CBT lm2_wrong 데이터는 유지됩니다.")) return;
+      window.LinuxMasterStudy.resetStudyData();
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

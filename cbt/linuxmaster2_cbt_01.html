@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>리눅스마스터 2급 필기 벼락치기 CBT</title>
+<style>
+  :root{--bg:#0f172a;--panel:#111827;--card:#1f2937;--muted:#94a3b8;--text:#e5e7eb;--accent:#38bdf8;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b;--border:#334155;}
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#0f172a 0%,#111827 100%);color:var(--text);}
+  header{position:sticky;top:0;z-index:10;background:rgba(15,23,42,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .wrap{max-width:1100px;margin:0 auto;padding:18px} h1{font-size:22px;margin:0 0 6px} .sub{color:var(--muted);font-size:14px;line-height:1.45}
+  .grid{display:grid;grid-template-columns:320px 1fr;gap:18px;margin-top:18px}.panel,.question{background:rgba(31,41,55,.92);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+  .panel{height:max-content;position:sticky;top:96px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:1px solid var(--border);background:#0b1220;color:var(--text);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:650}.btn:hover{border-color:var(--accent)}.btn.primary{background:var(--accent);color:#082f49;border-color:var(--accent)}.btn.warn{background:#3b2508;color:#fde68a;border-color:#92400e}.btn.danger{background:#3b0a0a;color:#fecaca;border-color:#991b1b}.btn:disabled{opacity:.55;cursor:not-allowed}
+  select,input{background:#0b1220;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px;width:100%} label{font-size:13px;color:var(--muted);display:block;margin:14px 0 6px}.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.stat div{background:#0b1220;border:1px solid var(--border);border-radius:12px;padding:12px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:var(--muted)}
+  .progress{height:10px;background:#0b1220;border-radius:999px;overflow:hidden;border:1px solid var(--border);margin-top:10px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:.2s}.qtop{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px}.tag{display:inline-block;border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:#0b1220;color:#bae6fd;margin-right:6px;margin-bottom:6px;font-size:12px}.qtext{font-size:21px;line-height:1.55;margin:18px 0}.choices{display:grid;gap:10px}.choice{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);border-radius:12px;padding:13px;background:#0b1220;cursor:pointer;line-height:1.45}.choice:hover{border-color:var(--accent)}.choice input{width:auto;margin-top:4px}.choice.correct{border-color:var(--ok);background:rgba(34,197,94,.12)}.choice.wrong{border-color:var(--bad);background:rgba(239,68,68,.13)}.explain{display:none;margin-top:16px;border-left:4px solid var(--accent);background:#0b1220;border-radius:12px;padding:14px;line-height:1.6;color:#dbeafe}.explain.show{display:block}.nav{display:flex;justify-content:space-between;margin-top:16px;gap:10px}.mini{font-size:12px;color:var(--muted);line-height:1.5}.list{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:12px}.num{padding:8px 0;text-align:center;border-radius:8px;background:#0b1220;border:1px solid var(--border);font-size:12px;cursor:pointer}.num.done{background:rgba(56,189,248,.18);border-color:#0369a1}.num.ok{background:rgba(34,197,94,.18);border-color:#15803d}.num.bad{background:rgba(239,68,68,.18);border-color:#991b1b}.num.current{outline:2px solid var(--accent)}
+  .result{display:none}.result.show{display:block}.table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}.table th,.table td{border-bottom:1px solid var(--border);padding:10px;text-align:left}.table th{color:#bae6fd}.footer{font-size:12px;color:var(--muted);margin-top:28px;line-height:1.6} code{background:#0b1220;padding:2px 6px;border-radius:6px;color:#fef3c7}.hide{display:none!important}@media(max-width:860px){.grid{grid-template-columns:1fr}.panel{position:static}.list{grid-template-columns:repeat(8,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>리눅스마스터 2급 필기 벼락치기 CBT</h1><div class="sub">시험 직전용 기출 스타일 문제은행 · 4지선다 · 즉시 채점 · 오답 복습 · 로컬 저장</div><div style="margin-top:10px"><a href="../index.html" style="color:#bae6fd;font-weight:700;text-decoration:none">메인으로 돌아가기</a></div></div></header>
+<main class="wrap grid">
+  <aside class="panel">
+    <label>풀이 모드</label><select id="mode"><option value="all">전체 문제 순서대로</option><option value="random40">랜덤 40문항</option><option value="wrong">오답만 다시 풀기</option></select>
+    <label>영역 필터</label><select id="category"><option value="all">전체 영역</option><option>명령어/파일</option><option>권한/소유권</option><option>프로세스/작업</option><option>셸/환경</option><option>vi/편집기</option><option>패키지/압축</option><option>네트워크/서비스</option><option>X윈도우/활용</option><option>리눅스 일반</option></select>
+    <div class="row" style="margin-top:14px"><button class="btn primary" id="startBtn">시험 시작/재구성</button><button class="btn warn" id="resetBtn">기록 초기화</button></div>
+    <div class="stat"><div><b id="score">0</b><span>현재 정답</span></div><div><b id="count">0/0</b><span>푼 문제</span></div><div><b id="rate">0%</b><span>정답률</span></div><div><b id="timer">00:00</b><span>풀이 시간</span></div></div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="mini" style="margin-top:12px">번호 색상: 파랑=풀이 완료, 초록=정답, 빨강=오답. 시험 전에는 <b>권한 숫자 계산, ps 옵션, vi 콜론 명령, 셸 역사, 압축/패키지 명령</b>을 특히 조심하세요.</div>
+    <div class="list" id="numList"></div>
+  </aside>
+  <section>
+    <article class="question" id="quizBox">
+      <div class="qtop"><div id="qMeta"></div><div id="qIdx"></div></div>
+      <div class="qtext" id="qText">왼쪽에서 시험 시작/재구성을 누르세요.</div>
+      <div class="choices" id="choices"></div>
+      <div class="explain" id="explain"></div>
+      <div class="nav"><button class="btn" id="prevBtn">이전</button><div class="row"><button class="btn" id="showBtn">해설 보기</button><button class="btn primary" id="nextBtn">다음</button></div></div>
+    </article>
+    <article class="question result" id="resultBox"><h2>최종 결과</h2><div id="resultSummary"></div><table class="table" id="wrongTable"></table></article>
+    <div class="footer">주의: 이 파일은 시험 직전 반복 학습용으로 직접 제작한 기출 스타일 문제은행입니다. 실제 공개 CBT 원문을 그대로 복제한 것이 아니므로, 원문 기출은 CBT 사이트에서 추가 확인하세요.</div>
+  </section>
+</main>
+<script src="../assets/storage.js"></script>
+<script>
+const QUESTIONS = [
+{c:'리눅스 일반',q:'리눅스의 특징으로 가장 적절하지 않은 것은?',a:['멀티유저와 멀티태스킹을 지원한다','소스 코드가 공개된 오픈소스 운영체제이다','대부분의 네트워크 서비스를 지원할 수 있다','단일 사용자만 사용할 수 있도록 설계되었다'],ans:3,e:'리눅스는 다중 사용자, 다중 작업을 지원하는 대표적인 오픈소스 운영체제이다.'},
+{c:'리눅스 일반',q:'다음 중 GNU 프로젝트와 가장 관련 깊은 인물은?',a:['리누스 토르발스','리처드 스톨먼','앤드루 타넨바움','데니스 리치'],ans:1,e:'GNU 프로젝트와 자유 소프트웨어 운동은 리처드 스톨먼과 관련이 깊다. 리누스 토르발스는 리눅스 커널을 처음 공개했다.'},
+{c:'리눅스 일반',q:'리눅스 커널을 처음 개발하여 공개한 인물은?',a:['리처드 스톨먼','리누스 토르발스','켄 톰프슨','빌 조이'],ans:1,e:'리누스 토르발스가 1991년 리눅스 커널을 공개했다.'},
+{c:'리눅스 일반',q:'다음 중 데비안 계열 배포판으로 가장 적절한 것은?',a:['Ubuntu','Fedora','CentOS','Rocky Linux'],ans:0,e:'Ubuntu는 Debian 계열이다. Fedora, CentOS, Rocky Linux는 Red Hat 계열로 분류된다.'},
+{c:'리눅스 일반',q:'다음 중 레드햇 계열 배포판으로 보기 어려운 것은?',a:['RHEL','Rocky Linux','Ubuntu','CentOS'],ans:2,e:'Ubuntu는 Debian 계열이다.'},
+{c:'리눅스 일반',q:'셸의 역사와 관련하여 C 언어와 유사한 문법을 가진 셸은?',a:['Bourne Shell','C Shell','Korn Shell','Bash'],ans:1,e:'C Shell(csh)은 C 언어와 유사한 문법을 지향한 셸이다.'},
+{c:'명령어/파일',q:'현재 작업 디렉터리의 절대 경로를 출력하는 명령은?',a:['cd','pwd','ls','whereis'],ans:1,e:'pwd는 print working directory의 약자로 현재 디렉터리 경로를 출력한다.'},
+{c:'명령어/파일',q:'숨김 파일까지 자세히 출력하는 ls 옵션 조합으로 가장 적절한 것은?',a:['ls -l','ls -a','ls -al','ls -i'],ans:2,e:'-a는 숨김 파일 포함, -l은 자세한 목록이다. 따라서 -al 또는 -la가 적절하다.'},
+{c:'명령어/파일',q:'파일의 앞부분 10줄을 기본으로 출력하는 명령은?',a:['tail','head','cut','sort'],ans:1,e:'head는 파일 앞부분, tail은 파일 뒷부분을 출력한다.'},
+{c:'명령어/파일',q:'파일의 마지막 20줄을 출력하는 명령으로 올바른 것은?',a:['tail -20 file.txt','head -20 file.txt','tail +20 file.txt','cat -20 file.txt'],ans:0,e:'tail -20 또는 tail -n 20은 마지막 20줄을 출력한다.'},
+{c:'명령어/파일',q:'파일 내에서 문자열 패턴을 검색하는 명령은?',a:['find','grep','locate','which'],ans:1,e:'grep은 파일 내용에서 패턴을 검색한다. find는 파일명/경로 조건 검색이다.'},
+{c:'명령어/파일',q:'현재 디렉터리 이하에서 이름이 test.txt인 파일을 찾는 명령은?',a:['grep test.txt .','find . -name test.txt','which test.txt','whereis test.txt'],ans:1,e:'find . -name test.txt는 현재 디렉터리 이하에서 이름이 test.txt인 파일을 찾는다.'},
+{c:'명령어/파일',q:'명령어의 위치를 PATH 기준으로 찾는 명령은?',a:['which','pwd','id','du'],ans:0,e:'which는 실행 파일의 경로를 PATH 기준으로 찾는다.'},
+{c:'명령어/파일',q:'디렉터리별 디스크 사용량을 확인할 때 주로 사용하는 명령은?',a:['df','du','free','top'],ans:1,e:'du는 파일/디렉터리 사용량, df는 파일시스템의 남은 공간을 확인한다.'},
+{c:'명령어/파일',q:'마운트된 파일시스템의 전체/사용/가용 용량을 확인하는 명령은?',a:['du -sh','df -h','free -h','mount -a'],ans:1,e:'df -h는 파일시스템 디스크 사용량을 사람이 읽기 쉬운 단위로 보여준다.'},
+{c:'명령어/파일',q:'표준 출력과 표준 에러를 모두 result.txt에 저장하는 명령으로 적절한 것은?',a:['cmd > result.txt','cmd 2> result.txt','cmd > result.txt 2>&1','cmd < result.txt'],ans:2,e:'>는 표준 출력 리다이렉션, 2>&1은 표준 에러를 표준 출력과 같은 곳으로 보낸다.'},
+{c:'명령어/파일',q:'기존 파일 끝에 내용을 추가하는 리다이렉션 기호는?',a:['>','>>','<','2>'],ans:1,e:'>>는 append, >는 덮어쓰기이다.'},
+{c:'명령어/파일',q:'두 파일의 차이를 비교하는 명령은?',a:['cmp 또는 diff','cut 또는 paste','tar 또는 gzip','who 또는 w'],ans:0,e:'cmp는 바이트 단위 비교, diff는 줄 단위 차이 비교에 사용된다.'},
+{c:'권한/소유권',q:'chmod 755 file의 권한으로 올바른 것은?',a:['rwxr-xr-x','rw-r--r--','rwx------','rwxrwxrwx'],ans:0,e:'7=rwx, 5=r-x, 5=r-x 이므로 rwxr-xr-x이다.'},
+{c:'권한/소유권',q:'chmod 644 file의 권한으로 올바른 것은?',a:['rwxr-xr-x','rw-r--r--','rw-rw-r--','r--r--r--'],ans:1,e:'6=rw-, 4=r--, 4=r-- 이므로 rw-r--r--이다.'},
+{c:'권한/소유권',q:'chmod 1770 dir에서 앞의 1이 의미하는 특수 권한은?',a:['setuid','setgid','sticky bit','ACL'],ans:2,e:'특수권한 1은 sticky bit, 2는 setgid, 4는 setuid이다.'},
+{c:'권한/소유권',q:'chmod 2770 dir에서 앞의 2가 의미하는 특수 권한은?',a:['setuid','setgid','sticky bit','umask'],ans:1,e:'2는 setgid이다. 디렉터리에 설정하면 그 디렉터리 안에서 생성되는 파일이 디렉터리 그룹을 상속받는 데 활용된다.'},
+{c:'권한/소유권',q:'chmod 4770 file에서 앞의 4가 의미하는 특수 권한은?',a:['setuid','setgid','sticky bit','execute only'],ans:0,e:'4는 setuid이다.'},
+{c:'권한/소유권',q:'chmod 3770 dir의 특수 권한 조합으로 올바른 것은?',a:['setuid + setgid','setgid + sticky bit','setuid + sticky bit','setuid + setgid + sticky bit'],ans:1,e:'3은 2+1이므로 setgid와 sticky bit가 함께 설정된다.'},
+{c:'권한/소유권',q:'chmod 5770 file의 특수 권한 조합으로 올바른 것은?',a:['setuid + sticky bit','setuid + setgid','setgid + sticky bit','sticky bit만'],ans:0,e:'5는 4+1이므로 setuid와 sticky bit 조합이다.'},
+{c:'권한/소유권',q:'파일 소유자와 소유 그룹을 동시에 변경하는 명령은?',a:['chmod user:group file','chown user:group file','chgrp user:group file','umask user:group file'],ans:1,e:'chown user:group file 형식으로 소유자와 그룹을 함께 변경할 수 있다.'},
+{c:'권한/소유권',q:'새로 생성되는 파일의 기본 권한에 영향을 주는 값은?',a:['alias','umask','PATH','UID'],ans:1,e:'umask는 새 파일/디렉터리 생성 시 기본 권한에서 제거할 권한을 지정한다.'},
+{c:'프로세스/작업',q:'현재 실행 중인 프로세스의 목록을 BSD 스타일로 자세히 보는 명령은?',a:['ps aux','ps -ef','jobs -l','pstree -p'],ans:0,e:'ps aux는 BSD 스타일 옵션이다. a=터미널 프로세스, u=사용자 중심 출력, x=터미널 없는 프로세스 포함으로 자주 설명된다.'},
+{c:'프로세스/작업',q:'시스템 V 스타일로 모든 프로세스를 자세히 출력하는 명령은?',a:['ps aux','ps -ef','ps -a','jobs'],ans:1,e:'ps -ef는 System V 스타일의 대표적인 전체 프로세스 출력 명령이다.'},
+{c:'프로세스/작업',q:'특정 PID만 지정하여 ps로 확인하는 옵션은?',a:['ps --pid PID','ps --user PID','ps --name PID','ps --kill PID'],ans:0,e:'ps --pid PID 또는 ps -p PID 형태로 특정 PID를 조회한다.'},
+{c:'프로세스/작업',q:'프로세스를 강제 종료할 때 사용하는 시그널은?',a:['SIGTERM(15)','SIGKILL(9)','SIGHUP(1)','SIGSTOP(19)'],ans:1,e:'SIGKILL(9)은 잡을 수 없는 강제 종료 시그널이다. 일반 종료 요청은 SIGTERM(15)이다.'},
+{c:'프로세스/작업',q:'kill 명령에서 기본적으로 전송되는 시그널은?',a:['SIGHUP','SIGINT','SIGTERM','SIGKILL'],ans:2,e:'kill의 기본 시그널은 SIGTERM(15)이다.'},
+{c:'프로세스/작업',q:'터미널 종료 후에도 명령을 계속 실행시키기 위해 주로 사용하는 명령은?',a:['nice','nohup','fg','jobs'],ans:1,e:'nohup은 hangup 신호를 무시하고 명령을 계속 실행하는 데 사용된다.'},
+{c:'프로세스/작업',q:'백그라운드 작업 목록을 확인하는 셸 내장 명령은?',a:['jobs','ps','top','free'],ans:0,e:'jobs는 현재 셸에서 실행한 백그라운드/중지 작업 목록을 보여준다.'},
+{c:'프로세스/작업',q:'중지된 작업 또는 백그라운드 작업을 포그라운드로 가져오는 명령은?',a:['bg','fg','nice','renice'],ans:1,e:'fg는 foreground, bg는 background 실행 재개이다.'},
+{c:'프로세스/작업',q:'프로세스 우선순위 nice 값의 범위로 일반적으로 올바른 것은?',a:['-20 ~ 19','0 ~ 100','1 ~ 255','-9 ~ 9'],ans:0,e:'nice 값은 보통 -20이 가장 높은 우선순위, 19가 가장 낮은 우선순위이다.'},
+{c:'셸/환경',q:'Bash에서 환경변수를 자식 프로세스에 전달하기 위해 사용하는 명령은?',a:['set','export','alias','source'],ans:1,e:'export VAR=value 형태로 환경변수를 내보낸다.'},
+{c:'셸/환경',q:'사용자의 로그인 셸이 bash일 때 개인 환경 설정 파일로 가장 관련 깊은 것은?',a:['/etc/passwd','.bashrc','/etc/fstab','/var/log/messages'],ans:1,e:'.bashrc는 사용자별 bash 설정 파일이다. 문제에서 .bashrc와 bashrc를 헷갈리게 내는 경우가 많다.'},
+{c:'셸/환경',q:'명령어 별칭을 설정하는 명령은?',a:['alias','unalias','export','env'],ans:0,e:'alias ll="ls -l"처럼 별칭을 설정한다.'},
+{c:'셸/환경',q:'현재 셸에서 정의된 환경변수를 출력하는 명령으로 가장 적절한 것은?',a:['env','jobs','pwd','history -c'],ans:0,e:'env 또는 printenv로 환경변수를 확인할 수 있다.'},
+{c:'셸/환경',q:'명령어 실행 이력을 확인하는 명령은?',a:['history','last','who','uptime'],ans:0,e:'history는 셸 명령 실행 기록을 출력한다.'},
+{c:'셸/환경',q:'파이프(|)의 기능으로 올바른 것은?',a:['앞 명령의 출력을 뒤 명령의 입력으로 전달한다','뒤 명령의 출력을 앞 명령의 입력으로 전달한다','파일 권한을 변경한다','표준 에러만 삭제한다'],ans:0,e:'파이프는 표준 출력을 다음 명령의 표준 입력으로 연결한다.'},
+{c:'vi/편집기',q:'vi에서 입력 모드로 전환하는 키가 아닌 것은?',a:['i','a','o',':w'],ans:3,e:':w는 저장 명령이다. i, a, o는 입력 모드로 들어가는 대표 키이다.'},
+{c:'vi/편집기',q:'vi에서 저장하고 종료하는 명령은?',a:[':q!',':wq',':e!','dd'],ans:1,e:':wq는 저장 후 종료, :q!는 저장하지 않고 강제 종료이다.'},
+{c:'vi/편집기',q:'vi 명령 모드에서 현재 줄을 삭제하는 키는?',a:['yy','dd','p','u'],ans:1,e:'dd는 현재 줄 삭제, yy는 현재 줄 복사, p는 붙여넣기, u는 실행 취소이다.'},
+{c:'vi/편집기',q:'vi에서 문자열 검색을 시작할 때 사용하는 키는?',a:['/','?만 가능',':s만 가능','grep'],ans:0,e:'/pattern은 아래 방향 검색, ?pattern은 위 방향 검색이다.'},
+{c:'vi/편집기',q:'vi에서 전체 문서의 old를 new로 모두 치환하는 명령으로 가장 적절한 것은?',a:[':%s/old/new/g',':s/old/new',':replace old new','/old/new/g'],ans:0,e:':%s/old/new/g는 문서 전체 범위에서 전역 치환한다.'},
+{c:'패키지/압축',q:'Debian/Ubuntu 계열에서 패키지를 설치할 때 사용하는 명령으로 적절한 것은?',a:['yum install','dnf install','apt install','rpm -qa'],ans:2,e:'Ubuntu/Debian 계열은 apt 또는 dpkg를 사용한다.'},
+{c:'패키지/압축',q:'Red Hat 계열에서 RPM 패키지 목록을 확인하는 명령은?',a:['rpm -qa','dpkg -l','apt list','tar -tvf'],ans:0,e:'rpm -qa는 설치된 RPM 패키지를 모두 조회한다.'},
+{c:'패키지/압축',q:'tar 아카이브를 생성할 때 일반적으로 사용하는 옵션 조합은?',a:['tar cvf archive.tar dir','tar xvf archive.tar dir','tar tvf archive.tar dir','tar rvf archive.tar dir'],ans:0,e:'c=create, v=verbose, f=file이다. x는 해제, t는 목록 확인이다.'},
+{c:'패키지/압축',q:'tar.gz 파일을 해제하는 명령으로 적절한 것은?',a:['tar xvf file.tar.gz','tar zxvf file.tar.gz','gzip -d file.tar.gz만 가능','zip -r file.tar.gz'],ans:1,e:'z는 gzip 압축 처리를 의미한다. tar zxvf 또는 tar xzvf 형태를 사용한다.'},
+{c:'패키지/압축',q:'gzip으로 압축된 파일의 일반적인 확장자는?',a:['.gz','.bz2','.xz','.zip'],ans:0,e:'gzip은 .gz, bzip2는 .bz2, xz는 .xz 확장자를 주로 사용한다.'},
+{c:'패키지/압축',q:'소스 컴파일 설치 과정의 일반적인 순서로 적절한 것은?',a:['make → ./configure → make install','./configure → make → make install','make install → make → ./configure','rpm → configure → apt'],ans:1,e:'일반적으로 ./configure로 환경 점검 후 make로 컴파일하고 make install로 설치한다.'},
+{c:'네트워크/서비스',q:'IP 주소 설정 및 네트워크 인터페이스 정보를 확인하는 최신 명령으로 가장 적절한 것은?',a:['ip addr','lsblk','free','jobs'],ans:0,e:'ip addr는 네트워크 인터페이스와 IP 주소 확인에 사용된다. ifconfig도 과거에 많이 쓰였지만 최신 환경에서는 ip 명령이 권장된다.'},
+{c:'네트워크/서비스',q:'네트워크 연결 상태와 라우팅 테이블 등을 확인하는 전통적 명령은?',a:['netstat','chmod','useradd','grep'],ans:0,e:'netstat는 연결 상태, 포트, 라우팅 테이블 확인에 사용된다. 최신 환경에서는 ss도 자주 사용된다.'},
+{c:'네트워크/서비스',q:'DNS 질의에 사용하는 명령으로 가장 적절한 것은?',a:['nslookup 또는 dig','ping 또는 kill','tar 또는 gzip','chmod 또는 chown'],ans:0,e:'nslookup, dig, host 등이 DNS 질의에 사용된다.'},
+{c:'네트워크/서비스',q:'원격 로그인/원격 명령 실행에 사용되며 암호화된 통신을 제공하는 서비스는?',a:['telnet','ssh','ftp','smtp'],ans:1,e:'SSH는 암호화된 원격 접속을 제공한다. telnet은 암호화되지 않는다.'},
+{c:'네트워크/서비스',q:'HTTP의 기본 포트 번호는?',a:['21','22','80','443'],ans:2,e:'HTTP는 80, HTTPS는 443, SSH는 22, FTP 제어 연결은 21이다.'},
+{c:'네트워크/서비스',q:'메일 전송 프로토콜 SMTP의 기본 포트는?',a:['25','53','110','143'],ans:0,e:'SMTP는 25번 포트를 기본으로 한다. DNS는 53, POP3는 110, IMAP은 143이다.'},
+{c:'네트워크/서비스',q:'도메인 이름을 IP 주소로 변환하는 서비스는?',a:['DHCP','DNS','NFS','Samba'],ans:1,e:'DNS는 도메인 이름과 IP 주소를 매핑한다.'},
+{c:'네트워크/서비스',q:'동적으로 IP 주소를 할당하는 프로토콜은?',a:['DNS','DHCP','FTP','NTP'],ans:1,e:'DHCP는 클라이언트에게 IP 주소, 게이트웨이, DNS 서버 정보 등을 동적으로 제공한다.'},
+{c:'네트워크/서비스',q:'리눅스에서 서비스/데몬을 systemd 기반으로 관리할 때 사용하는 명령은?',a:['service만 가능','systemctl','crontab','journal'],ans:1,e:'systemctl start/stop/status 서비스명 형태로 systemd 서비스를 관리한다.'},
+{c:'X윈도우/활용',q:'X 윈도우 시스템의 구성 요소 중 클라이언트와 서버 사이를 중계하며 네트워크 투명성을 제공하는 개념과 가장 관련 깊은 것은?',a:['X 프로토콜','RPM','GRUB','Bash'],ans:0,e:'X 윈도우는 X 프로토콜 기반의 클라이언트/서버 구조로 동작한다.'},
+{c:'X윈도우/활용',q:'X 윈도우에서 디스플레이 위치를 지정할 때 사용하는 환경변수는?',a:['PATH','HOME','DISPLAY','SHELL'],ans:2,e:'DISPLAY 환경변수는 X 클라이언트가 접속할 X 서버 디스플레이를 지정한다.'},
+{c:'X윈도우/활용',q:'대표적인 데스크톱 환경으로 보기 어려운 것은?',a:['GNOME','KDE','Xfce','Apache'],ans:3,e:'Apache는 웹 서버이며 데스크톱 환경이 아니다.'},
+{c:'X윈도우/활용',q:'다음 중 웹 서버로 가장 널리 사용되는 소프트웨어는?',a:['Apache HTTP Server','Bash','GRUB','Vi'],ans:0,e:'Apache HTTP Server는 대표적인 웹 서버 소프트웨어이다.'},
+{c:'X윈도우/활용',q:'프린터 관리를 위한 리눅스 인쇄 시스템으로 가장 관련 깊은 것은?',a:['CUPS','GRUB','YUM','NTP'],ans:0,e:'CUPS는 Common UNIX Printing System이다.'},
+{c:'명령어/파일',q:'파일의 줄 수, 단어 수, 바이트 수를 세는 명령은?',a:['wc','cut','sort','uniq'],ans:0,e:'wc는 word count 명령이다. wc -l은 줄 수를 센다.'},
+{c:'명령어/파일',q:'정렬된 파일에서 중복 행을 제거하거나 개수를 세는 명령은?',a:['sort','uniq','paste','tr'],ans:1,e:'uniq는 인접한 중복 행을 처리한다. 보통 sort와 함께 사용한다.'},
+{c:'명령어/파일',q:'파일 내용을 화면 단위로 넘겨 보는 명령으로 적절한 것은?',a:['less','touch','mkdir','rmdir'],ans:0,e:'less, more는 긴 파일을 페이지 단위로 볼 때 사용한다.'},
+{c:'명령어/파일',q:'빈 파일을 생성하거나 파일의 수정 시간을 갱신하는 명령은?',a:['touch','cat','rm','mv'],ans:0,e:'touch는 파일이 없으면 빈 파일을 만들고, 있으면 timestamp를 갱신한다.'},
+{c:'권한/소유권',q:'사용자를 새로 추가하는 명령으로 적절한 것은?',a:['useradd','groupdel','passwd -d','chown'],ans:0,e:'useradd는 사용자 계정을 추가한다.'},
+{c:'권한/소유권',q:'사용자 비밀번호를 변경하는 명령은?',a:['passwd','chage','usermod','id'],ans:0,e:'passwd 명령으로 비밀번호를 설정/변경한다.'},
+{c:'권한/소유권',q:'현재 사용자의 UID, GID, 소속 그룹을 확인하는 명령은?',a:['who','id','last','groups -d'],ans:1,e:'id는 UID, GID, groups 정보를 보여준다.'},
+{c:'프로세스/작업',q:'실시간으로 CPU/메모리 사용률과 프로세스를 확인하는 명령은?',a:['top','ps -p','jobs','killall'],ans:0,e:'top은 실시간 프로세스 모니터링 도구이다.'},
+{c:'프로세스/작업',q:'프로세스 트리를 확인하는 명령은?',a:['pstree','pspath','treeps','jobs -t'],ans:0,e:'pstree는 부모-자식 프로세스 구조를 트리 형태로 보여준다.'},
+{c:'셸/환경',q:'현재 셸 스크립트의 첫 번째 인자를 의미하는 특수 변수는?',a:['$0','$1','$#','$?'],ans:1,e:'$0은 스크립트 이름, $1은 첫 번째 인자, $#은 인자 개수, $?는 직전 명령 종료 상태이다.'},
+{c:'셸/환경',q:'직전 명령의 종료 상태 코드를 담는 특수 변수는?',a:['$?','$$','$!','$#'],ans:0,e:'$?는 직전 명령의 종료 상태이다. 0이면 일반적으로 성공이다.'},
+{c:'셸/환경',q:'실행 중인 현재 셸의 PID를 의미하는 특수 변수는?',a:['$$','$!','$?','$*'],ans:0,e:'$$는 현재 셸의 프로세스 ID이다. $!는 최근 백그라운드 프로세스 PID이다.'}
+];
+let session=[], idx=0, answers={}, startedAt=null, tick=null;
+const $=id=>document.getElementById(id);
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5)}
+function format(sec){let m=String(Math.floor(sec/60)).padStart(2,'0'),s=String(sec%60).padStart(2,'0');return `${m}:${s}`}
+function buildSession(){
+ const cat=$('category').value, mode=$('mode').value; let pool=QUESTIONS.map((q,i)=>({...q,id:i}));
+ if(cat!=='all') pool=pool.filter(q=>q.c===cat);
+ if(mode==='wrong'){const wrong=JSON.parse(localStorage.getItem('lm2_wrong')||'[]'); pool=pool.filter(q=>wrong.includes(q.id)); if(pool.length===0){alert('저장된 오답이 없습니다. 전체 문제로 시작합니다.'); pool=QUESTIONS.map((q,i)=>({...q,id:i}));}}
+ if(mode==='random40') pool=shuffle(pool).slice(0,Math.min(40,pool.length));
+ session=pool; idx=0; answers={}; startedAt=Date.now(); clearInterval(tick); tick=setInterval(()=>{$('timer').textContent=format(Math.floor((Date.now()-startedAt)/1000))},1000); render();
+}
+function render(){
+ if(!session.length){$('qText').textContent='선택한 조건에 해당하는 문제가 없습니다.';return;}
+ const q=session[idx]; $('qMeta').innerHTML=`<span class="tag">${q.c}</span>`; $('qIdx').textContent=`${idx+1} / ${session.length}`; $('qText').textContent=q.q;
+ $('choices').innerHTML=''; q.a.forEach((t,i)=>{const lab=document.createElement('label');lab.className='choice';lab.innerHTML=`<input type="radio" name="choice" value="${i}"><div><b>${['①','②','③','④'][i]}</b> ${t}</div>`;lab.onclick=()=>select(i);$('choices').appendChild(lab)});
+ $('explain').className='explain'; $('explain').innerHTML=`<b>정답: ${['①','②','③','④'][q.ans]} ${q.a[q.ans]}</b><br>${q.e}`;
+ if(answers[q.id]!==undefined) paintChoices(); updateStats(); renderNums(); $('resultBox').className='question result';
+}
+function select(i){const q=session[idx]; if(answers[q.id]!==undefined) return; answers[q.id]=i; const wrong=JSON.parse(localStorage.getItem('lm2_wrong')||'[]'); if(i!==q.ans){if(!wrong.includes(q.id)) wrong.push(q.id)}else{const p=wrong.indexOf(q.id); if(p>=0) wrong.splice(p,1)} localStorage.setItem('lm2_wrong',JSON.stringify(wrong)); if(window.LinuxMasterStudy&&typeof window.LinuxMasterStudy.recordAnswer==='function'){try{window.LinuxMasterStudy.recordAnswer({questionId:'LM2-CBT01-'+String(Number(q.id)+1).padStart(3,'0'),questionText:q.q,category:q.c,selectedAnswer:['①','②','③','④'][i]+' '+q.a[i],correctAnswer:['①','②','③','④'][q.ans]+' '+q.a[q.ans],isCorrect:i===q.ans,explanation:q.e,source:'리눅스마스터 2급 CBT 1',answeredAt:new Date().toISOString()});}catch(e){console.warn('study record failed',e)}} paintChoices(); updateStats(); renderNums();}
+function paintChoices(){const q=session[idx], chosen=answers[q.id]; document.querySelectorAll('.choice').forEach((el,i)=>{el.querySelector('input').checked=i===chosen; if(i===q.ans) el.classList.add('correct'); if(i===chosen && i!==q.ans) el.classList.add('wrong');}); $('explain').className='explain show';}
+function updateStats(){let done=0, ok=0; session.forEach(q=>{if(answers[q.id]!==undefined){done++; if(answers[q.id]===q.ans) ok++;}}); $('score').textContent=ok; $('count').textContent=`${done}/${session.length}`; $('rate').textContent=done?Math.round(ok/done*100)+'%':'0%'; $('bar').style.width=(session.length?done/session.length*100:0)+'%'; if(done===session.length) showResult(ok,done);}
+function renderNums(){const box=$('numList'); box.innerHTML=''; session.forEach((q,i)=>{const d=document.createElement('div');d.className='num'; if(i===idx)d.classList.add('current'); if(answers[q.id]!==undefined){d.classList.add('done'); d.classList.add(answers[q.id]===q.ans?'ok':'bad')} d.textContent=i+1; d.onclick=()=>{idx=i;render()}; box.appendChild(d);});}
+function showResult(ok,done){clearInterval(tick); $('resultBox').className='question result show'; const pct=Math.round(ok/done*100); $('resultSummary').innerHTML=`<p><b>${done}문항 중 ${ok}문항 정답 (${pct}%)</b></p><p>${pct>=75?'안정권입니다. 오답만 한 번 더 보세요.':pct>=60?'합격선 근처입니다. 권한/ps/vi/네트워크 포트를 더 보세요.':'위험합니다. 오답 모드로 바로 2회전하세요.'}</p>`; const wrongs=session.filter(q=>answers[q.id]!==q.ans); $('wrongTable').innerHTML='<tr><th>번호</th><th>영역</th><th>문제</th><th>정답</th></tr>'+wrongs.map((q,i)=>`<tr><td>${i+1}</td><td>${q.c}</td><td>${q.q}</td><td>${['①','②','③','④'][q.ans]} ${q.a[q.ans]}</td></tr>`).join('');}
+$('startBtn').onclick=buildSession; $('resetBtn').onclick=()=>{if(confirm('오답 기록과 현재 풀이를 초기화할까요?')){localStorage.removeItem('lm2_wrong');answers={};buildSession();}}; $('prevBtn').onclick=()=>{if(idx>0){idx--;render()}}; $('nextBtn').onclick=()=>{if(idx<session.length-1){idx++;render()}else{updateStats();}}; $('showBtn').onclick=()=>{$('explain').classList.toggle('show')};
+buildSession();
+</script>
+</body>
+</html>
