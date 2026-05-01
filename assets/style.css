@@ -382,8 +382,59 @@ tr:last-child td { border-bottom: 0; }
   font-size: 22px;
 }
 
+.study-flow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.study-flow > div {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.study-flow h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.study-flow p,
+.study-flow ul {
+  margin: 0;
+  color: var(--muted);
+}
+
+.practice-box {
+  margin: 20px 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+}
+
+.practice-box h2,
+.practice-box h3 {
+  margin: 0 0 10px;
+}
+
+.practice-box ol,
+.practice-box ul {
+  margin: 8px 0;
+  padding-left: 22px;
+}
+
+.answer-line {
+  margin-top: 12px;
+  padding: 12px;
+  border-left: 4px solid var(--ok);
+  background: var(--surface);
+}
+
 @media (max-width: 900px) {
-  .card-grid, .summary-grid, .note-layout {
+  .card-grid, .summary-grid, .note-layout, .study-flow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -393,7 +444,7 @@ tr:last-child td { border-bottom: 0; }
     width: min(100% - 22px, 1100px);
   }
 
-  .card-grid, .summary-grid, .note-layout {
+  .card-grid, .summary-grid, .note-layout, .study-flow {
     grid-template-columns: 1fr;
   }
 
