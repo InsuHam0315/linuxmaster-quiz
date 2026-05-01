@@ -8,25 +8,65 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap">
+    <div class="wrap page-header">
+      <nav class="breadcrumb"><a href="../index.html">메인으로 돌아가기</a></nav>
       <h1 class="site-title">과목별 개념정리</h1>
-      <p class="site-desc">시험 직전 확인용 핵심 포인트 목록입니다.</p>
-      <nav class="navline"><a class="button secondary" href="../index.html">메인으로 돌아가기</a></nav>
+      <p class="site-desc">리눅스마스터 2급 필기 직전에 확인할 핵심 개념과 시험 함정 포인트입니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
-    <div class="card-grid">
-      <article class="card"><div><span class="badge">준비 중</span><h3>리눅스 일반</h3><p>GNU, 커널, 배포판 계열, 오픈소스 라이선스의 기본 관계를 구분합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>파일 및 디렉터리 명령어</h3><p><code>ls</code>, <code>find</code>, <code>grep</code>, 리다이렉션과 파이프 사용 조건을 빠르게 확인합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>권한·소유권·특수권한</h3><p>숫자 권한, <code>chmod</code>, <code>chown</code>, setuid/setgid/sticky bit 계산을 반복합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>프로세스 및 작업 관리</h3><p><code>ps aux</code>, <code>ps -ef</code>, <code>kill</code>, <code>jobs</code>, <code>fg</code>/<code>bg</code> 차이를 정리합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>셸·환경변수·스크립트</h3><p><code>export</code>, <code>alias</code>, <code>history</code>, 특수 변수 <code>$?</code>, <code>$1</code>, <code>$$</code>를 확인합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>vi 편집기</h3><p>입력/명령 모드, 저장 종료, 삭제/복사/붙여넣기, 검색과 치환 명령을 구분합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>패키지·압축·백업</h3><p><code>apt</code>, <code>rpm</code>, <code>tar</code>, <code>gzip</code> 옵션과 소스 설치 순서를 정리합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>네트워크 및 서비스</h3><p>포트 번호, DNS/DHCP/SSH/HTTP, <code>ip</code>, <code>netstat</code>, <code>systemctl</code>을 점검합니다.</p></div></article>
-      <article class="card"><div><span class="badge">준비 중</span><h3>X 윈도우 및 활용</h3><p>X 프로토콜, DISPLAY 변수, 데스크톱 환경, CUPS와 웹 서버 기초를 확인합니다.</p></div></article>
-    </div>
+    <section class="note-layout" aria-label="개념정리 목록">
+      <a class="note-card" href="./linux-basic.html">
+        <span class="badge">기초</span>
+        <h2>리눅스 일반</h2>
+        <p>커널, GNU/Linux, 배포판 계열, CLI/GUI, 파일시스템 계층과 GRUB을 정리합니다.</p>
+      </a>
+      <a class="note-card" href="./file-command.html">
+        <span class="badge">명령어</span>
+        <h2>파일 및 디렉터리 명령어</h2>
+        <p>파일 조작, 검색, 필터, 리다이렉션, 파이프, 링크 개념을 비교합니다.</p>
+      </a>
+      <a class="note-card" href="./permission.html">
+        <span class="badge">권한</span>
+        <h2>권한·소유권·특수권한</h2>
+        <p>chmod, chown, umask, setuid, setgid, sticky bit 계산을 시험식으로 정리합니다.</p>
+      </a>
+      <a class="note-card" href="./process.html">
+        <span class="badge">관리</span>
+        <h2>프로세스 및 작업 관리</h2>
+        <p>PID, 작업 제어, signal, nice, nohup, cron/at의 차이를 빠르게 확인합니다.</p>
+      </a>
+      <a class="note-card" href="./shell.html">
+        <span class="badge">셸</span>
+        <h2>셸·환경변수·스크립트</h2>
+        <p>bash 시작 파일, export, PATH, alias, 기본 스크립트 문법을 정리합니다.</p>
+      </a>
+      <a class="note-card" href="./editor.html">
+        <span class="badge">편집기</span>
+        <h2>vi 편집기</h2>
+        <p>vi/Vim 모드, 저장·종료, 삭제·복사·붙여넣기, 검색과 치환 명령을 암기합니다.</p>
+      </a>
+      <a class="note-card" href="./package.html">
+        <span class="badge">패키지</span>
+        <h2>패키지·압축·백업</h2>
+        <p>rpm/yum/dnf, dpkg/apt, tar와 gzip/bzip2/xz 옵션을 비교합니다.</p>
+      </a>
+      <a class="note-card" href="./network.html">
+        <span class="badge">네트워크</span>
+        <h2>네트워크 및 서비스</h2>
+        <p>IP, 라우팅, DNS, TCP/UDP, 주요 포트와 네트워크 확인 명령을 정리합니다.</p>
+      </a>
+      <a class="note-card" href="./xwindow.html">
+        <span class="badge">GUI</span>
+        <h2>X 윈도우 및 활용</h2>
+        <p>X server/client, X.Org, DISPLAY, 윈도 매니저와 데스크톱 환경을 구분합니다.</p>
+      </a>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap">이 정리본은 시험 대비용 요약이며, 세부 명령어는 man page와 공식 문서를 함께 확인하는 것이 좋다.</div>
+  </footer>
 </body>
 </html>
