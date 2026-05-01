@@ -160,6 +160,24 @@ select {
   color: var(--text);
 }
 
+input {
+  min-height: 42px;
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+label {
+  display: block;
+  margin: 14px 0 6px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -335,6 +353,55 @@ tr:last-child td { border-bottom: 0; }
   flex-wrap: wrap;
   gap: 10px;
   margin: 22px 0;
+}
+
+.auth-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.auth-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: 18px;
+  align-items: start;
+}
+
+.auth-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.auth-card h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.auth-card p,
+.auth-card li {
+  color: var(--muted);
+}
+
+.auth-message {
+  min-height: 24px;
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+.auth-message.ok {
+  color: var(--ok);
+}
+
+.auth-message.error {
+  color: var(--danger);
 }
 
 .primary-btn,

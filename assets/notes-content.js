@@ -192,4 +192,7 @@ function renderNotePage(key) {
     </main>
     <footer class="site-footer"><div class="wrap">이 정리본은 리눅스마스터 2급 필기시험 대비용 요약이며, 실제 환경에서는 man page와 공식 문서를 함께 확인하는 것이 좋다.</div></footer>
   `;
+  if (window.LinuxMasterAuth && typeof window.LinuxMasterAuth.renderAuthStatus === "function") {
+    window.LinuxMasterAuth.renderAuthStatus();
+  }
 }

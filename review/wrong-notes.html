@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>오답노트 - 리눅스마스터 2급</title>
   <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/auth.js"></script>
   <script src="../assets/storage.js"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
       <h1 class="site-title">오답노트</h1>
-      <p class="site-desc">localStorage에 저장된 리눅스마스터 2급 CBT 오답 목록입니다.</p>
-      <nav class="navline"><a class="button secondary" href="../index.html">메인으로 돌아가기</a></nav>
+      <p class="site-desc">로그인 계정 또는 현재 브라우저에 저장된 리눅스마스터 2급 CBT 오답 목록입니다.</p>
+      <nav class="navline"><a class="button secondary" href="../index.html">메인으로 돌아가기</a><a class="button secondary" href="../login.html">로그인/회원가입</a></nav>
     </div>
   </header>
 
@@ -124,6 +125,7 @@
 
     filter.addEventListener("change", render);
     document.getElementById("refreshBtn").addEventListener("click", render);
+    window.addEventListener("linuxmaster:study-sync", render);
     document.getElementById("clearBtn").addEventListener("click", function () {
       if (!confirm("공통 오답노트 데이터를 초기화할까요? 기존 CBT lm2_wrong 데이터는 유지됩니다.")) return;
       var data = window.LinuxMasterStudy.getStudyData();
