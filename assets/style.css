@@ -416,6 +416,94 @@ tr:last-child td { border-bottom: 0; }
   font-size: 22px;
 }
 
+.concept-box,
+.exam-point,
+.quiz-block,
+.answer-box {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.concept-box {
+  padding: 18px;
+  border-left: 5px solid var(--primary);
+}
+
+.concept-box p {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.exam-point {
+  padding: 18px;
+  border-left: 5px solid var(--danger);
+}
+
+.trap-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.trap-list li {
+  margin: 8px 0;
+}
+
+.quiz-block {
+  margin: 14px 0;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.quiz-block h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.quiz-block ol {
+  margin: 10px 0;
+  padding-left: 24px;
+}
+
+.quiz-block li {
+  margin: 5px 0;
+}
+
+.answer-box {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-left: 4px solid var(--ok);
+}
+
+.command-table table {
+  min-width: 640px;
+}
+
+.code-example,
+.memory-box pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0f172a;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.code-example code,
+.memory-box code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  white-space: pre;
+}
+
+code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.18);
+  color: #dbeafe;
+}
+
 .study-flow {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
