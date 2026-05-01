@@ -59,6 +59,17 @@ a { color: var(--primary-dark); }
   margin-top: 18px;
 }
 
+.main-navline {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-navlinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .main {
   padding: 28px 0 42px;
 }
@@ -136,6 +147,17 @@ a { color: var(--primary-dark); }
 .button.secondary {
   background: var(--surface);
   color: var(--primary);
+}
+
+.button.auth-button {
+  border-color: #f59e0b;
+  background: #f59e0b;
+  color: #111827;
+}
+
+.button.auth-button:hover {
+  border-color: #fbbf24;
+  background: #fbbf24;
 }
 
 .button.danger {
@@ -642,6 +664,16 @@ code {
   }
 
   .toolbar .button, .toolbar select {
+    width: 100%;
+  }
+
+  .main-navline,
+  .main-navlinks {
+    width: 100%;
+  }
+
+  .main-navline .button,
+  .main-navlinks .button {
     width: 100%;
   }
 
