@@ -375,6 +375,38 @@ tr:last-child td { border-bottom: 0; }
   background: var(--surface);
 }
 
+.command-notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.command-note {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.command-note h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.command-note p,
+.command-note ul {
+  margin: 0;
+  color: var(--muted);
+}
+
+.command-note ul {
+  padding-left: 20px;
+}
+
+.command-note li + li {
+  margin-top: 6px;
+}
+
 .note-section {
   margin: 24px 0;
 }
