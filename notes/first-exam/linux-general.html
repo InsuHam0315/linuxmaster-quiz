@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>제1과목: 리눅스 일반</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap page-header">
+      <nav class="back-link-row" aria-label="주요 링크">
+        <a href="./index.html">1차 노트 목록으로 돌아가기</a>
+        <a href="../../index.html">메인으로 돌아가기</a>
+        <a href="../index.html">세부 영역별 개념정리로 이동</a>
+      </nav>
+      <h1 class="site-title">제1과목: 리눅스 일반</h1>
+      <p class="site-desc">암기 비중이 높고, 리눅스의 개념·역사·특징·배포판·설치 기본을 묻는 영역입니다.</p>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section class="exam-note-header">
+      <h2>학습 방향</h2>
+      <p>1차 필기에서 리눅스 일반은 깊은 명령 실습보다 용어 구분이 중요합니다. 커널, GNU, 배포판 계열, 라이선스, 디렉터리 역할처럼 이름이 비슷한 개념을 빠르게 구분할 수 있게 정리하세요.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>A. 리눅스의 기본 개념</h2>
+      <ul class="summary-list">
+        <li>리눅스는 유닉스 계열 운영체제의 특징을 가진 오픈소스 운영체제 계열입니다.</li>
+        <li>엄밀히 말하면 Linux는 운영체제 전체가 아니라 커널을 의미합니다.</li>
+        <li>실제 사용 환경은 GNU 도구와 리눅스 커널이 결합된 GNU/Linux 시스템 형태가 많습니다.</li>
+        <li>대표 특징은 다중 사용자, 다중 작업, 뛰어난 이식성, 안정성, 강력한 네트워크 기능입니다.</li>
+        <li>서버, 임베디드, 클라우드, 개발 환경 등 다양한 영역에서 사용됩니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>B. 리눅스의 역사</h2>
+      <ul class="summary-list">
+        <li>유닉스는 리눅스의 설계 철학과 명령어 환경에 큰 영향을 준 운영체제입니다.</li>
+        <li>GNU 프로젝트는 자유롭게 사용할 수 있는 유닉스 호환 운영체제 도구를 만들기 위해 시작되었습니다.</li>
+        <li>리처드 스톨만은 GNU 프로젝트와 자유 소프트웨어 운동의 핵심 인물입니다.</li>
+        <li>리누스 토르발스는 1991년 리눅스 커널을 공개했습니다.</li>
+        <li>리눅스 커널은 GPL 라이선스로 공개되어 소스 코드 사용, 수정, 배포가 가능합니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>C. 오픈소스와 라이선스</h2>
+      <p>오픈소스는 소스 코드를 공개하고 수정·배포를 허용하는 개발 방식입니다. 자유 소프트웨어는 사용, 연구, 수정, 배포의 자유를 강조합니다.</p>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>구분</th><th>핵심 특징</th><th>시험 포인트</th></tr></thead>
+          <tbody>
+            <tr><td>GPL</td><td>수정·배포 시 파생 저작물도 같은 GPL 조건을 따르도록 요구한다.</td><td>소스 공개와 copyleft 성격을 기억한다.</td></tr>
+            <tr><td>BSD</td><td>저작권 표시 등 조건을 지키면 비교적 자유롭게 재배포할 수 있다.</td><td>GPL보다 허용 범위가 넓고 상용 제품 포함이 쉽다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>시험에서는 GPL은 공유와 동일 라이선스 유지, BSD는 비교적 느슨한 재배포 허용으로 구분하면 됩니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>D. 리눅스 배포판</h2>
+      <p>배포판은 커널, GNU 도구, 패키지 관리자, 설치 도구, 기본 프로그램을 묶어 사용하기 쉽게 제공하는 형태입니다.</p>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>계열</th><th>대표 배포판</th><th>패키지 도구</th><th>암기 포인트</th></tr></thead>
+          <tbody>
+            <tr><td>Debian 계열</td><td>Debian, Ubuntu, Linux Mint</td><td>dpkg, apt, apt-get</td><td>Ubuntu는 Debian 계열이다.</td></tr>
+            <tr><td>Red Hat 계열</td><td>RHEL, CentOS, Rocky Linux, Fedora</td><td>rpm, yum, dnf</td><td>Rocky Linux와 Fedora는 Red Hat 계열이다.</td></tr>
+            <tr><td>Slackware 계열</td><td>Slackware</td><td>pkgtool 등</td><td>오래된 전통 배포판 계열로 구분한다.</td></tr>
+            <tr><td>SUSE/openSUSE</td><td>SUSE Linux, openSUSE</td><td>zypper, YaST</td><td>RPM 기반이지만 Red Hat과는 별도 계열로 자주 구분한다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="concept-section">
+      <h2>E. 리눅스 설치와 기본 설정</h2>
+      <ul class="summary-list">
+        <li>파티션은 디스크를 논리적으로 나눈 영역입니다.</li>
+        <li>루트 파티션 `/`은 전체 디렉터리 트리의 시작점입니다.</li>
+        <li>`/home`은 일반 사용자 홈 디렉터리를 분리할 때 자주 사용합니다.</li>
+        <li>swap은 메모리가 부족할 때 보조적으로 사용하는 디스크 영역입니다.</li>
+        <li>부트로더는 운영체제를 메모리에 적재하는 프로그램이며, 리눅스에서는 GRUB이 대표적입니다.</li>
+        <li>파일시스템은 파일을 디스크에 저장하고 관리하는 구조이며 ext2, ext3, ext4가 ext 계열입니다.</li>
+        <li>마운트는 파일시스템을 특정 디렉터리에 연결해 사용할 수 있게 하는 작업입니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>F. 주요 디렉터리 구조</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>디렉터리</th><th>역할</th></tr></thead>
+          <tbody>
+            <tr><td>/</td><td>전체 파일시스템 계층의 최상위 디렉터리</td></tr>
+            <tr><td>/bin</td><td>일반 사용자가 쓰는 기본 명령어</td></tr>
+            <tr><td>/sbin</td><td>관리자용 시스템 명령어</td></tr>
+            <tr><td>/etc</td><td>시스템과 서비스 설정 파일</td></tr>
+            <tr><td>/home</td><td>일반 사용자 홈 디렉터리</td></tr>
+            <tr><td>/root</td><td>root 사용자의 홈 디렉터리</td></tr>
+            <tr><td>/var</td><td>로그, 메일, 스풀 등 자주 변하는 데이터</td></tr>
+            <tr><td>/usr</td><td>응용 프로그램, 라이브러리, 문서 등</td></tr>
+            <tr><td>/tmp</td><td>임시 파일 저장 공간</td></tr>
+            <tr><td>/dev</td><td>장치 파일</td></tr>
+            <tr><td>/proc</td><td>커널과 프로세스 정보를 제공하는 가상 파일시스템</td></tr>
+            <tr><td>/boot</td><td>커널 이미지와 부트로더 관련 파일</td></tr>
+            <tr><td>/lib</td><td>기본 명령과 커널 모듈에 필요한 라이브러리</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>G. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li>Linux는 엄밀히 커널을 의미한다.</li>
+        <li>GNU 프로젝트와 리눅스 커널은 구분된다.</li>
+        <li>Ubuntu는 Debian 계열이다.</li>
+        <li>Rocky Linux는 Red Hat 계열이다.</li>
+        <li>/etc는 설정 파일이 위치한다.</li>
+        <li>/home은 일반 사용자 홈 디렉터리이다.</li>
+        <li>/root는 root 사용자의 홈 디렉터리이다.</li>
+        <li>/var는 로그, 메일, 스풀 등 변동 데이터가 저장된다.</li>
+        <li>swap은 메모리 부족 시 보조적으로 사용되는 영역이다.</li>
+        <li>GRUB은 부트로더이다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>H. 예상문제</h2>
+      <div class="quiz-block"><h3>1. Linux를 엄밀히 설명한 것으로 가장 알맞은 것은?</h3><ol><li>셸</li><li>커널</li><li>패키지 관리자</li><li>데스크톱 환경</li></ol><div class="answer-box">정답: 2. Linux는 엄밀히 커널을 의미한다.</div></div>
+      <div class="quiz-block"><h3>2. GNU 프로젝트와 가장 관련 깊은 인물은?</h3><ol><li>리누스 토르발스</li><li>리처드 스톨만</li><li>빌 조이</li><li>데니스 리치</li></ol><div class="answer-box">정답: 2. 리처드 스톨만은 GNU 프로젝트와 자유 소프트웨어 운동의 핵심 인물이다.</div></div>
+      <div class="quiz-block"><h3>3. 리눅스 커널을 공개한 인물은?</h3><ol><li>리처드 스톨만</li><li>리누스 토르발스</li><li>브람 몰레나르</li><li>켄 톰프슨</li></ol><div class="answer-box">정답: 2. 리누스 토르발스가 1991년 리눅스 커널을 공개했다.</div></div>
+      <div class="quiz-block"><h3>4. Ubuntu가 속한 배포판 계열은?</h3><ol><li>Debian 계열</li><li>Red Hat 계열</li><li>Slackware 계열</li><li>BSD 계열</li></ol><div class="answer-box">정답: 1. Ubuntu는 Debian 계열 배포판이다.</div></div>
+      <div class="quiz-block"><h3>5. Red Hat 계열 패키지 도구로 알맞은 것은?</h3><ol><li>dpkg</li><li>apt-get</li><li>rpm</li><li>pacman</li></ol><div class="answer-box">정답: 3. rpm, yum, dnf는 Red Hat 계열에서 중요하게 다룬다.</div></div>
+      <div class="quiz-block"><h3>6. 시스템 설정 파일이 주로 위치하는 디렉터리는?</h3><ol><li>/home</li><li>/etc</li><li>/boot</li><li>/dev</li></ol><div class="answer-box">정답: 2. /etc는 시스템과 서비스 설정 파일이 위치한다.</div></div>
+      <div class="quiz-block"><h3>7. root 사용자의 홈 디렉터리는?</h3><ol><li>/home/root</li><li>/usr/root</li><li>/root</li><li>/etc/root</li></ol><div class="answer-box">정답: 3. /root는 관리자 계정 root의 홈 디렉터리이다.</div></div>
+      <div class="quiz-block"><h3>8. 부트로더에 해당하는 것은?</h3><ol><li>GRUB</li><li>GNOME</li><li>Bash</li><li>Apache</li></ol><div class="answer-box">정답: 1. GRUB은 리눅스에서 대표적으로 사용되는 부트로더이다.</div></div>
+    </section>
+
+    <section class="memory-box">
+      <h2>I. 최종 암기 요약</h2>
+      <pre><code>Linux = 엄밀히 커널
+GNU/Linux = GNU 도구 + Linux 커널
+GNU 프로젝트 = 리처드 스톨만
+Linux 커널 = 리누스 토르발스
+GPL = 소스 공개, copyleft 성격
+BSD = 비교적 자유로운 재배포
+Ubuntu = Debian 계열
+Rocky Linux = Red Hat 계열
+Debian 계열 도구 = dpkg, apt, apt-get
+Red Hat 계열 도구 = rpm, yum, dnf
+/etc = 설정 파일
+/home = 일반 사용자 홈
+/root = root 홈
+/var = 로그와 변동 데이터
+/boot = 부팅 관련 파일
+swap = 보조 메모리 영역
+GRUB = 부트로더
+mount = 파일시스템을 디렉터리에 연결</code></pre>
+    </section>
+  </main>
+</body>
+</html>
