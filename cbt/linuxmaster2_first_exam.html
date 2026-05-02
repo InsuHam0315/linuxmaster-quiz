@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>리눅스마스터 2급 1차 필기 CBT</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    :root{--bg:#0b1120;--panel:#111827;--card:#1f2937;--muted:#a8b3c7;--text:#e5e7eb;--accent:#38bdf8;--ok:#34d399;--bad:#fb7185;--warn:#f59e0b;--border:#334155}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+    header{position:sticky;top:0;z-index:10;background:rgba(17,24,39,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+    .exam-wrap{width:min(100% - 32px,1120px);margin:0 auto;padding:18px 0}
+    h1{margin:0 0 8px;font-size:24px;line-height:1.25;letter-spacing:0}
+    .sub{margin:0;color:var(--muted);font-size:14px}
+    .top-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .top-links a,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 12px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text);font-weight:700;text-decoration:none;cursor:pointer}
+    .top-links a:hover,.btn:hover{border-color:var(--accent)}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:#06111f}
+    .btn.warn{background:#3b2508;border-color:#92400e;color:#fde68a}
+    .layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;margin-top:18px}
+    .panel,.question,.result{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:0 14px 34px rgba(0,0,0,.22)}
+    .panel{position:sticky;top:112px;height:max-content}
+    label{display:block;margin:14px 0 6px;color:var(--muted);font-size:13px;font-weight:700}
+    select{width:100%;min-height:40px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text)}
+    .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .stat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
+    .stat div{padding:12px;border:1px solid var(--border);border-radius:8px;background:#0f172a}
+    .stat b{display:block;font-size:22px}
+    .stat span{color:var(--muted);font-size:12px}
+    .progress{height:10px;overflow:hidden;border:1px solid var(--border);border-radius:999px;background:#0f172a}
+    .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .2s}
+    .num-list{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:14px}
+    .num{min-height:32px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text);font-size:12px;cursor:pointer}
+    .num.current{outline:2px solid var(--accent)}
+    .num.done{background:rgba(56,189,248,.16);border-color:#0369a1}
+    .num.ok{background:rgba(52,211,153,.16);border-color:#047857}
+    .num.bad{background:rgba(251,113,133,.16);border-color:#be123c}
+    .qtop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px}
+    .tag{display:inline-flex;align-items:center;min-height:26px;padding:3px 8px;border:1px solid var(--border);border-radius:999px;background:#0f172a;color:#bae6fd;font-size:12px;font-weight:700}
+    .qtext{margin:18px 0 12px;font-size:21px;line-height:1.55}
+    .choices{display:grid;gap:10px;margin-top:14px}
+    .choice{display:flex;gap:10px;align-items:flex-start;padding:13px;border:1px solid var(--border);border-radius:8px;background:#0f172a;cursor:pointer}
+    .choice:hover{border-color:var(--accent)}
+    .choice input{width:auto;min-height:auto;margin-top:5px}
+    .choice.correct{border-color:var(--ok);background:rgba(52,211,153,.13)}
+    .choice.wrong{border-color:var(--bad);background:rgba(251,113,133,.13)}
+    .explain{display:none;margin-top:16px;padding:14px;border-left:4px solid var(--accent);border-radius:8px;background:#0f172a;color:#dbeafe}
+    .explain.show{display:block}
+    .nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+    .result{display:none;margin-top:18px}
+    .result.show{display:block}
+    .table-wrap{margin-top:12px;overflow-x:auto}
+    .source{margin-top:28px;color:var(--muted);font-size:12px}
+    @media(max-width:860px){.layout{grid-template-columns:1fr}.panel{position:static}.num-list{grid-template-columns:repeat(10,1fr)}.nav{flex-direction:column}.nav .row,.nav .btn{width:100%}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="exam-wrap">
+    <h1>리눅스마스터 2급 1차 필기 CBT</h1>
+    <p class="sub">사용자 제공 1차 기출/복원 텍스트 기반 문제집 · 과목/카테고리 필터 · 즉시 채점 · 오답 저장</p>
+    <nav class="top-links" aria-label="주요 링크">
+      <a href="../index.html">메인으로 돌아가기</a>
+      <a href="../review/wrong-notes.html">오답노트</a>
+      <a href="../stats/study-record.html">학습기록</a>
+    </nav>
+  </div>
+</header>
+
+<main class="exam-wrap layout">
+  <aside class="panel">
+    <label for="mode">풀이 모드</label>
+    <select id="mode">
+      <option value="all">전체 문제 풀기</option>
+      <option value="single">한 문제씩 보기</option>
+      <option value="wrong">오답만 다시 풀기</option>
+    </select>
+
+    <label for="subject">과목 필터</label>
+    <select id="subject">
+      <option value="all">전체</option>
+      <option value="제1과목 리눅스 일반">제1과목 리눅스 일반</option>
+      <option value="제2과목 리눅스 운영 및 관리">제2과목 리눅스 운영 및 관리</option>
+    </select>
+
+    <label for="category">카테고리 필터</label>
+    <select id="category"><option value="all">전체 카테고리</option></select>
+
+    <div class="row" style="margin-top:14px">
+      <button class="btn primary" id="startBtn" type="button">다시 풀기</button>
+      <button class="btn warn" id="resetBtn" type="button">현재 오답 초기화</button>
+    </div>
+
+    <div class="stat">
+      <div><b id="score">0</b><span>정답</span></div>
+      <div><b id="count">0/0</b><span>풀이</span></div>
+      <div><b id="rate">0%</b><span>정답률</span></div>
+      <div><b id="timer">00:00</b><span>시간</span></div>
+    </div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="num-list" id="numList" aria-label="문제 번호 이동"></div>
+  </aside>
+
+  <section>
+    <article class="question">
+      <div class="qtop"><div id="qMeta"></div><div id="qIdx"></div></div>
+      <div class="qtext" id="qText">문제를 불러오는 중입니다.</div>
+      <div class="choices" id="choices"></div>
+      <div class="explain" id="explain"></div>
+      <div class="nav">
+        <button class="btn" id="prevBtn" type="button">이전</button>
+        <div class="row">
+          <button class="btn" id="showBtn" type="button">정답 확인 / 해설 보기</button>
+          <button class="btn primary" id="nextBtn" type="button">다음</button>
+        </div>
+      </div>
+    </article>
+    <article class="result" id="resultBox">
+      <h2>최종 결과</h2>
+      <div id="resultSummary"></div>
+      <div class="table-wrap"><table id="wrongTable"></table></div>
+    </article>
+    <p class="source">주의: 사용자 제공 1차 기출/복원 텍스트에서 문제, 보기, 정답이 명확한 항목만 시험용 문장으로 정리한 학습용 문제집입니다.</p>
+  </section>
+</main>
+
+<script src="../assets/auth.js"></script>
+<script src="../assets/storage.js"></script>
+<script src="../data/linuxmaster2_first_exam.js"></script>
+<script>
+(function () {
+  var QUESTIONS = window.LM2_FIRST_EXAM_QUESTIONS || [];
+  var WRONG_KEY = "lm2_first_exam_wrong";
+  var marks = ["①", "②", "③", "④"];
+  var session = [];
+  var idx = 0;
+  var answers = {};
+  var startedAt = null;
+  var tick = null;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function shuffle(arr) {
+    return arr.slice().sort(function () { return Math.random() - 0.5; });
+  }
+
+  function format(sec) {
+    var m = String(Math.floor(sec / 60)).padStart(2, "0");
+    var s = String(sec % 60).padStart(2, "0");
+    return m + ":" + s;
+  }
+
+  function fillCategories() {
+    var select = $("category");
+    Array.from(new Set(QUESTIONS.map(function (q) { return q.category; }))).sort().forEach(function (cat) {
+      var option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat;
+      select.appendChild(option);
+    });
+  }
+
+  function getWrongIds() {
+    try {
+      return JSON.parse(localStorage.getItem(WRONG_KEY) || "[]");
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function setWrongIds(ids) {
+    localStorage.setItem(WRONG_KEY, JSON.stringify(ids));
+  }
+
+  function buildSession() {
+    var subject = $("subject").value;
+    var category = $("category").value;
+    var mode = $("mode").value;
+    var pool = QUESTIONS.slice();
+    if (subject !== "all") pool = pool.filter(function (q) { return q.subject === subject; });
+    if (category !== "all") pool = pool.filter(function (q) { return q.category === category; });
+    if (mode === "wrong") {
+      var wrongIds = getWrongIds();
+      pool = pool.filter(function (q) { return wrongIds.indexOf(q.id) >= 0; });
+      if (!pool.length) {
+        alert("저장된 오답이 없습니다. 전체 문제로 시작합니다.");
+        pool = QUESTIONS.slice();
+      }
+    }
+    if (mode === "single") pool = shuffle(pool);
+    session = pool;
+    idx = 0;
+    answers = {};
+    startedAt = Date.now();
+    clearInterval(tick);
+    tick = setInterval(function () {
+      $("timer").textContent = format(Math.floor((Date.now() - startedAt) / 1000));
+    }, 1000);
+    render();
+  }
+
+  function render() {
+    if (!session.length) {
+      $("qText").textContent = "선택한 조건에 해당하는 문제가 없습니다.";
+      $("choices").innerHTML = "";
+      $("qMeta").innerHTML = "";
+      $("qIdx").textContent = "";
+      $("explain").className = "explain";
+      updateStats();
+      renderNums();
+      return;
+    }
+    var q = session[idx];
+    $("qMeta").innerHTML = '<span class="tag">' + q.subject + '</span> <span class="tag">' + q.category + '</span>';
+    $("qIdx").textContent = (idx + 1) + " / " + session.length + " · " + q.id;
+    $("qText").textContent = q.question;
+    $("choices").innerHTML = "";
+    q.choices.forEach(function (choice, i) {
+      var label = document.createElement("label");
+      label.className = "choice";
+      label.innerHTML = '<input type="radio" name="choice" value="' + (i + 1) + '"><div><b>' + marks[i] + '</b> ' + choice + '</div>';
+      label.onclick = function () { selectAnswer(i + 1); };
+      $("choices").appendChild(label);
+    });
+    $("explain").className = "explain";
+    $("explain").innerHTML = "<b>정답: " + marks[q.answer - 1] + " " + q.choices[q.answer - 1] + "</b><br>" + q.explanation;
+    if (answers[q.id] !== undefined) paintChoices();
+    updateStats();
+    renderNums();
+    $("resultBox").className = "result";
+  }
+
+  function selectAnswer(answer) {
+    var q = session[idx];
+    if (!q || answers[q.id] !== undefined) return;
+    answers[q.id] = answer;
+    var wrongIds = getWrongIds();
+    if (answer !== q.answer) {
+      if (wrongIds.indexOf(q.id) < 0) wrongIds.push(q.id);
+    } else {
+      wrongIds = wrongIds.filter(function (id) { return id !== q.id; });
+    }
+    setWrongIds(wrongIds);
+    record(q, answer);
+    paintChoices();
+    updateStats();
+    renderNums();
+  }
+
+  function record(q, answer) {
+    var payload = {
+      questionId: q.id,
+      questionText: q.question,
+      category: q.subject + " / " + q.category,
+      selectedAnswer: marks[answer - 1] + " " + q.choices[answer - 1],
+      correctAnswer: marks[q.answer - 1] + " " + q.choices[q.answer - 1],
+      isCorrect: answer === q.answer,
+      explanation: q.explanation,
+      source: q.source,
+      answeredAt: new Date().toISOString()
+    };
+    if (window.LinuxMasterStudy && typeof window.LinuxMasterStudy.recordAnswer === "function") {
+      try {
+        window.LinuxMasterStudy.recordAnswer(payload);
+        return;
+      } catch (error) {
+        console.warn("study record failed", error);
+      }
+    }
+    try {
+      var key = "linuxmaster2StudyData";
+      var data = JSON.parse(localStorage.getItem(key) || "{}");
+      data.sessions = Array.isArray(data.sessions) ? data.sessions : [];
+      data.sessions.unshift(payload);
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch (error) {
+      console.warn("fallback study save failed", error);
+    }
+  }
+
+  function paintChoices() {
+    var q = session[idx];
+    var chosen = answers[q.id];
+    document.querySelectorAll(".choice").forEach(function (el, i) {
+      var answer = i + 1;
+      el.querySelector("input").checked = answer === chosen;
+      if (answer === q.answer) el.classList.add("correct");
+      if (answer === chosen && answer !== q.answer) el.classList.add("wrong");
+    });
+    $("explain").className = "explain show";
+  }
+
+  function updateStats() {
+    var done = 0;
+    var ok = 0;
+    session.forEach(function (q) {
+      if (answers[q.id] !== undefined) {
+        done += 1;
+        if (answers[q.id] === q.answer) ok += 1;
+      }
+    });
+    $("score").textContent = ok;
+    $("count").textContent = done + "/" + session.length;
+    $("rate").textContent = done ? Math.round(ok / done * 100) + "%" : "0%";
+    $("bar").style.width = (session.length ? done / session.length * 100 : 0) + "%";
+    if (session.length && done === session.length) showResult(ok, done);
+  }
+
+  function renderNums() {
+    var box = $("numList");
+    box.innerHTML = "";
+    session.forEach(function (q, i) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "num";
+      if (i === idx) button.classList.add("current");
+      if (answers[q.id] !== undefined) {
+        button.classList.add("done");
+        button.classList.add(answers[q.id] === q.answer ? "ok" : "bad");
+      }
+      button.textContent = i + 1;
+      button.onclick = function () {
+        idx = i;
+        render();
+      };
+      box.appendChild(button);
+    });
+  }
+
+  function showResult(ok, done) {
+    clearInterval(tick);
+    var pct = Math.round(ok / done * 100);
+    var wrongs = session.filter(function (q) { return answers[q.id] !== q.answer; });
+    $("resultBox").className = "result show";
+    $("resultSummary").innerHTML = "<p><b>" + done + "문항 중 " + ok + "문항 정답 (" + pct + "%)</b></p>";
+    $("wrongTable").innerHTML = "<tr><th>번호</th><th>과목</th><th>카테고리</th><th>정답</th></tr>" + wrongs.map(function (q) {
+      return "<tr><td>" + q.id + "</td><td>" + q.subject + "</td><td>" + q.category + "</td><td>" + marks[q.answer - 1] + " " + q.choices[q.answer - 1] + "</td></tr>";
+    }).join("");
+  }
+
+  $("startBtn").onclick = buildSession;
+  $("subject").onchange = buildSession;
+  $("category").onchange = buildSession;
+  $("mode").onchange = buildSession;
+  $("resetBtn").onclick = function () {
+    if (confirm("1차 필기 CBT의 현재 오답 목록을 초기화할까요?")) {
+      localStorage.removeItem(WRONG_KEY);
+      answers = {};
+      buildSession();
+    }
+  };
+  $("prevBtn").onclick = function () {
+    if (idx > 0) {
+      idx -= 1;
+      render();
+    }
+  };
+  $("nextBtn").onclick = function () {
+    if (idx < session.length - 1) {
+      idx += 1;
+      render();
+    } else {
+      updateStats();
+    }
+  };
+  $("showBtn").onclick = function () {
+    $("explain").classList.toggle("show");
+  };
+
+  fillCategories();
+  buildSession();
+})();
+</script>
+</body>
+</html>
