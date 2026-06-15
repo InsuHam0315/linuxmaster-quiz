@@ -14,9 +14,11 @@ linuxmaster-quiz/
 ├─ cbt/
 │  ├─ linuxmaster2_first_exam.html
 │  ├─ linuxmaster2_cbt_01.html
-│  └─ linuxmaster2_20231209.html
+│  ├─ linuxmaster2_20231209.html
+│  └─ linuxmaster2_second_exam.html
 ├─ data/
 │  ├─ linuxmaster2_first_exam.js
+│  ├─ linuxmaster2_20230909.js
 │  └─ linuxmaster2_20231209.js
 ├─ review/
 │  └─ wrong-notes.html
@@ -41,6 +43,16 @@ linuxmaster-quiz/
   - 제1과목 리눅스 일반
   - 제2과목 리눅스 운영 및 관리
 - 주의: 사용자 제공 기출/복원 텍스트를 기반으로 정리한 학습용 문제집입니다. 원본에서 문제, 보기, 정답이 명확한 항목만 우선 반영했습니다.
+
+## 리눅스마스터 2급 2차 날짜별 필기 CBT
+
+- 메인 파일: `cbt/linuxmaster2_second_exam.html`
+- 데이터 파일:
+  - `data/linuxmaster2_20230909.js`
+  - `data/linuxmaster2_20231209.js`
+- 출처: ComCBT 공개 리눅스마스터 2급 필기 기출문제
+- 구성: 2023년 09월 09일(3회), 2023년 12월 09일(4회) 각 80문항
+- 주의: 운영체제 기말고사 CBT와 문제은행을 공유하지 않는 별도 날짜별 기출 풀이 화면입니다.
 
 ## 주요 기능
 
