@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>사용자 및 그룹 - 운영체제 기말고사</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap page-header">
+      <nav class="back-link-row" aria-label="주요 링크">
+        <a href="./index.html">기말 노트 목록</a>
+        <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
+        <a href="../../index.html">메인으로 돌아가기</a>
+      </nav>
+      <h1 class="site-title">사용자 및 그룹</h1>
+      <p class="site-desc">사용자 생성, 그룹 추가, UID/GID, /etc/passwd, /etc/shadow, /etc/group을 정리합니다.</p>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section class="summary-box">
+      <span class="badge">계정관리</span>
+      <h2>1. 단원 개요</h2>
+      <p>리눅스는 다중 사용자 운영체제이므로 사용자와 그룹을 기준으로 접근 권한과 자원 사용을 통제합니다.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
+        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+      </div>
+    </section>
+
+    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말고사에서는 useradd 옵션, usermod -aG, passwd/shadow/group 파일 역할이 자주 함정으로 나옵니다.</p></section>
+    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
+          <li>useradd -m -s 옵션</li>
+          <li>usermod -aG와 -G 차이</li>
+          <li>/etc/passwd와 /etc/shadow 구분</li>
+          <li>UID/GID 의미</li>
+          <li>adduser와 useradd 비교</li>
+        </ul></section>
+    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
+          <li>UID는 시스템이 사용자를 식별하는 번호이고 GID는 그룹 식별 번호입니다.</li>
+          <li>/etc/passwd는 계정 기본 정보를 담고 실제 암호 해시는 보통 /etc/shadow에 저장됩니다.</li>
+          <li>/etc/group은 그룹 이름, GID, 보조 그룹 구성원 정보를 담습니다.</li>
+          <li>보조 그룹 추가 시 기존 그룹을 보존하려면 usermod -aG를 사용합니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
+              <tr><td><code>adduser user1</code></td><td>대화형 사용자 생성</td></tr>
+              <tr><td><code>useradd -m -s /bin/bash user1</code></td><td>홈 디렉터리와 로그인 셸 지정 생성</td></tr>
+              <tr><td><code>passwd user1</code></td><td>암호 설정/변경</td></tr>
+              <tr><td><code>groupadd project</code></td><td>그룹 생성</td></tr>
+              <tr><td><code>usermod -aG project user1</code></td><td>보조 그룹 추가</td></tr>
+              <tr><td><code>id user1</code></td><td>UID/GID와 그룹 확인</td></tr>
+              <tr><td><code>groups user1</code></td><td>소속 그룹 확인</td></tr>
+            </tbody></table></div></section>
+    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
+              <tr><td>adduser</td><td>배포판에서 제공하는 고수준/대화형 명령</td><td>초보자 실습에 편리</td></tr>
+              <tr><td>useradd</td><td>저수준 계정 생성 명령</td><td>옵션을 직접 지정해야 함</td></tr>
+              <tr><td>-g</td><td>기본 그룹 지정/변경</td><td>하나의 주 그룹</td></tr>
+              <tr><td>-G</td><td>보조 그룹 목록 지정</td><td>-a 없이 쓰면 기존 목록 대체 주의</td></tr>
+            </tbody></table></div></section>
+    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
+          <li>-aG에서 -a를 빠뜨리면 기존 보조 그룹이 대체될 수 있습니다.</li>
+          <li>/etc/passwd에 암호 해시 전체가 있다고 고르면 틀리기 쉽습니다.</li>
+          <li>그룹 생성은 useradd가 아니라 groupadd입니다.</li>
+          <li>로그인 셸 지정은 useradd -s입니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
+          <li>사용자의 홈 디렉터리를 자동 생성하는 옵션은?</li>
+          <li>기존 보조 그룹을 유지하며 그룹을 추가하는 명령은?</li>
+          <li>/etc/shadow 파일 설명으로 알맞은 것은?</li>
+        </ul></section>
+    <section class="concept-section"><h2>9. 예상문제</h2>
+        <div class="quiz-block"><h3>1. 홈 디렉터리를 만들고 bash를 로그인 셸로 지정하는 명령은?</h3><ol><li>① useradd -m -s /bin/bash user1</li><li>② groupadd -m user1</li><li>③ passwd -s /bin/bash user1</li><li>④ usermod -m /bin/bash user1</li></ol><div class="answer-box">정답: 1. -m은 홈 생성, -s는 셸 지정입니다.</div></div>
+        <div class="quiz-block"><h3>2. 암호 해시가 주로 저장되는 파일은?</h3><ol><li>① /etc/passwd</li><li>② /etc/shadow</li><li>③ /etc/group</li><li>④ /etc/fstab</li></ol><div class="answer-box">정답: 2. 현대 리눅스의 암호 해시는 /etc/shadow에 저장됩니다.</div></div>
+    </section>
+    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>계정 기본 정보 = /etc/passwd
+암호 해시 = /etc/shadow
+그룹 정보 = /etc/group
+홈 생성 = useradd -m
+보조 그룹 추가 = usermod -aG</code></pre></section>
+    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
+
+    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+  </main>
+</body>
+</html>

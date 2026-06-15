@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>운영체제 기말고사 대비 노트</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap page-header">
+      <nav class="back-link-row" aria-label="주요 링크">
+        <a href="../../index.html">메인으로 돌아가기</a>
+        <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
+        <a href="../index.html">전체 개념정리</a>
+      </nav>
+      <h1 class="site-title">운영체제 기말고사 대비</h1>
+      <p class="site-desc">노션 정리와 교수님 수업 PDF를 우선 반영하고, 리눅스마스터 2급 2차 기출·복원 유형 중 기말 범위와 겹치는 부분만 재구성했습니다.</p>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section class="summary-box">
+      <h2>공부 순서</h2>
+      <ol class="summary-list">
+        <li>파일시스템·디스크·마운트로 실습 흐름을 먼저 잡습니다.</li>
+        <li>사용자·그룹과 권한 계산을 암기합니다.</li>
+        <li>프로세스, 패키지, 네트워크, 부팅/systemd를 명령어 중심으로 반복합니다.</li>
+        <li>마지막으로 CBT에서 출처 유형과 카테고리 필터를 바꿔 풀어 봅니다.</li>
+      </ol>
+      <div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT 풀기</a><a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 포인트</a></div>
+    </section>
+
+    <section class="exam-subject-grid" aria-label="운영체제 기말고사 단원">
+      <a class="exam-subject-card" href="./filesystem.html">
+        <div><span class="badge">기말</span><h2>파일시스템·디스크</h2><p>파일시스템 구조, inode, 링크, 디스크 파티션, LVM, mkfs, mount를 기말 실습 기준으로 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./users-groups.html">
+        <div><span class="badge">기말</span><h2>사용자·그룹</h2><p>사용자 생성, 그룹 추가, UID/GID, /etc/passwd, /etc/shadow, /etc/group을 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./permission.html">
+        <div><span class="badge">기말</span><h2>권한</h2><p>chmod 숫자 계산, chown/chgrp, umask, setuid, setgid, sticky bit를 시험식으로 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./process-job.html">
+        <div><span class="badge">기말</span><h2>프로세스</h2><p>ps, top, kill, signal, jobs, fg/bg, nice, nohup, cron/at을 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./package-backup.html">
+        <div><span class="badge">기말</span><h2>패키지·백업</h2><p>apt/dpkg, rpm/yum/dnf, tar, gzip, bzip2, xz, zip, 백업 명령을 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./network-service.html">
+        <div><span class="badge">기말</span><h2>네트워크</h2><p>TCP/IP, IP/MAC, 라우팅, DNS, ping, traceroute, SSH, Telnet, FTP, HTTP 서비스를 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./boot-systemd.html">
+        <div><span class="badge">기말</span><h2>부팅·systemd</h2><p>BIOS/UEFI, MBR, GRUB, 커널, systemd target, systemctl 서비스 관리를 정리합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./linuxmaster-related.html">
+        <div><span class="badge">기말</span><h2>리눅스마스터 연계</h2><p>기말고사 범위와 겹치는 리눅스마스터 2급 2차 기출·복원 유형의 출제 포인트만 선별합니다.</p></div>
+        <strong>노트 보기</strong>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

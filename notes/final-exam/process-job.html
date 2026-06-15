@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>프로세스 및 작업 관리 - 운영체제 기말고사</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap page-header">
+      <nav class="back-link-row" aria-label="주요 링크">
+        <a href="./index.html">기말 노트 목록</a>
+        <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
+        <a href="../../index.html">메인으로 돌아가기</a>
+      </nav>
+      <h1 class="site-title">프로세스 및 작업 관리</h1>
+      <p class="site-desc">ps, top, kill, signal, jobs, fg/bg, nice, nohup, cron/at을 정리합니다.</p>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section class="summary-box">
+      <span class="badge">프로세스</span>
+      <h2>1. 단원 개요</h2>
+      <p>프로세스는 실행 중인 프로그램이며 PID로 식별됩니다. 셸 작업 제어와 시그널 처리를 함께 이해해야 합니다.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
+        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+      </div>
+    </section>
+
+    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>실습 시험에서는 ps aux, top, kill -9, jobs/fg/bg, nohup &amp;, nice/renice 구분이 중요합니다.</p></section>
+    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
+          <li>ps 옵션과 top</li>
+          <li>SIGTERM과 SIGKILL 차이</li>
+          <li>jobs/fg/bg 작업 제어</li>
+          <li>nice 값과 우선순위</li>
+          <li>cron과 at 예약 실행</li>
+        </ul></section>
+    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
+          <li>PID는 프로세스 식별 번호입니다.</li>
+          <li>SIGTERM은 종료 요청이고 SIGKILL은 강제 종료입니다.</li>
+          <li>Ctrl+C는 인터럽트, Ctrl+Z는 일시정지입니다.</li>
+          <li>백그라운드 실행은 명령 뒤에 &amp;를 붙입니다.</li>
+          <li>좀비 프로세스는 종료되었지만 부모가 종료 상태를 회수하지 않은 상태입니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
+              <tr><td><code>ps aux</code></td><td>전체 프로세스 자세히 보기</td></tr>
+              <tr><td><code>top</code></td><td>실시간 프로세스 보기</td></tr>
+              <tr><td><code>kill PID</code></td><td>기본 종료 요청</td></tr>
+              <tr><td><code>kill -9 PID</code></td><td>강제 종료</td></tr>
+              <tr><td><code>jobs</code></td><td>작업 목록</td></tr>
+              <tr><td><code>fg %1</code></td><td>포어그라운드 전환</td></tr>
+              <tr><td><code>bg %1</code></td><td>백그라운드 재개</td></tr>
+              <tr><td><code>nohup command &amp;</code></td><td>터미널 종료 후에도 실행</td></tr>
+            </tbody></table></div></section>
+    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
+              <tr><td>Ctrl+C</td><td>SIGINT</td><td>포어그라운드 작업 종료 요청</td></tr>
+              <tr><td>Ctrl+Z</td><td>SIGTSTP</td><td>작업 일시정지</td></tr>
+              <tr><td>fg</td><td>전면 실행</td><td>입력 점유</td></tr>
+              <tr><td>bg</td><td>후면 재개</td><td>백그라운드 실행</td></tr>
+            </tbody></table></div></section>
+    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
+          <li>kill 기본 신호는 SIGTERM입니다.</li>
+          <li>kill -9는 최후 수단으로 보는 것이 좋습니다.</li>
+          <li>nice 값은 낮을수록 우선순위가 높습니다.</li>
+          <li>jobs는 현재 셸의 작업 목록입니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
+          <li>현재 셸의 백그라운드 작업 목록은?</li>
+          <li>강제 종료 시그널 번호는?</li>
+          <li>터미널 종료 후에도 실행하려면?</li>
+        </ul></section>
+    <section class="concept-section"><h2>9. 예상문제</h2>
+        <div class="quiz-block"><h3>1. 현재 셸의 작업 목록을 보는 명령은?</h3><ol><li>① jobs</li><li>② ps</li><li>③ fg</li><li>④ nohup</li></ol><div class="answer-box">정답: 1. jobs는 셸 작업 목록을 보여 줍니다.</div></div>
+        <div class="quiz-block"><h3>2. SIGKILL 번호로 자주 쓰이는 값은?</h3><ol><li>① 1</li><li>② 2</li><li>③ 9</li><li>④ 15</li></ol><div class="answer-box">정답: 3. SIGKILL은 9번입니다.</div></div>
+    </section>
+    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>ps aux = 전체 자세히
+top = 실시간
+SIGTERM=15, SIGKILL=9
+Ctrl+Z 후 bg
+nohup command &amp;</code></pre></section>
+    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
+
+    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+  </main>
+</body>
+</html>

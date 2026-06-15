@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>부팅 과정·systemd·서비스 관리 - 운영체제 기말고사</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap page-header">
+      <nav class="back-link-row" aria-label="주요 링크">
+        <a href="./index.html">기말 노트 목록</a>
+        <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
+        <a href="../../index.html">메인으로 돌아가기</a>
+      </nav>
+      <h1 class="site-title">부팅 과정·systemd·서비스 관리</h1>
+      <p class="site-desc">BIOS/UEFI, MBR, GRUB, 커널, systemd target, systemctl 서비스 관리를 정리합니다.</p>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section class="summary-box">
+      <span class="badge">부팅</span>
+      <h2>1. 단원 개요</h2>
+      <p>부팅은 펌웨어에서 시작해 부트로더, 커널, systemd 초기화로 이어집니다. 서비스 관리는 systemctl로 수행합니다.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
+        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+      </div>
+    </section>
+
+    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말에서는 GRUB 역할, /boot/vmlinuz, runlevel과 target 대응, systemctl start/enable/status 차이가 중요합니다.</p></section>
+    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
+          <li>GRUB와 LILO</li>
+          <li>BIOS/UEFI → 부트로더 → 커널 → systemd</li>
+          <li>multi-user.target과 graphical.target</li>
+          <li>systemctl get-default/set-default</li>
+          <li>서비스 start/enable/status/restart</li>
+        </ul></section>
+    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
+          <li>부트로더는 커널을 메모리에 적재합니다.</li>
+          <li>커널 이미지는 보통 /boot 아래에 있습니다.</li>
+          <li>systemd는 현대 리눅스에서 초기화와 서비스 관리를 담당합니다.</li>
+          <li>target은 과거 runlevel과 비슷하게 시스템 상태를 묶어 표현합니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
+              <tr><td><code>systemctl get-default</code></td><td>기본 target 확인</td></tr>
+              <tr><td><code>systemctl set-default multi-user.target</code></td><td>기본 target 변경</td></tr>
+              <tr><td><code>systemctl isolate graphical.target</code></td><td>현재 target 전환</td></tr>
+              <tr><td><code>systemctl status ssh</code></td><td>서비스 상태 확인</td></tr>
+              <tr><td><code>systemctl start ssh</code></td><td>서비스 즉시 시작</td></tr>
+              <tr><td><code>systemctl enable ssh</code></td><td>부팅 자동 시작 등록</td></tr>
+              <tr><td><code>journalctl -u ssh</code></td><td>서비스 로그 확인</td></tr>
+            </tbody></table></div></section>
+    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
+              <tr><td>multi-user.target</td><td>텍스트 기반 다중 사용자</td><td>전통적 runlevel 3에 대응</td></tr>
+              <tr><td>graphical.target</td><td>그래픽 환경 포함</td><td>전통적 runlevel 5에 대응</td></tr>
+              <tr><td>rescue.target</td><td>복구용 단일 사용자 성격</td><td>문제 해결</td></tr>
+              <tr><td>poweroff.target</td><td>전원 종료</td><td>시스템 종료</td></tr>
+            </tbody></table></div></section>
+    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
+          <li>start는 즉시 시작, enable은 자동 시작 등록입니다.</li>
+          <li>get-default는 확인, set-default는 변경입니다.</li>
+          <li>graphical.target은 GUI 포함입니다.</li>
+          <li>부트로더는 패키지 관리자가 아닙니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
+          <li>현재 기본 target 확인 명령은?</li>
+          <li>부팅 시 자동 시작 등록 명령은?</li>
+          <li>그래픽 환경 target은?</li>
+        </ul></section>
+    <section class="concept-section"><h2>9. 예상문제</h2>
+        <div class="quiz-block"><h3>1. 기본 target 확인 명령은?</h3><ol><li>① systemctl get-default</li><li>② systemctl status-default</li><li>③ systemctl list-default</li><li>④ systemctl boot-default</li></ol><div class="answer-box">정답: 1. get-default가 기본 target 확인입니다.</div></div>
+        <div class="quiz-block"><h3>2. 서비스를 부팅 시 자동 시작하게 하는 명령은?</h3><ol><li>① systemctl start</li><li>② systemctl enable</li><li>③ systemctl status</li><li>④ systemctl stop</li></ol><div class="answer-box">정답: 2. enable은 자동 시작 등록입니다.</div></div>
+    </section>
+    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>BIOS/UEFI → GRUB → Kernel → systemd
+/boot = 커널/부트 파일
+multi-user = 텍스트 다중 사용자
+graphical = GUI
+start 즉시, enable 자동</code></pre></section>
+    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
+
+    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+  </main>
+</body>
+</html>

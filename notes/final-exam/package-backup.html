@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>패키지·압축·백업 - 운영체제 기말고사</title>
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap page-header">
+      <nav class="back-link-row" aria-label="주요 링크">
+        <a href="./index.html">기말 노트 목록</a>
+        <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
+        <a href="../../index.html">메인으로 돌아가기</a>
+      </nav>
+      <h1 class="site-title">패키지·압축·백업</h1>
+      <p class="site-desc">apt/dpkg, rpm/yum/dnf, tar, gzip, bzip2, xz, zip, 백업 명령을 정리합니다.</p>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section class="summary-box">
+      <span class="badge">패키지</span>
+      <h2>1. 단원 개요</h2>
+      <p>패키지 관리는 소프트웨어 설치와 업데이트를 담당하고, 압축·아카이브는 여러 파일을 묶거나 보관하는 데 사용됩니다.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
+        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+      </div>
+    </section>
+
+    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말 범위의 apt update/upgrade/install, systemctl status, tar 옵션 c/x/t/z/j/J가 자주 출제됩니다.</p></section>
+    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
+          <li>apt update와 upgrade 차이</li>
+          <li>dpkg와 apt 차이</li>
+          <li>rpm -qa/-e/-Uvh</li>
+          <li>tar c/x/t 옵션</li>
+          <li>gzip/bzip2/xz 옵션 구분</li>
+        </ul></section>
+    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
+          <li>apt는 저장소 기반으로 의존성을 처리합니다.</li>
+          <li>dpkg와 rpm은 개별 패키지 파일 관리에 가깝습니다.</li>
+          <li>tar는 압축 자체보다 여러 파일을 하나의 아카이브로 묶는 역할이 핵심입니다.</li>
+          <li>gzip은 z, bzip2는 j, xz는 J 옵션으로 연결해 외우면 좋습니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
+              <tr><td><code>apt update</code></td><td>패키지 목록 갱신</td></tr>
+              <tr><td><code>apt upgrade</code></td><td>설치된 패키지 업그레이드</td></tr>
+              <tr><td><code>apt install pkg</code></td><td>패키지 설치</td></tr>
+              <tr><td><code>dpkg -i file.deb</code></td><td>deb 파일 설치</td></tr>
+              <tr><td><code>rpm -qa</code></td><td>설치 RPM 목록</td></tr>
+              <tr><td><code>dnf install pkg</code></td><td>RPM 계열 저장소 설치</td></tr>
+              <tr><td><code>tar -czf a.tar.gz dir</code></td><td>gzip tar 생성</td></tr>
+              <tr><td><code>tar -xzf a.tar.gz</code></td><td>gzip tar 해제</td></tr>
+            </tbody></table></div></section>
+    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
+              <tr><td>apt/yum/dnf</td><td>저장소 기반</td><td>의존성 자동 처리</td></tr>
+              <tr><td>dpkg/rpm</td><td>개별 패키지 기반</td><td>의존성 수동 처리 가능</td></tr>
+              <tr><td>tar -c</td><td>생성</td><td>create</td></tr>
+              <tr><td>tar -x</td><td>해제</td><td>extract</td></tr>
+              <tr><td>tar -t</td><td>목록</td><td>table/list</td></tr>
+            </tbody></table></div></section>
+    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
+          <li>apt update는 설치가 아니라 목록 갱신입니다.</li>
+          <li>rpm -e는 제거, -qa는 전체 조회입니다.</li>
+          <li>tar -czf는 생성, -xzf는 해제입니다.</li>
+          <li>bzip2는 -j, xz는 -J입니다.</li>
+        </ul></section>
+    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
+          <li>다운로드한 .deb 파일을 설치하는 명령은?</li>
+          <li>tar.gz를 해제하는 옵션은?</li>
+          <li>RPM 전체 패키지 조회 명령은?</li>
+        </ul></section>
+    <section class="concept-section"><h2>9. 예상문제</h2>
+        <div class="quiz-block"><h3>1. gzip tar 파일을 해제하는 명령은?</h3><ol><li>① tar -czf file.tar.gz</li><li>② tar -xzf file.tar.gz</li><li>③ tar -jtvf file.tar.gz</li><li>④ gzip -c file.tar.gz</li></ol><div class="answer-box">정답: 2. -x는 해제, -z는 gzip입니다.</div></div>
+        <div class="quiz-block"><h3>2. 설치된 RPM 전체 목록 조회는?</h3><ol><li>① rpm -qa</li><li>② rpm -e</li><li>③ rpm -Uvh</li><li>④ rpm -i</li></ol><div class="answer-box">정답: 1. q=query, a=all입니다.</div></div>
+    </section>
+    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>apt update = 목록 갱신
+apt install = 설치
+dpkg -i = deb 설치
+rpm -qa = 전체 조회
+tar c/x/t, gzip z, bzip2 j, xz J</code></pre></section>
+    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
+
+    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+  </main>
+</body>
+</html>
