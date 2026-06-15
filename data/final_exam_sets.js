@@ -1,11 +1,26 @@
 (function () {
   var questions = (window.OS_FINAL_EXAM_QUESTIONS || []).slice();
   var answerPattern56 = [2, 4, 1, 3, 1, 4, 2, 3];
+  var categoryBlueprint = [
+    ["파일시스템", 4],
+    ["파일 및 디렉터리 명령어", 4],
+    ["사용자 및 그룹", 4],
+    ["권한·소유권·특수권한", 4],
+    ["프로세스 및 작업 관리", 4],
+    ["셸·환경변수·스크립트", 4],
+    ["vi 편집기", 3],
+    ["패키지 관리", 5],
+    ["압축·아카이브·백업", 3],
+    ["디스크·마운트", 4],
+    ["네트워크 기초", 4],
+    ["네트워크 서비스", 4],
+    ["부팅 과정", 3],
+    ["systemd/runlevel", 3],
+    ["서비스 관리", 3]
+  ];
 
-  function isUniqueLongestCorrect(q) {
-    var lengths = q.choices.map(function (choice) { return Array.from(String(choice)).length; });
-    var max = Math.max.apply(null, lengths);
-    return lengths[q.answer - 1] === max && lengths.filter(function (length) { return length === max; }).length === 1;
+  function byCategory(category) {
+    return questions.filter(function (q) { return q.category === category; });
   }
 
   function cyclePick(list, start, count) {
@@ -15,39 +30,51 @@
     return picked;
   }
 
-  function makeIds(safeStart, longStart) {
-    var safeQuestions = questions.filter(function (q) { return !isUniqueLongestCorrect(q); });
-    var longBiasQuestions = questions.filter(isUniqueLongestCorrect);
-    return cyclePick(safeQuestions, safeStart, 50)
-      .concat(cyclePick(longBiasQuestions, longStart, 6))
-      .map(function (q) { return q.id; });
+  function interleave(groups) {
+    var ids = [];
+    var max = groups.reduce(function (largest, group) { return Math.max(largest, group.length); }, 0);
+    for (var i = 0; i < max; i += 1) {
+      groups.forEach(function (group) {
+        if (group[i]) ids.push(group[i].id);
+      });
+    }
+    return ids;
+  }
+
+  function makeIds(setIndex) {
+    var groups = categoryBlueprint.map(function (entry) {
+      var category = entry[0];
+      var count = entry[1];
+      return cyclePick(byCategory(category), setIndex * count, count);
+    });
+    return interleave(groups);
   }
 
   window.OS_FINAL_EXAM_SETS = [
     {
       id: "final-1",
-      title: "1회: 기출 연계 기본",
+      title: "기말 모의고사 1회",
       shortTitle: "1회",
-      description: "파일·권한·프로세스·패키지처럼 리눅스마스터 2급 2차와 기말 범위가 많이 겹치는 기본 유형 56문항입니다.",
-      questionIds: makeIds(0, 0),
+      description: "파일시스템부터 systemd까지 기말 전체 범위를 골고루 섞은 56문항 모의고사입니다.",
+      questionIds: makeIds(0),
       answerPattern: answerPattern56,
       timeGuide: "권장 60분"
     },
     {
       id: "final-2",
-      title: "2회: 명령어·시스템 혼합",
+      title: "기말 모의고사 2회",
       shortTitle: "2회",
-      description: "패키지, 디스크, 네트워크, 부팅/systemd까지 섞어 시험장에서 헷갈리는 명령어를 훈련하는 56문항입니다.",
-      questionIds: makeIds(25, 6),
+      description: "1회와 같은 전체 범위 구성으로, 다른 문제 조합과 선지 배치를 사용한 56문항 모의고사입니다.",
+      questionIds: makeIds(1),
       answerPattern: answerPattern56,
       timeGuide: "권장 60분"
     },
     {
       id: "final-3",
-      title: "3회: 수업자료·실습 심화",
+      title: "기말 모의고사 3회",
       shortTitle: "3회",
-      description: "노션 정리와 교수님 PDF에서 강조된 디스크, 계정, 네트워크 서비스, systemd 실습을 보강한 56문항입니다.",
-      questionIds: makeIds(50, 12),
+      description: "기말 전체 범위를 다시 한 번 동일 비율로 점검하는 56문항 실전형 모의고사입니다.",
+      questionIds: makeIds(2),
       answerPattern: answerPattern56,
       timeGuide: "권장 60분"
     }

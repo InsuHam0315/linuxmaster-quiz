@@ -30,7 +30,7 @@
     <div class="set-head">
       <div>
         <h2 id="lm2SetTitle">2급 2차 CBT 버전 선택</h2>
-        <p class="mini-note">운영·관리 영역과 X 윈도/인터넷 활용/응용 분야를 섞어 1·2·3회로 나눴습니다.</p>
+        <p class="mini-note">각 회차가 운영·관리, X 윈도, 인터넷 활용, 네트워크 장비, 리눅스 응용 분야를 모두 포함하는 전 범위 모의고사입니다.</p>
       </div>
       <a class="btn" href="./final_exam_mock.html">기말고사 CBT로 돌아가기</a>
     </div>
@@ -129,15 +129,84 @@
   RAW_QUESTIONS.forEach(function (q) { QUESTION_MAP[q.id] = q; });
 
   function makeSets() {
-    function sliceWrap(start, count) {
+    var categoryBlueprint = [
+      ["파일시스템", 3],
+      ["파일 및 디렉터리 명령어", 3],
+      ["사용자 및 그룹", 3],
+      ["권한·소유권·특수권한", 4],
+      ["프로세스 및 작업 관리", 3],
+      ["셸·환경변수·스크립트", 3],
+      ["vi 편집기", 3],
+      ["패키지 관리", 4],
+      ["압축·아카이브·백업", 3],
+      ["디스크·마운트", 3],
+      ["네트워크 기초", 4],
+      ["네트워크 서비스", 4],
+      ["부팅 과정", 3],
+      ["systemd/runlevel", 3],
+      ["서비스 관리", 3],
+      ["X 윈도", 3],
+      ["인터넷 활용", 3],
+      ["네트워크 장비", 2],
+      ["리눅스 응용 분야", 3]
+    ];
+
+    function byCategory(category) {
+      return RAW_QUESTIONS.filter(function (q) { return q.category === category; });
+    }
+
+    function cyclePick(list, start, count) {
+      var picked = [];
+      if (!list.length) return picked;
+      for (var i = 0; i < count; i += 1) picked.push(list[(start + i) % list.length]);
+      return picked;
+    }
+
+    function interleave(groups) {
       var ids = [];
-      for (var i = 0; i < count; i += 1) ids.push(RAW_QUESTIONS[(start + i) % RAW_QUESTIONS.length].id);
+      var max = groups.reduce(function (largest, group) { return Math.max(largest, group.length); }, 0);
+      for (var i = 0; i < max; i += 1) {
+        groups.forEach(function (group) {
+          if (group[i]) ids.push(group[i].id);
+        });
+      }
       return ids;
     }
+
+    function makeIds(setIndex) {
+      var groups = categoryBlueprint.map(function (entry) {
+        var category = entry[0];
+        var count = entry[1];
+        return cyclePick(byCategory(category), setIndex * count, count);
+      });
+      return interleave(groups);
+    }
+
     return [
-      { id: "lm2-1", title: "1회: 운영·관리 기본", description: "파일, 권한, 프로세스, 셸, vi, 패키지 중심의 60문항입니다.", questionIds: sliceWrap(0, 60), answerPattern: answerPattern, timeGuide: "권장 75분" },
-      { id: "lm2-2", title: "2회: 시스템·서비스 혼합", description: "디스크, 네트워크, 부팅, systemd와 서비스 관리까지 섞은 60문항입니다.", questionIds: sliceWrap(32, 60), answerPattern: answerPattern, timeGuide: "권장 75분" },
-      { id: "lm2-3", title: "3회: 활용 분야 포함", description: "X 윈도, 인터넷 활용, 리눅스 응용 분야까지 포함한 60문항입니다.", questionIds: sliceWrap(64, 60), answerPattern: answerPattern, timeGuide: "권장 75분" }
+      {
+        id: "lm2-1",
+        title: "리눅스마스터 2급 2차 모의고사 1회",
+        description: "운영·관리부터 X 윈도, 인터넷 활용, 응용 분야까지 전 범위를 골고루 섞은 60문항입니다.",
+        questionIds: makeIds(0),
+        answerPattern: answerPattern,
+        timeGuide: "권장 75분"
+      },
+      {
+        id: "lm2-2",
+        title: "리눅스마스터 2급 2차 모의고사 2회",
+        description: "1회와 같은 전 범위 비율로 다른 문제 조합과 선지 배치를 사용한 60문항입니다.",
+        questionIds: makeIds(1),
+        answerPattern: answerPattern,
+        timeGuide: "권장 75분"
+      },
+      {
+        id: "lm2-3",
+        title: "리눅스마스터 2급 2차 모의고사 3회",
+        description: "공식 2급 2차 전체 범위를 다시 점검하는 60문항 실전형 모의고사입니다.",
+        questionIds: makeIds(2),
+        answerPattern: answerPattern,
+        timeGuide: "권장 75분"
+      }
     ];
   }
 
