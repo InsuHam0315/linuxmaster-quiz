@@ -76,6 +76,7 @@
         <div class="qtop"><div id="qMeta"></div><div id="qIdx"></div></div>
         <div class="qtext" id="qText">CBT 회차를 선택하면 문제가 표시됩니다.</div>
         <div class="passage" id="passage"></div>
+        <div id="questionMedia"></div>
         <div class="choices" id="choices"></div>
         <div class="explain" id="explain"></div>
         <div class="nav">
@@ -91,7 +92,7 @@
         <div id="resultSummary"></div>
         <div class="table-wrap"><table id="wrongTable"></table></div>
       </article>
-      <p class="source">출처: ComCBT 리눅스마스터 2급 필기 기출문제 2023년 09월 09일(3회), 2023년 12월 09일(4회). 이미지/표가 필요한 문제는 passage 영역에 원본 자료 링크를 표시합니다.</p>
+      <p class="source">출처: ComCBT 리눅스마스터 2급 필기 기출문제 2023년 09월 09일(3회), 2023년 12월 09일(4회). 이미지/표가 필요한 문제는 문제 본문 아래 이미지 영역에 표시합니다.</p>
     </section>
   </div>
 </main>
@@ -161,6 +162,84 @@
   }
 
   function escapeHtml(value) { return String(value == null ? "" : value).replace(/[&<>"']/g, function (char) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]; }); }
+  var COMCBT_IMAGE_URL_REGEX = /https?:\/\/img\.comcbt\.com\/[^\s"'<>]+?\.(?:png|jpg|jpeg|gif|webp)(?:\?[^\s"'<>]*)?/gi;
+  function isComcbtImageUrl(url) {
+    try {
+      var parsed = new URL(String(url));
+      return (parsed.protocol === "https:" || parsed.protocol === "http:") && parsed.hostname === "img.comcbt.com" && /\.(png|jpg|jpeg|gif|webp)$/i.test(parsed.pathname);
+    } catch (error) {
+      return false;
+    }
+  }
+  function addImageUrl(url, urls) {
+    var value = String(url || "").trim();
+    if (value && isComcbtImageUrl(value) && urls.indexOf(value) < 0) urls.push(value);
+  }
+  function collectImageUrls(value, urls) {
+    if (Array.isArray(value)) { value.forEach(function (entry) { collectImageUrls(entry, urls); }); return; }
+    if (!value) return;
+    String(value).replace(COMCBT_IMAGE_URL_REGEX, function (match) {
+      addImageUrl(match, urls);
+      return match;
+    });
+  }
+  function extractImageUrls(item) {
+    var urls = [];
+    if (!item) return urls;
+    [item.imageUrl, item.imageUrls, item.mediaUrl, item.mediaUrls, item.question, item.source, item.passage, item.explanation].forEach(function (field) {
+      collectImageUrls(field, urls);
+    });
+    return urls;
+  }
+  function cleanComcbtImageUrlText(value) {
+    return String(value == null ? "" : value)
+      .replace(COMCBT_IMAGE_URL_REGEX, "")
+      .replace(/(^|\n)\s*ComCBT\s*이미지\/표\s*자료\s*참조:?\s*(?=\n|$)/gi, "\n")
+      .replace(/[ \t]+\n/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  }
+  function renderImageUrls(item) {
+    var box = $("questionMedia");
+    if (!box) return;
+    var urls = extractImageUrls(item);
+    box.innerHTML = "";
+    box.hidden = !urls.length;
+    if (!urls.length) return;
+
+    box.className = "question-media";
+    var title = document.createElement("div");
+    title.className = "question-media-title";
+    title.textContent = "이미지/표 자료";
+    box.appendChild(title);
+
+    urls.forEach(function (url) {
+      var figure = document.createElement("figure");
+      figure.className = "question-image-wrap";
+      var image = document.createElement("img");
+      image.src = url;
+      image.alt = "문제 이미지 자료";
+      image.className = "question-image";
+      image.loading = "lazy";
+      image.referrerPolicy = "no-referrer";
+      image.setAttribute("loading", "lazy");
+      image.setAttribute("referrerpolicy", "no-referrer");
+      var fallback = document.createElement("a");
+      fallback.className = "question-image-fallback";
+      fallback.href = url;
+      fallback.target = "_blank";
+      fallback.rel = "noopener noreferrer";
+      fallback.style.display = "none";
+      fallback.textContent = "이미지가 표시되지 않으면 원본 자료 열기";
+      image.onerror = function () {
+        image.style.display = "none";
+        fallback.style.display = "block";
+      };
+      figure.appendChild(image);
+      figure.appendChild(fallback);
+      box.appendChild(figure);
+    });
+  }
   function shuffle(arr) { return arr.map(function (value) { return { value: value, sort: Math.random() }; }).sort(function (a, b) { return a.sort - b.sort; }).map(function (entry) { return entry.value; }); }
   function format(sec) { return String(Math.floor(sec / 60)).padStart(2, "0") + ":" + String(sec % 60).padStart(2, "0"); }
   function getSetQuestions(set) { return (set.questionIds || []).map(function (id) { return QUESTION_MAP[id]; }).filter(Boolean); }
@@ -196,17 +275,22 @@
 
   function tag(text, extraClass) { return '<span class="tag' + (extraClass ? ' ' + extraClass : '') + '">' + escapeHtml(text) + '</span>'; }
   function render() {
-    if (!session.length) { $("qMeta").innerHTML = ""; $("qIdx").textContent = "0 / 0"; $("qText").textContent = "선택한 조건에 해당하는 문제가 없습니다."; $("passage").textContent = ""; $("passage").className = "passage"; $("choices").innerHTML = ""; $("explain").className = "explain"; updateStats(); renderNums(); return; }
+    if (!session.length) { $("qMeta").innerHTML = ""; $("qIdx").textContent = "0 / 0"; $("qText").textContent = "선택한 조건에 해당하는 문제가 없습니다."; $("passage").textContent = ""; $("passage").className = "passage"; renderImageUrls(null); $("choices").innerHTML = ""; $("explain").className = "explain"; updateStats(); renderNums(); return; }
     var q = session[idx];
+    var questionText = cleanComcbtImageUrlText(q.question) || "이미지 자료를 확인하세요.";
+    var passageText = cleanComcbtImageUrlText(q.passage);
+    var explanationText = cleanComcbtImageUrlText(q.explanation);
+    var sourceText = cleanComcbtImageUrlText(q.source);
     $("qMeta").innerHTML = tag(q.setTitle, "set-tag") + tag(q.subject) + tag(q.category) + tag(q.sourceType, "source-type");
     $("qIdx").textContent = (idx + 1) + " / " + session.length + " · " + q.originalId;
-    $("qText").textContent = q.question;
-    $("passage").textContent = q.passage || "";
-    $("passage").className = q.passage ? "passage show" : "passage";
+    $("qText").textContent = questionText;
+    $("passage").textContent = passageText;
+    $("passage").className = passageText ? "passage show" : "passage";
+    renderImageUrls(q);
     $("choices").innerHTML = "";
     q.choices.forEach(function (choice, i) { var label = document.createElement("label"); label.className = "choice"; var input = document.createElement("input"); input.type = "radio"; input.name = "choice"; input.value = String(i + 1); var text = document.createElement("div"); var mark = document.createElement("b"); mark.textContent = marks[i] + " "; text.appendChild(mark); text.appendChild(document.createTextNode(choice)); label.appendChild(input); label.appendChild(text); label.onclick = function () { selectAnswer(i + 1); }; $("choices").appendChild(label); });
     $("explain").className = "explain";
-    $("explain").innerHTML = "<b>정답: " + escapeHtml(marks[q.answer - 1] + " " + q.choices[q.answer - 1]) + "</b><br>" + escapeHtml(q.explanation) + "<br><small>출처: " + escapeHtml(q.source) + (q.sourceUrl ? " · " + escapeHtml(q.sourceUrl) : "") + "</small>";
+    $("explain").innerHTML = "<b>정답: " + escapeHtml(marks[q.answer - 1] + " " + q.choices[q.answer - 1]) + "</b><br>" + escapeHtml(explanationText) + "<br><small>출처: " + escapeHtml(sourceText || "이미지 자료") + (q.sourceUrl ? " · " + escapeHtml(q.sourceUrl) : "") + "</small>";
     if (answers[q.originalId] !== undefined) paintChoices(); updateStats(); renderNums();
   }
   function selectAnswer(answer) { if (!session.length) return; var q = session[idx]; if (answers[q.originalId] !== undefined) return; answers[q.originalId] = answer; var wrongIds = getWrongIds(); if (answer !== q.answer) { if (wrongIds.indexOf(q.originalId) < 0) wrongIds.push(q.originalId); } else { wrongIds = wrongIds.filter(function (id) { return id !== q.originalId; }); } setWrongIds(wrongIds); record(q, answer); paintChoices(); updateStats(); renderNums(); }

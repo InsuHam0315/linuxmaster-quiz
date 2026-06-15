@@ -762,6 +762,42 @@ code {
   text-decoration: none;
 }
 
+.question-media {
+  margin: 18px 0;
+  padding: 14px;
+  overflow-x: auto;
+  border: 1px solid var(--border, var(--line));
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.question-media-title {
+  margin-bottom: 10px;
+  color: #facc15;
+  font-weight: 700;
+}
+
+.question-image-wrap {
+  margin: 0;
+}
+
+.question-image-wrap + .question-image-wrap {
+  margin-top: 12px;
+}
+
+.question-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.question-image-fallback {
+  color: var(--primary-dark, #38bdf8);
+  word-break: break-all;
+}
+
 @media (max-width: 900px) {
   .summary-grid, .note-layout, .study-flow, .exam-subject-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
