@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -11,135 +11,114 @@
     body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
     header{position:sticky;top:0;z-index:10;background:rgba(17,24,39,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
     .exam-wrap{width:min(100% - 32px,1120px);margin:0 auto;padding:18px 0}
-    h1{margin:0 0 8px;font-size:24px;line-height:1.25;letter-spacing:0}
-    .sub{margin:0;color:var(--muted);font-size:14px}
-    .top-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .top-links a,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 12px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text);font-weight:700;text-decoration:none;cursor:pointer}
-    .top-links a:hover,.btn:hover{border-color:var(--accent)}
-    .btn.primary{background:var(--accent);border-color:var(--accent);color:#06111f}
-    .btn.warn{background:#3b2508;border-color:#92400e;color:#fde68a}
-    .layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;margin-top:18px}
-    .panel,.question,.result{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:0 14px 34px rgba(0,0,0,.22)}
-    .panel{position:sticky;top:112px;height:max-content}
-    label{display:block;margin:14px 0 6px;color:var(--muted);font-size:13px;font-weight:700}
-    select{width:100%;min-height:40px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text)}
-    .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-    .stat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
-    .stat div{padding:12px;border:1px solid var(--border);border-radius:8px;background:#0f172a}
-    .stat b{display:block;font-size:22px}
-    .stat span{color:var(--muted);font-size:12px}
-    .progress{height:10px;overflow:hidden;border:1px solid var(--border);border-radius:999px;background:#0f172a}
-    .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .2s}
-    .num-list{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:14px;max-height:320px;overflow:auto;padding-right:2px}
-    .num{min-height:32px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text);font-size:12px;cursor:pointer}
-    .num.current{outline:2px solid var(--accent)}
-    .num.done{background:rgba(56,189,248,.16);border-color:#0369a1}
-    .num.ok{background:rgba(52,211,153,.16);border-color:#047857}
-    .num.bad{background:rgba(251,113,133,.16);border-color:#be123c}
-    .qtop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px}
-    .tag{display:inline-flex;align-items:center;min-height:26px;margin:0 4px 4px 0;padding:3px 8px;border:1px solid var(--border);border-radius:999px;background:#0f172a;color:#bae6fd;font-size:12px;font-weight:700}
-    .tag.source-type{color:#fde68a}
-    .qtext{margin:18px 0 12px;font-size:21px;line-height:1.55;white-space:pre-wrap}
-    .choices{display:grid;gap:10px;margin-top:14px}
-    .choice{display:flex;gap:10px;align-items:flex-start;padding:13px;border:1px solid var(--border);border-radius:8px;background:#0f172a;cursor:pointer;color:var(--text)}
-    .choice:hover{border-color:var(--accent)}
-    .choice input{width:auto;min-height:auto;margin-top:5px}
-    .choice.correct{border-color:var(--ok);background:rgba(52,211,153,.13)}
-    .choice.wrong{border-color:var(--bad);background:rgba(251,113,133,.13)}
-    .explain{display:none;margin-top:16px;padding:14px;border-left:4px solid var(--accent);border-radius:8px;background:#0f172a;color:#dbeafe}
-    .explain.show{display:block}
-    .nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
-    .result{display:none;margin-top:18px}
-    .result.show{display:block}
-    .table-wrap{margin-top:12px;overflow:auto}
-    table{width:100%;border-collapse:collapse}
-    th,td{border:1px solid var(--border);padding:8px;text-align:left;vertical-align:top}
-    th{background:#0f172a;color:#bae6fd}
-    .source{margin-top:28px;color:var(--muted);font-size:12px}
-    @media(max-width:860px){.layout{grid-template-columns:1fr}.panel{position:static}.num-list{grid-template-columns:repeat(10,1fr);max-height:none}.nav{flex-direction:column}.nav .row,.nav .btn{width:100%}}
-    @media(max-width:520px){.exam-wrap{width:min(100% - 20px,1120px)}.num-list{grid-template-columns:repeat(5,1fr)}.qtext{font-size:18px}.stat{grid-template-columns:1fr}}
+    h1{margin:0 0 8px;font-size:24px;line-height:1.25;letter-spacing:0}.sub{margin:0;color:var(--muted);font-size:14px}
+    .top-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.top-links a,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 12px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text);font-weight:700;text-decoration:none;cursor:pointer}.top-links a:hover,.btn:hover{border-color:var(--accent)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#06111f}.btn.warn{background:#3b2508;border-color:#92400e;color:#fde68a}
+    .set-section{margin:18px 0}.set-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap}.set-head h2{margin:0;font-size:22px}.set-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}.set-card{display:flex;flex-direction:column;gap:8px;min-height:160px;padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--panel);box-shadow:0 14px 34px rgba(0,0,0,.22);color:inherit;text-align:left;cursor:pointer}.set-card:hover,.set-card.active{border-color:var(--accent)}.set-card.active{outline:2px solid rgba(56,189,248,.28)}.set-card h3{margin:0;font-size:18px}.set-card p{margin:0;color:var(--muted);font-size:14px}.set-card strong{margin-top:auto;color:#bae6fd}.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;margin-top:18px}.panel,.question,.result{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:0 14px 34px rgba(0,0,0,.22)}.panel{position:sticky;top:112px;height:max-content}label{display:block;margin:14px 0 6px;color:var(--muted);font-size:13px;font-weight:700}select{width:100%;min-height:40px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text)}.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.stat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}.stat div{padding:12px;border:1px solid var(--border);border-radius:8px;background:#0f172a}.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:12px}.progress{height:10px;overflow:hidden;border:1px solid var(--border);border-radius:999px;background:#0f172a}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .2s}.num-list{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:14px;max-height:320px;overflow:auto;padding-right:2px}.num{min-height:32px;border:1px solid var(--border);border-radius:6px;background:#0f172a;color:var(--text);font-size:12px;cursor:pointer}.num.current{outline:2px solid var(--accent)}.num.done{background:rgba(56,189,248,.16);border-color:#0369a1}.num.ok{background:rgba(52,211,153,.16);border-color:#047857}.num.bad{background:rgba(251,113,133,.16);border-color:#be123c}.qtop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px}.tag{display:inline-flex;align-items:center;min-height:26px;margin:0 4px 4px 0;padding:3px 8px;border:1px solid var(--border);border-radius:999px;background:#0f172a;color:#bae6fd;font-size:12px;font-weight:700}.tag.source-type{color:#fde68a}.tag.set-tag{color:#bbf7d0}.qtext{margin:18px 0 12px;font-size:21px;line-height:1.55;white-space:pre-wrap}.choices{display:grid;gap:10px;margin-top:14px}.choice{display:flex;gap:10px;align-items:flex-start;padding:13px;border:1px solid var(--border);border-radius:8px;background:#0f172a;cursor:pointer;color:var(--text)}.choice:hover{border-color:var(--accent)}.choice input{width:auto;min-height:auto;margin-top:5px}.choice.correct{border-color:var(--ok);background:rgba(52,211,153,.13)}.choice.wrong{border-color:var(--bad);background:rgba(251,113,133,.13)}.explain{display:none;margin-top:16px;padding:14px;border-left:4px solid var(--accent);border-radius:8px;background:#0f172a;color:#dbeafe}.explain.show{display:block}.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.result{display:none;margin-top:18px}.result.show{display:block}.table-wrap{margin-top:12px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--border);padding:8px;text-align:left;vertical-align:top}th{background:#0f172a;color:#bae6fd}.source{margin-top:28px;color:var(--muted);font-size:12px}.mini-note{margin:10px 0 0;color:var(--muted);font-size:12px}
+    @media(max-width:980px){.set-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.panel{position:static}.num-list{grid-template-columns:repeat(10,1fr);max-height:none}.nav{flex-direction:column}.nav .row,.nav .btn{width:100%}}
+    @media(max-width:560px){.exam-wrap{width:min(100% - 20px,1120px)}.set-grid{grid-template-columns:1fr}.num-list{grid-template-columns:repeat(5,1fr)}.qtext{font-size:18px}.stat{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <header>
   <div class="exam-wrap">
     <h1>운영체제 기말고사 CBT</h1>
-    <p class="sub">노션 정리·교수님 수업 PDF·리눅스마스터 2급 2차 기출/복원 유형을 기말 범위에 맞게 재구성한 CBT입니다.</p>
+    <p class="sub">한 번에 120문항을 풀지 않고 1·2·3회 각 56문항으로 나누어 풉니다. 보기 순서는 정답 번호가 1~4번에 고르게 나오도록 회차별로 재배치됩니다.</p>
     <nav class="top-links" aria-label="주요 링크">
       <a href="../index.html">메인으로 돌아가기</a>
       <a href="../notes/final-exam/index.html">기말 노트</a>
+      <a href="./linuxmaster2_second_exam.html">리눅스마스터 2급 2차 CBT</a>
       <a href="../review/wrong-notes.html">오답노트</a>
       <a href="../stats/study-record.html">학습기록</a>
     </nav>
   </div>
 </header>
 
-<main class="exam-wrap layout">
-  <aside class="panel">
-    <label for="mode">풀이 모드</label>
-    <select id="mode">
-      <option value="all">전체 문제 풀기</option>
-      <option value="single">한 문제씩 보기</option>
-      <option value="wrong">오답만 다시 풀기</option>
-    </select>
-
-    <label for="subject">과목 필터</label>
-    <select id="subject"><option value="all">전체 과목</option></select>
-
-    <label for="category">카테고리 필터</label>
-    <select id="category"><option value="all">전체 카테고리</option></select>
-
-    <label for="sourceType">출처 유형 필터</label>
-    <select id="sourceType">
-      <option value="all">전체 출처 유형</option>
-    </select>
-
-    <div class="row" style="margin-top:14px">
-      <button class="btn primary" id="startBtn" type="button">다시 풀기</button>
-      <button class="btn warn" id="resetBtn" type="button">현재 오답 초기화</button>
-    </div>
-
-    <div class="stat">
-      <div><b id="score">0</b><span>정답</span></div>
-      <div><b id="count">0/0</b><span>풀이</span></div>
-      <div><b id="rate">0%</b><span>정답률</span></div>
-      <div><b id="timer">00:00</b><span>시간</span></div>
-    </div>
-    <div class="progress"><div class="bar" id="bar"></div></div>
-    <div class="num-list" id="numList" aria-label="문제 번호 이동"></div>
-  </aside>
-
-  <section>
-    <article class="question">
-      <div class="qtop"><div id="qMeta"></div><div id="qIdx"></div></div>
-      <div class="qtext" id="qText">문제를 불러오는 중입니다.</div>
-      <div class="choices" id="choices"></div>
-      <div class="explain" id="explain"></div>
-      <div class="nav">
-        <button class="btn" id="prevBtn" type="button">이전</button>
-        <div class="row">
-          <button class="btn" id="showBtn" type="button">정답 확인 / 해설 보기</button>
-          <button class="btn primary" id="nextBtn" type="button">다음</button>
-        </div>
+<main class="exam-wrap">
+  <section class="set-section" aria-labelledby="setTitle">
+    <div class="set-head">
+      <div>
+        <h2 id="setTitle">CBT 버전 선택</h2>
+        <p class="mini-note">각 회차는 56문항입니다. 1회는 기출 연계 기본, 2회는 명령어·시스템 혼합, 3회는 수업자료·실습 심화로 구성했습니다.</p>
       </div>
-    </article>
-    <article class="result" id="resultBox">
-      <h2>최종 결과</h2>
-      <div id="resultSummary"></div>
-      <div class="table-wrap"><table id="wrongTable"></table></div>
-    </article>
-    <p class="source">주의: 리눅스마스터 2급 2차 공개 기출/복원 자료는 원문을 복제하지 않고 운영체제 기말 범위와 겹치는 개념·유형·선지 함정을 재구성했습니다.</p>
+      <a class="btn" href="./linuxmaster2_second_exam.html">리눅스마스터 2급 2차 별도 CBT 풀기</a>
+    </div>
+    <div class="set-grid" id="setCards"></div>
   </section>
+
+  <div class="layout">
+    <aside class="panel">
+      <label for="setSelect">CBT 회차</label>
+      <select id="setSelect"></select>
+
+      <label for="mode">풀이 모드</label>
+      <select id="mode">
+        <option value="set">선택 회차 순서대로 풀기</option>
+        <option value="shuffle">선택 회차 랜덤 순서</option>
+        <option value="wrong">선택 회차 오답만 다시 풀기</option>
+      </select>
+
+      <label for="subject">과목 필터</label>
+      <select id="subject"><option value="all">전체 과목</option></select>
+
+      <label for="category">카테고리 필터</label>
+      <select id="category"><option value="all">전체 카테고리</option></select>
+
+      <label for="sourceType">출처 유형 필터</label>
+      <select id="sourceType"><option value="all">전체 출처 유형</option></select>
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn primary" id="startBtn" type="button">선택 회차 다시 풀기</button>
+        <button class="btn warn" id="resetBtn" type="button">현재 오답 초기화</button>
+      </div>
+
+      <div class="stat">
+        <div><b id="score">0</b><span>정답</span></div>
+        <div><b id="count">0/0</b><span>풀이</span></div>
+        <div><b id="rate">0%</b><span>정답률</span></div>
+        <div><b id="timer">00:00</b><span>시간</span></div>
+      </div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <p class="mini-note" id="setInfo"></p>
+      <div class="num-list" id="numList" aria-label="문제 번호 이동"></div>
+    </aside>
+
+    <section>
+      <article class="question">
+        <div class="qtop"><div id="qMeta"></div><div id="qIdx"></div></div>
+        <div class="qtext" id="qText">CBT 회차를 선택하면 문제가 표시됩니다.</div>
+        <div class="choices" id="choices"></div>
+        <div class="explain" id="explain"></div>
+        <div class="nav">
+          <button class="btn" id="prevBtn" type="button">이전</button>
+          <div class="row">
+            <button class="btn" id="showBtn" type="button">정답 확인 / 해설 보기</button>
+            <button class="btn primary" id="nextBtn" type="button">다음</button>
+          </div>
+        </div>
+      </article>
+      <article class="result" id="resultBox">
+        <h2>최종 결과</h2>
+        <div id="resultSummary"></div>
+        <div class="table-wrap"><table id="wrongTable"></table></div>
+      </article>
+      <p class="source">주의: 리눅스마스터 2급 2차 공개 기출/복원 자료는 원문을 복제하지 않고 운영체제 기말 범위와 겹치는 개념·유형·선지 함정을 재구성했습니다.</p>
+    </section>
+  </div>
 </main>
 
 <script src="../assets/auth.js"></script>
 <script src="../assets/storage.js"></script>
 <script src="../data/final_exam_questions.js"></script>
+<script src="../data/final_exam_sets.js"></script>
 <script>
 (function () {
-  var QUESTIONS = window.OS_FINAL_EXAM_QUESTIONS || [];
+  var RAW_QUESTIONS = window.OS_FINAL_EXAM_QUESTIONS || [];
+  var SETS = window.OS_FINAL_EXAM_SETS || [];
+  var QUESTION_MAP = {};
   var WRONG_KEY = "os_final_exam_wrong";
+  var SELECTED_SET_KEY = "os_final_exam_selected_set";
   var marks = ["①", "②", "③", "④"];
+  var currentSet = null;
   var session = [];
   var idx = 0;
   var answers = {};
@@ -148,6 +127,12 @@
   var resultShown = false;
   var $ = function (id) { return document.getElementById(id); };
 
+  RAW_QUESTIONS.forEach(function (q) { QUESTION_MAP[q.id] = q; });
+
+  if (!SETS.length && RAW_QUESTIONS.length) {
+    SETS = [{ id: "final-1", title: "1회", shortTitle: "1회", description: "기본 56문항", questionIds: RAW_QUESTIONS.slice(0, 56).map(function (q) { return q.id; }), answerPattern: [2, 4, 1, 3] }];
+  }
+
   function escapeHtml(value) {
     return String(value == null ? "" : value).replace(/[&<>"']/g, function (char) {
       return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char];
@@ -155,7 +140,9 @@
   }
 
   function shuffle(arr) {
-    return arr.slice().sort(function () { return Math.random() - 0.5; });
+    return arr.map(function (value) { return { value: value, sort: Math.random() }; })
+      .sort(function (a, b) { return a.sort - b.sort; })
+      .map(function (entry) { return entry.value; });
   }
 
   function format(sec) {
@@ -164,11 +151,41 @@
     return m + ":" + s;
   }
 
-  function uniqueValues(key) {
-    return Array.from(new Set(QUESTIONS.map(function (q) { return q[key] || "미분류"; }))).sort();
+  function getSetQuestions(set) {
+    return (set.questionIds || []).map(function (id) { return QUESTION_MAP[id]; }).filter(Boolean);
   }
 
-  function fillSelect(selectId, label, values) {
+  function placeCorrectAt(q, targetAnswer) {
+    var target = Math.max(1, Math.min(4, Number(targetAnswer) || q.answer));
+    var correct = q.choices[q.answer - 1];
+    var wrongs = q.choices.filter(function (_, i) { return i !== q.answer - 1; });
+    var choices = [];
+    var w = 0;
+    for (var pos = 1; pos <= 4; pos += 1) {
+      choices.push(pos === target ? correct : wrongs[w++]);
+    }
+    var copy = Object.assign({}, q);
+    copy.originalId = q.id;
+    copy.choices = choices;
+    copy.answer = target;
+    copy.setId = currentSet ? currentSet.id : "final";
+    copy.setTitle = currentSet ? currentSet.title : "기말 CBT";
+    return copy;
+  }
+
+  function preparedSetPool() {
+    var set = currentSet || SETS[0];
+    var pattern = set.answerPattern || [1, 2, 3, 4];
+    return getSetQuestions(set).map(function (q, i) {
+      return placeCorrectAt(q, pattern[i % pattern.length]);
+    });
+  }
+
+  function uniqueValues(pool, key) {
+    return Array.from(new Set(pool.map(function (q) { return q[key] || "미분류"; }))).sort();
+  }
+
+  function fillSelect(selectId, label, values, previous) {
     var select = $(selectId);
     select.innerHTML = '<option value="all">' + label + '</option>';
     values.forEach(function (value) {
@@ -177,12 +194,17 @@
       option.textContent = value;
       select.appendChild(option);
     });
+    if (previous && values.indexOf(previous) >= 0) select.value = previous;
   }
 
-  function fillFilters() {
-    fillSelect("subject", "전체 과목", uniqueValues("subject"));
-    fillSelect("category", "전체 카테고리", uniqueValues("category"));
-    fillSelect("sourceType", "전체 출처 유형", uniqueValues("sourceType"));
+  function fillFilters(reset) {
+    var pool = preparedSetPool();
+    var prevSubject = reset ? "all" : $("subject").value;
+    var prevCategory = reset ? "all" : $("category").value;
+    var prevSource = reset ? "all" : $("sourceType").value;
+    fillSelect("subject", "전체 과목", uniqueValues(pool, "subject"), prevSubject);
+    fillSelect("category", "전체 카테고리", uniqueValues(pool, "category"), prevCategory);
+    fillSelect("sourceType", "전체 출처 유형", uniqueValues(pool, "sourceType"), prevSource);
   }
 
   function getWrongIds() {
@@ -202,7 +224,7 @@
     var subject = $("subject").value;
     var category = $("category").value;
     var sourceType = $("sourceType").value;
-    var pool = QUESTIONS.slice();
+    var pool = preparedSetPool();
     if (subject !== "all") pool = pool.filter(function (q) { return q.subject === subject; });
     if (category !== "all") pool = pool.filter(function (q) { return q.category === category; });
     if (sourceType !== "all") pool = pool.filter(function (q) { return q.sourceType === sourceType; });
@@ -210,17 +232,18 @@
   }
 
   function buildSession() {
+    if (!currentSet) currentSet = SETS[0];
     var mode = $("mode").value;
     var pool = filteredPool();
     if (mode === "wrong") {
       var wrongIds = getWrongIds();
-      pool = pool.filter(function (q) { return wrongIds.indexOf(q.id) >= 0; });
+      pool = pool.filter(function (q) { return wrongIds.indexOf(q.originalId || q.id) >= 0; });
       if (!pool.length) {
-        alert("선택한 조건에 저장된 오답이 없습니다. 현재 필터의 전체 문제로 시작합니다.");
+        alert("선택한 회차/필터에 저장된 오답이 없습니다. 현재 조건의 전체 문제로 시작합니다.");
         pool = filteredPool();
       }
     }
-    if (mode === "single") pool = shuffle(pool);
+    if (mode === "shuffle") pool = shuffle(pool);
     session = pool;
     idx = 0;
     answers = {};
@@ -231,6 +254,7 @@
       $("timer").textContent = format(Math.floor((Date.now() - startedAt) / 1000));
     }, 1000);
     $("resultBox").className = "result";
+    updateSetInfo();
     render();
   }
 
@@ -239,7 +263,7 @@
   }
 
   function render() {
-    if (!QUESTIONS.length) {
+    if (!RAW_QUESTIONS.length) {
       $("qText").textContent = "문제 데이터가 로드되지 않았습니다.";
       $("choices").innerHTML = "";
       $("explain").className = "explain";
@@ -258,8 +282,8 @@
     }
 
     var q = session[idx];
-    $("qMeta").innerHTML = tag(q.subject) + tag(q.category) + tag(q.sourceType, "source-type");
-    $("qIdx").textContent = (idx + 1) + " / " + session.length + " · " + q.id;
+    $("qMeta").innerHTML = tag(q.setTitle, "set-tag") + tag(q.subject) + tag(q.category) + tag(q.sourceType, "source-type");
+    $("qIdx").textContent = (idx + 1) + " / " + session.length + " · " + q.originalId;
     $("qText").textContent = q.question;
     $("choices").innerHTML = "";
 
@@ -283,7 +307,7 @@
 
     $("explain").className = "explain";
     $("explain").innerHTML = "<b>정답: " + escapeHtml(marks[q.answer - 1] + " " + q.choices[q.answer - 1]) + "</b><br>" + escapeHtml(q.explanation) + "<br><small>출처: " + escapeHtml(q.source) + "</small>";
-    if (answers[q.id] !== undefined) paintChoices();
+    if (answers[q.originalId] !== undefined) paintChoices();
     updateStats();
     renderNums();
   }
@@ -291,14 +315,14 @@
   function selectAnswer(answer) {
     if (!session.length) return;
     var q = session[idx];
-    if (answers[q.id] !== undefined) return;
-    answers[q.id] = answer;
+    if (answers[q.originalId] !== undefined) return;
+    answers[q.originalId] = answer;
 
     var wrongIds = getWrongIds();
     if (answer !== q.answer) {
-      if (wrongIds.indexOf(q.id) < 0) wrongIds.push(q.id);
+      if (wrongIds.indexOf(q.originalId) < 0) wrongIds.push(q.originalId);
     } else {
-      wrongIds = wrongIds.filter(function (id) { return id !== q.id; });
+      wrongIds = wrongIds.filter(function (id) { return id !== q.originalId; });
     }
     setWrongIds(wrongIds);
     record(q, answer);
@@ -309,9 +333,9 @@
 
   function record(q, answer) {
     var payload = {
-      questionId: q.id,
+      questionId: q.setId + ":" + q.originalId,
       questionText: q.question,
-      category: q.sourceType + " / " + q.category,
+      category: q.setTitle + " / " + q.sourceType + " / " + q.category,
       selectedAnswer: marks[answer - 1] + " " + q.choices[answer - 1],
       correctAnswer: marks[q.answer - 1] + " " + q.choices[q.answer - 1],
       isCorrect: answer === q.answer,
@@ -343,7 +367,7 @@
   function paintChoices() {
     if (!session.length) return;
     var q = session[idx];
-    var chosen = answers[q.id];
+    var chosen = answers[q.originalId];
     document.querySelectorAll(".choice").forEach(function (el, i) {
       var answer = i + 1;
       el.classList.remove("correct", "wrong");
@@ -358,9 +382,9 @@
     var done = 0;
     var ok = 0;
     session.forEach(function (q) {
-      if (answers[q.id] !== undefined) {
+      if (answers[q.originalId] !== undefined) {
         done += 1;
-        if (answers[q.id] === q.answer) ok += 1;
+        if (answers[q.originalId] === q.answer) ok += 1;
       }
     });
     $("score").textContent = ok;
@@ -378,15 +402,12 @@
       button.type = "button";
       button.className = "num";
       if (i === idx) button.classList.add("current");
-      if (answers[q.id] !== undefined) {
+      if (answers[q.originalId] !== undefined) {
         button.classList.add("done");
-        button.classList.add(answers[q.id] === q.answer ? "ok" : "bad");
+        button.classList.add(answers[q.originalId] === q.answer ? "ok" : "bad");
       }
       button.textContent = i + 1;
-      button.onclick = function () {
-        idx = i;
-        render();
-      };
+      button.onclick = function () { idx = i; render(); };
       box.appendChild(button);
     });
   }
@@ -395,13 +416,53 @@
     clearInterval(tick);
     resultShown = true;
     var pct = Math.round(ok / done * 100);
-    var wrongs = session.filter(function (q) { return answers[q.id] !== q.answer; });
+    var wrongs = session.filter(function (q) { return answers[q.originalId] !== q.answer; });
     $("resultBox").className = "result show";
-    $("resultSummary").innerHTML = "<p><b>" + done + "문항 중 " + ok + "문항 정답 (" + pct + "%)</b></p>" +
+    $("resultSummary").innerHTML = "<p><b>" + escapeHtml(currentSet.title) + " · " + done + "문항 중 " + ok + "문항 정답 (" + pct + "%)</b></p>" +
       "<p>오답 " + wrongs.length + "문항은 오답노트에 저장됩니다. 같은 문제를 다시 맞히면 공통 오답노트에서는 제거됩니다.</p>";
     $("wrongTable").innerHTML = "<tr><th>번호</th><th>출처 유형</th><th>카테고리</th><th>정답</th></tr>" + wrongs.map(function (q) {
-      return "<tr><td>" + escapeHtml(q.id) + "</td><td>" + escapeHtml(q.sourceType) + "</td><td>" + escapeHtml(q.category) + "</td><td>" + escapeHtml(marks[q.answer - 1] + " " + q.choices[q.answer - 1]) + "</td></tr>";
+      return "<tr><td>" + escapeHtml(q.originalId) + "</td><td>" + escapeHtml(q.sourceType) + "</td><td>" + escapeHtml(q.category) + "</td><td>" + escapeHtml(marks[q.answer - 1] + " " + q.choices[q.answer - 1]) + "</td></tr>";
     }).join("");
+  }
+
+  function updateSetInfo() {
+    if (!currentSet) return;
+    var pool = preparedSetPool();
+    var counts = { 1: 0, 2: 0, 3: 0, 4: 0 };
+    pool.forEach(function (q) { counts[q.answer] += 1; });
+    $("setInfo").textContent = currentSet.title + " · " + pool.length + "문항 · 정답 번호 분포 " + counts[1] + "/" + counts[2] + "/" + counts[3] + "/" + counts[4] + " · " + (currentSet.timeGuide || "권장 60분");
+  }
+
+  function renderSetCards() {
+    var box = $("setCards");
+    var select = $("setSelect");
+    box.innerHTML = "";
+    select.innerHTML = "";
+    SETS.forEach(function (set) {
+      var option = document.createElement("option");
+      option.value = set.id;
+      option.textContent = set.title + " (" + (set.questionIds || []).length + "문항)";
+      select.appendChild(option);
+
+      var card = document.createElement("button");
+      card.type = "button";
+      card.className = "set-card";
+      card.dataset.setId = set.id;
+      card.innerHTML = "<h3>" + escapeHtml(set.title) + "</h3><p>" + escapeHtml(set.description || "") + "</p><strong>" + escapeHtml((set.questionIds || []).length + "문항 · " + (set.timeGuide || "권장 60분")) + "</strong>";
+      card.onclick = function () { chooseSet(set.id, true); };
+      box.appendChild(card);
+    });
+  }
+
+  function chooseSet(setId, resetFilters) {
+    currentSet = SETS.filter(function (set) { return set.id === setId; })[0] || SETS[0];
+    $("setSelect").value = currentSet.id;
+    localStorage.setItem(SELECTED_SET_KEY, currentSet.id);
+    document.querySelectorAll(".set-card").forEach(function (card) {
+      card.classList.toggle("active", card.dataset.setId === currentSet.id);
+    });
+    fillFilters(resetFilters);
+    buildSession();
   }
 
   $("startBtn").onclick = buildSession;
@@ -409,6 +470,7 @@
   $("category").onchange = buildSession;
   $("sourceType").onchange = buildSession;
   $("mode").onchange = buildSession;
+  $("setSelect").onchange = function () { chooseSet($("setSelect").value, true); };
   $("resetBtn").onclick = function () {
     if (confirm("운영체제 기말고사 CBT의 현재 오답 목록을 초기화할까요? 공통 학습기록은 유지됩니다.")) {
       localStorage.removeItem(WRONG_KEY);
@@ -416,27 +478,12 @@
       buildSession();
     }
   };
-  $("prevBtn").onclick = function () {
-    if (idx > 0) {
-      idx -= 1;
-      render();
-    }
-  };
-  $("nextBtn").onclick = function () {
-    if (idx < session.length - 1) {
-      idx += 1;
-      render();
-    } else {
-      updateStats();
-    }
-  };
-  $("showBtn").onclick = function () {
-    if (!session.length) return;
-    $("explain").classList.toggle("show");
-  };
+  $("prevBtn").onclick = function () { if (idx > 0) { idx -= 1; render(); } };
+  $("nextBtn").onclick = function () { if (idx < session.length - 1) { idx += 1; render(); } else { updateStats(); } };
+  $("showBtn").onclick = function () { if (session.length) $("explain").classList.toggle("show"); };
 
-  fillFilters();
-  buildSession();
+  renderSetCards();
+  chooseSet(localStorage.getItem(SELECTED_SET_KEY) || (SETS[0] && SETS[0].id), true);
 })();
 </script>
 </body>

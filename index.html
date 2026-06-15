@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>리눅스마스터 2급 CBT 문제집</title>
+  <title>리눅스마스터·운영체제 CBT 문제집</title>
   <link rel="stylesheet" href="./assets/style.css">
   <script src="./assets/auth.js"></script>
   <script src="./assets/storage.js"></script>
@@ -11,12 +11,13 @@
 <body>
   <header class="site-header">
     <div class="wrap">
-      <h1 class="site-title">리눅스마스터 2급 CBT 문제집</h1>
-      <p class="site-desc">리눅스마스터 2급 1차 필기 대비용 정적 CBT 학습 사이트입니다.</p>
+      <h1 class="site-title">리눅스마스터·운영체제 CBT 문제집</h1>
+      <p class="site-desc">운영체제 기말고사 대비 CBT와 리눅스마스터 2급 CBT를 순수 HTML/CSS/JavaScript로 학습할 수 있는 정적 사이트입니다.</p>
       <nav class="navline main-navline" aria-label="주요 메뉴">
         <div class="main-navlinks">
           <a class="button secondary" href="./cbt/final_exam_mock.html">기말 CBT</a>
           <a class="button secondary" href="./notes/final-exam/index.html">기말 대비</a>
+          <a class="button secondary" href="./cbt/linuxmaster2_second_exam.html">2급 2차 CBT</a>
           <a class="button secondary" href="./cbt/linuxmaster2_first_exam.html">1차 필기 CBT</a>
           <a class="button secondary" href="./review/wrong-notes.html">오답노트</a>
           <a class="button secondary" href="./stats/study-record.html">학습기록</a>
@@ -28,51 +29,59 @@
   </header>
 
   <main class="main wrap">
-    <h2 class="section-title">CBT 문제풀이</h2>
+    <h2 class="section-title">운영체제 기말고사 대비</h2>
     <div class="card-grid">
+      <a class="card" href="./notes/final-exam/index.html">
+        <div>
+          <span class="badge">Final Notes</span>
+          <h3>운영체제 기말고사 강의노트</h3>
+          <p>노션 정리와 교수님 수업 PDF를 기반으로 파일시스템, 권한, 프로세스, 패키지, 네트워크, systemd를 초보자용 강의노트로 정리합니다.</p>
+        </div>
+        <strong>노트 보기</strong>
+      </a>
       <a class="card" href="./cbt/final_exam_mock.html">
         <div>
-          <span class="badge">기말 CBT</span>
-          <h3>운영체제 기말고사 CBT</h3>
-          <p>리눅스마스터 2급 2차 기출·복원 문제 유형을 반영한 기말고사 대비 CBT입니다.</p>
+          <span class="badge">Final CBT</span>
+          <h3>운영체제 기말고사 CBT 1·2·3회</h3>
+          <p>한 번에 120문항을 풀지 않고 56문항씩 1·2·3회로 나누어 풉니다. 정답 번호도 고르게 배치했습니다.</p>
         </div>
-        <strong>문제 풀기</strong>
+        <strong>CBT 풀기</strong>
+      </a>
+      <a class="card" href="./notes/final-exam/linuxmaster-related.html">
+        <div>
+          <span class="badge">LM2 연계</span>
+          <h3>리눅스마스터 2급 2차 연계 포인트</h3>
+          <p>기말고사 범위와 겹치는 리눅스마스터 2급 2차 기출·복원 유형의 단골 함정을 정리합니다.</p>
+        </div>
+        <strong>연계 보기</strong>
+      </a>
+    </div>
+
+    <h2 class="section-title">리눅스마스터 CBT</h2>
+    <div class="card-grid">
+      <a class="card" href="./cbt/linuxmaster2_second_exam.html">
+        <div>
+          <span class="badge">2급 2차</span>
+          <h3>리눅스마스터 2급 2차 CBT</h3>
+          <p>공식 2차 필기 구조와 공개 CBT 유형을 바탕으로 운영·관리, X 윈도, 인터넷 활용, 응용 분야를 60문항씩 1·2·3회로 풉니다.</p>
+        </div>
+        <strong>2차 CBT 풀기</strong>
       </a>
       <a class="card" href="./cbt/linuxmaster2_first_exam.html">
         <div>
           <span class="badge">1차 필기</span>
           <h3>리눅스마스터 2급 1차 필기 CBT</h3>
-          <p>실제 1차 기출/복원 문제를 바탕으로 만든 기본 필기 대비 문제집입니다.</p>
+          <p>기존 1차 필기 대비 CBT입니다. 리눅스 일반과 운영 및 관리 기본 개념을 점검합니다.</p>
         </div>
-        <strong>문제 풀기</strong>
+        <strong>1차 CBT 풀기</strong>
       </a>
       <a class="card" href="./cbt/linuxmaster2_cbt_01.html">
         <div>
           <span class="badge">기본 CBT</span>
-          <h3>리눅스마스터 2급 CBT 1</h3>
+          <h3>리눅스마스터 2급 기본 CBT</h3>
           <p>명령어, 권한, 프로세스, 셸, vi, 네트워크 등 핵심 영역을 반복 학습합니다.</p>
         </div>
-        <strong>문제 풀기</strong>
-      </a>
-    </div>
-
-    <h2 class="section-title">운영체제 기말고사 대비</h2>
-    <div class="card-grid">
-      <a class="card" href="./notes/final-exam/index.html">
-        <div>
-          <span class="badge">Final</span>
-          <h3>운영체제 기말고사 대비</h3>
-          <p>노션 정리와 교수님 수업 PDF를 기반으로 기말고사 핵심 내용을 정리합니다.</p>
-        </div>
-        <strong>노트 보기</strong>
-      </a>
-      <a class="card" href="./notes/final-exam/linuxmaster-related.html">
-        <div>
-          <span class="badge">LM2 연계</span>
-          <h3>리눅스마스터 2급 2차 연계 문제</h3>
-          <p>기말고사 범위와 겹치는 리눅스마스터 2급 2차 기출 포인트를 정리합니다.</p>
-        </div>
-        <strong>연계 보기</strong>
+        <strong>기본 CBT 풀기</strong>
       </a>
     </div>
 
@@ -90,7 +99,7 @@
         <div>
           <span class="badge">Stats</span>
           <h3>학습기록</h3>
-          <p>총 풀이 수, 정답률, 과목별 풀이 현황과 최근 풀이 로그를 확인합니다.</p>
+          <p>풀이 기록, 정답률, 최근 학습 로그를 확인합니다.</p>
         </div>
         <strong>기록 보기</strong>
       </a>
@@ -101,18 +110,6 @@
           <p>시험 직전에 확인할 개념과 명령어 포인트를 정리합니다.</p>
         </div>
         <strong>개념 보기</strong>
-      </a>
-    </div>
-
-    <h2 class="section-title">1차 필기 공식 과목 개념노트</h2>
-    <div class="card-grid">
-      <a class="card" href="./notes/first-exam/index.html">
-        <div>
-          <span class="badge">1차 필기</span>
-          <h3>리눅스마스터 2급 1차 필기 노트</h3>
-          <p>제1과목 리눅스 일반과 제2과목 리눅스 운영 및 관리를 공식 과목 기준으로 정리한 노트입니다.</p>
-        </div>
-        <strong>노트 보기</strong>
       </a>
     </div>
   </main>
