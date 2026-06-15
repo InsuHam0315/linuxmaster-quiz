@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>파일시스템·디스크·마운트 - 운영체제 기말고사</title>
+  <title>1. 파일시스템·디스크·마운트 - 운영체제 기말고사</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,78 +14,178 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../../index.html">메인으로 돌아가기</a>
       </nav>
-      <h1 class="site-title">파일시스템·디스크·마운트</h1>
-      <p class="site-desc">파일시스템 구조, inode, 링크, 디스크 파티션, LVM, mkfs, mount를 기말 실습 기준으로 정리합니다.</p>
+      <h1 class="site-title">1. 파일시스템·디스크·마운트</h1>
+      <p class="site-desc">디스크를 파티션으로 나누고, 파일시스템을 만들고, 디렉터리에 연결하는 전체 흐름을 초보자도 따라갈 수 있게 정리합니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <span class="badge">파일시스템</span>
+      <span class="badge">학습 순서 1</span>
       <h2>1. 단원 개요</h2>
-      <p>운영체제가 파일을 디스크에 저장하고 찾는 방식, 새 디스크를 추가해 파티션과 파일시스템을 만들고 마운트하는 흐름을 다룹니다.</p>
+      <p>파일시스템은 운영체제가 파일을 저장하고 찾기 위해 사용하는 규칙입니다. 사용자는 파일 이름과 폴더만 보지만, 리눅스 내부에서는 inode, 데이터 블록, 디렉터리 항목, 마운트 지점 같은 구조가 함께 움직입니다.</p>
+      <p>디스크를 새로 추가하면 바로 파일을 저장할 수 없습니다. 일반적으로 <strong>디스크 확인 → 파티션 생성 → 파일시스템 생성 → 마운트 지점 생성 → 마운트 → 자동 마운트 설정</strong> 순서로 준비합니다. 수업 자료의 fdisk, mkfs.ext4, mount, LVM 실습이 바로 이 흐름입니다.</p>
       <div class="btn-row">
         <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
-        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+        <a class="secondary-btn" href="./users-groups.html">다음: 2. 사용자 및 그룹</a>
       </div>
     </section>
 
-    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말고사에서는 lsblk, fdisk, mkfs.ext4, mount, umount, /etc/fstab, LVM 순서를 명령어 기반으로 묻기 쉽습니다.</p></section>
-    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
-          <li>inode와 하드 링크/심볼릭 링크 구분</li>
-          <li>df와 du의 차이</li>
-          <li>mount/umount 명령과 /etc/fstab</li>
-          <li>LVM의 PV → VG → LV 순서</li>
-          <li>tar 백업과 파일시스템 점검 함정</li>
-        </ul></section>
-    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
-          <li>파일시스템은 파일 이름, 메타데이터, 데이터 블록을 체계적으로 관리하는 구조입니다.</li>
-          <li>inode는 권한, 소유자, 크기, 시간, 데이터 블록 위치 같은 메타데이터를 담습니다.</li>
-          <li>디렉터리는 파일 이름과 inode 번호를 연결하는 표 역할을 합니다.</li>
-          <li>마운트는 별도 파일시스템을 기존 디렉터리 트리에 연결하는 작업입니다.</li>
-          <li>LVM은 물리 디스크/파티션을 논리적으로 묶어 유연한 볼륨 관리를 가능하게 합니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
-              <tr><td><code>lsblk</code></td><td>블록 장치와 파티션 구조 확인</td></tr>
-              <tr><td><code>fdisk /dev/sdb</code></td><td>디스크 파티션 편집</td></tr>
-              <tr><td><code>mkfs.ext4 /dev/sdb1</code></td><td>ext4 파일시스템 생성</td></tr>
-              <tr><td><code>mount /dev/sdb1 /mnt/data</code></td><td>파일시스템 마운트</td></tr>
-              <tr><td><code>umount /mnt/data</code></td><td>마운트 해제</td></tr>
-              <tr><td><code>df -h</code></td><td>마운트된 파일시스템 사용량</td></tr>
-              <tr><td><code>du -sh DIR</code></td><td>디렉터리 실제 사용량 요약</td></tr>
-              <tr><td><code>pvcreate, vgcreate, lvcreate</code></td><td>LVM 구성</td></tr>
-            </tbody></table></div></section>
-    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
-              <tr><td>하드 링크</td><td>같은 inode 공유, 같은 파일시스템 내 생성</td><td>원본 삭제 후에도 링크 수가 남으면 데이터 유지</td></tr>
-              <tr><td>심볼릭 링크</td><td>경로 문자열을 가리키는 별도 파일</td><td>원본 경로가 사라지면 깨질 수 있음</td></tr>
-              <tr><td>df</td><td>파일시스템 전체 사용량</td><td>디스크 여유 공간 확인</td></tr>
-              <tr><td>du</td><td>파일/디렉터리별 사용량</td><td>특정 폴더 용량 확인</td></tr>
-            </tbody></table></div></section>
-    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
-          <li>unmount가 아니라 umount입니다.</li>
-          <li>mkfs는 기존 데이터를 지울 수 있으므로 대상 장치를 정확히 봐야 합니다.</li>
-          <li>df와 du는 목적이 다릅니다.</li>
-          <li>LVM 순서는 PV, VG, LV입니다.</li>
-          <li>/etc/fstab 오류는 부팅 문제로 이어질 수 있습니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
-          <li>다음 중 마운트 명령으로 알맞은 것은?</li>
-          <li>LVM 구성 시 가장 먼저 생성하는 것은?</li>
-          <li>하드 링크와 심볼릭 링크 설명으로 틀린 것은?</li>
-          <li>디렉터리 사용량을 확인하는 명령은?</li>
-        </ul></section>
-    <section class="concept-section"><h2>9. 예상문제</h2>
-        <div class="quiz-block"><h3>1. LVM 구성 순서로 알맞은 것은?</h3><ol><li>① LV → VG → PV</li><li>② PV → VG → LV</li><li>③ VG → LV → PV</li><li>④ mkfs → fdisk → PV</li></ol><div class="answer-box">정답: 2. PV를 만들고 VG로 묶은 뒤 LV를 생성합니다.</div></div>
-        <div class="quiz-block"><h3>2. /dev/sdb1을 /mnt/data에 연결하는 명령은?</h3><ol><li>① mkfs.ext4 /mnt/data</li><li>② mount /dev/sdb1 /mnt/data</li><li>③ umount /dev/sdb1 /mnt/data</li><li>④ fdisk /mnt/data</li></ol><div class="answer-box">정답: 2. mount 장치 마운트지점 형식입니다.</div></div>
+    <section class="concept-section">
+      <h2>2. 기말고사에서 중요한 이유</h2>
+      <ul class="summary-list">
+        <li>실습형 시험에서 새 디스크를 붙였을 때 어떤 명령을 어떤 순서로 실행하는지 자주 묻습니다.</li>
+        <li><code>df</code>와 <code>du</code>, 하드 링크와 심볼릭 링크처럼 비슷해 보이는 개념을 구분해야 합니다.</li>
+        <li><code>/etc/fstab</code> 설정 오류는 부팅 문제로 이어질 수 있어 자동 마운트 문제의 핵심입니다.</li>
+        <li>LVM은 PV, VG, LV의 순서를 외우는 것에서 끝나지 않고 “물리 디스크를 논리 볼륨으로 유연하게 관리한다”는 목적까지 이해해야 합니다.</li>
+      </ul>
     </section>
-    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>inode = 파일 메타데이터
-디렉터리 = 이름과 inode 연결
-마운트 = 파일시스템을 디렉터리에 연결
-LVM = PV → VG → LV
-df -h = 전체 사용량, du -sh = 디렉터리 사용량</code></pre></section>
-    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
 
-    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+    <section class="concept-section">
+      <h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2>
+      <ul class="summary-list">
+        <li>inode가 저장하는 정보: 권한, 소유자, 크기, 시간, 데이터 블록 위치. 파일명은 디렉터리 항목에 가깝습니다.</li>
+        <li>하드 링크는 같은 inode를 공유하고, 심볼릭 링크는 원본 경로를 가리키는 별도 파일입니다.</li>
+        <li><code>df -h</code>는 파일시스템 전체 사용량, <code>du -sh</code>는 특정 디렉터리의 실제 사용량 확인에 적합합니다.</li>
+        <li><code>mount</code>와 <code>umount</code> 철자, 장치명과 마운트 지점의 순서가 자주 헷갈리는 선지로 나옵니다.</li>
+        <li>LVM 구성 순서는 <code>pvcreate</code> → <code>vgcreate</code> → <code>lvcreate</code>입니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>4. 핵심 개념 설명</h2>
+      <h3>파일은 이름만으로 존재하지 않는다</h3>
+      <p>리눅스에서 파일 이름은 디렉터리 안에 저장된 “이름표”에 가깝습니다. 실제 파일의 핵심 정보는 inode에 있습니다. inode는 파일의 권한, 소유자, 크기, 시간 정보, 데이터 블록 위치를 담고, 디렉터리는 파일 이름과 inode 번호를 연결합니다. 그래서 하드 링크를 만들면 이름은 두 개지만 같은 inode를 가리킬 수 있습니다.</p>
+      <h3>마운트는 장치를 디렉터리 트리에 붙이는 작업</h3>
+      <p>윈도우에서는 C:, D:처럼 드라이브 문자를 따로 보지만, 리눅스는 하나의 디렉터리 트리 아래에 모든 파일시스템을 붙입니다. 예를 들어 <code>/dev/sdb1</code>을 <code>/mnt/data</code>에 마운트하면, 사용자는 <code>/mnt/data</code> 디렉터리로 들어가 새 디스크의 내용을 사용합니다.</p>
+      <h3>파일시스템 생성은 포맷과 비슷하다</h3>
+      <p><code>mkfs.ext4 /dev/sdb1</code>은 해당 파티션에 ext4 파일시스템 구조를 만드는 명령입니다. 기존 데이터가 사라질 수 있으므로 시험에서는 “데이터 보존”이 아니라 “파일시스템 생성”이라는 표현을 정확히 봐야 합니다.</p>
+      <h3>LVM은 디스크 공간을 유연하게 관리하는 계층</h3>
+      <p>LVM은 물리 디스크나 파티션을 PV로 만들고, 여러 PV를 VG로 묶은 뒤, 그 안에서 LV를 잘라 파일시스템으로 사용하는 방식입니다. 디스크를 나중에 추가하거나 볼륨 크기를 조정하기 쉬운 것이 장점입니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>5. 주요 명령어</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>명령어</th><th>기능</th><th>초보자 기억법</th></tr></thead>
+          <tbody>
+            <tr><td><code>lsblk</code></td><td>블록 장치와 파티션 구조 확인</td><td>디스크가 보이는지 먼저 확인</td></tr>
+            <tr><td><code>fdisk -l</code></td><td>디스크/파티션 목록 확인</td><td>파티션 표 확인</td></tr>
+            <tr><td><code>fdisk /dev/sdb</code></td><td>대화형 파티션 편집</td><td>디스크 단위로 실행, 파티션 번호 아님</td></tr>
+            <tr><td><code>mkfs.ext4 /dev/sdb1</code></td><td>ext4 파일시스템 생성</td><td>포맷에 해당, 데이터 주의</td></tr>
+            <tr><td><code>mkdir /mnt/data</code></td><td>마운트 지점 생성</td><td>장치를 붙일 빈 디렉터리 준비</td></tr>
+            <tr><td><code>mount /dev/sdb1 /mnt/data</code></td><td>장치를 디렉터리에 연결</td><td>장치 먼저, 디렉터리 나중</td></tr>
+            <tr><td><code>umount /mnt/data</code></td><td>마운트 해제</td><td>철자는 unmount가 아니라 umount</td></tr>
+            <tr><td><code>df -h</code></td><td>마운트된 파일시스템 사용량</td><td>전체 공간 확인</td></tr>
+            <tr><td><code>du -sh DIR</code></td><td>디렉터리 실제 사용량 요약</td><td>특정 폴더 용량 확인</td></tr>
+            <tr><td><code>findmnt</code></td><td>현재 마운트 정보 확인</td><td>무엇이 어디에 붙었는지 확인</td></tr>
+            <tr><td><code>blkid</code></td><td>UUID와 파일시스템 타입 확인</td><td>fstab에 UUID로 적을 때 사용</td></tr>
+            <tr><td><code>fsck</code></td><td>파일시스템 검사/복구</td><td>마운트 해제 후 수행하는 것이 원칙</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code-example"><code># 새 디스크를 ext4로 준비하는 전형적 흐름
+lsblk
+sudo fdisk /dev/sdb
+sudo mkfs.ext4 /dev/sdb1
+sudo mkdir -p /mnt/data
+sudo mount /dev/sdb1 /mnt/data
+df -h</code></pre>
+    </section>
+
+    <section class="concept-section">
+      <h2>6. 헷갈리는 비교표</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>구분</th><th>핵심 의미</th><th>시험에서 보는 포인트</th></tr></thead>
+          <tbody>
+            <tr><td>하드 링크</td><td>같은 inode를 공유하는 또 다른 이름</td><td>원본을 삭제해도 링크 수가 남아 있으면 데이터 접근 가능</td></tr>
+            <tr><td>심볼릭 링크</td><td>원본 경로 문자열을 가리키는 별도 파일</td><td>원본 경로가 사라지면 깨진 링크가 될 수 있음</td></tr>
+            <tr><td><code>df</code></td><td>파일시스템 단위 사용량</td><td>디스크 전체 여유 공간 확인</td></tr>
+            <tr><td><code>du</code></td><td>파일/디렉터리 단위 사용량</td><td>특정 폴더가 얼마나 차지하는지 확인</td></tr>
+            <tr><td>파티션</td><td>디스크를 나눈 물리/논리 구역</td><td><code>/dev/sdb1</code>처럼 번호가 붙음</td></tr>
+            <tr><td>파일시스템</td><td>파일 저장 규칙</td><td>ext4, xfs, vfat 등 타입이 있음</td></tr>
+            <tr><td>마운트</td><td>파일시스템을 디렉터리에 연결</td><td><code>mount 장치 마운트지점</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>LVM 단계</th><th>의미</th><th>예시 명령</th></tr></thead>
+          <tbody>
+            <tr><td>PV</td><td>Physical Volume, LVM에 사용할 물리 공간</td><td><code>pvcreate /dev/sdb1</code></td></tr>
+            <tr><td>VG</td><td>Volume Group, PV를 묶은 저장 공간 풀</td><td><code>vgcreate vgdata /dev/sdb1</code></td></tr>
+            <tr><td>LV</td><td>Logical Volume, 실제 파일시스템을 만들 논리 볼륨</td><td><code>lvcreate -L 10G -n lvdata vgdata</code></td></tr>
+            <tr><td>파일시스템</td><td>LV 위에 ext4/xfs 등 생성</td><td><code>mkfs.ext4 /dev/vgdata/lvdata</code></td></tr>
+            <tr><td>마운트</td><td>디렉터리에 연결</td><td><code>mount /dev/vgdata/lvdata /data</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>7. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li><code>umount</code>가 정답인데 <code>unmount</code>를 보기로 섞는 문제가 많습니다.</li>
+        <li><code>mount /dev/sdb1 /mnt/data</code>에서 장치와 디렉터리의 순서를 바꾼 선지를 조심합니다.</li>
+        <li><code>mkfs</code>는 데이터를 보존하는 명령이 아니라 파일시스템을 새로 만드는 명령입니다.</li>
+        <li><code>/etc/fstab</code>은 현재 한 번만 마운트하는 명령이 아니라 부팅 시 자동 마운트 설정 파일입니다.</li>
+        <li>하드 링크는 디렉터리에 일반적으로 만들 수 없고, 다른 파일시스템을 넘기 어렵습니다. 심볼릭 링크는 파일시스템 경계를 넘을 수 있습니다.</li>
+        <li>LVM 순서는 PV → VG → LV입니다. “LV를 먼저 만든다”는 선지는 틀립니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>8. 자주 나오는 선지 표현</h2>
+      <ul class="summary-list">
+        <li>“디렉터리별 실제 사용량을 확인한다” → <code>du -sh</code></li>
+        <li>“마운트된 파일시스템의 여유 공간을 확인한다” → <code>df -h</code></li>
+        <li>“부팅 시 자동 마운트 정보를 저장한다” → <code>/etc/fstab</code></li>
+        <li>“같은 inode를 공유한다” → 하드 링크</li>
+        <li>“원본 경로를 가리키는 별도 파일이다” → 심볼릭 링크</li>
+        <li>“LVM에서 물리 볼륨을 먼저 생성한다” → <code>pvcreate</code></li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>9. 예상문제</h2>
+      <div class="quiz-block">
+        <h3>1. 새 파티션 <code>/dev/sdb1</code>에 ext4 파일시스템을 만든 뒤 <code>/data</code>에 연결하는 순서로 가장 적절한 것은?</h3>
+        <ol><li><code>mount</code> → <code>mkfs.ext4</code> → <code>mkdir</code></li><li><code>mkfs.ext4</code> → <code>mkdir</code> → <code>mount</code></li><li><code>mkdir</code> → <code>umount</code> → <code>fsck</code></li><li><code>df</code> → <code>du</code> → <code>blkid</code></li></ol>
+        <div class="answer-box">정답: 2. 파일시스템을 만들고, 마운트 지점을 만든 뒤, 장치를 디렉터리에 마운트합니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>2. 하드 링크에 대한 설명으로 옳은 것은?</h3>
+        <ol><li>원본 경로 문자열만 저장한다.</li><li>항상 다른 파일시스템에 만들 수 있다.</li><li>같은 inode를 공유하고 링크 수가 증가한다.</li><li>원본이 삭제되면 무조건 모든 데이터가 사라진다.</li></ol>
+        <div class="answer-box">정답: 3. 하드 링크는 같은 inode를 가리키는 다른 이름입니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>3. LVM 구성 순서로 알맞은 것은?</h3>
+        <ol><li>LV → VG → PV</li><li>VG → PV → LV</li><li>PV → VG → LV</li><li>mkfs → LV → PV</li></ol>
+        <div class="answer-box">정답: 3. 물리 볼륨(PV)을 만들고, 볼륨 그룹(VG)으로 묶고, 논리 볼륨(LV)을 생성합니다.</div>
+      </div>
+    </section>
+
+    <section class="memory-box">
+      <h2>10. 최종 암기 요약</h2>
+      <ul>
+        <li>디스크 준비 흐름: 확인 → 파티션 → 파일시스템 → 마운트 지점 → 마운트 → fstab.</li>
+        <li><code>df</code>는 전체 파일시스템, <code>du</code>는 특정 파일/디렉터리 사용량.</li>
+        <li>하드 링크는 같은 inode, 심볼릭 링크는 경로를 가리키는 별도 파일.</li>
+        <li>LVM은 PV → VG → LV, 그 뒤 mkfs와 mount.</li>
+        <li><code>/etc/fstab</code>은 자동 마운트 설정 파일이다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>11. 관련 CBT 링크</h2>
+      <p>CBT에서 카테고리 필터를 <strong>파일시스템</strong> 또는 <strong>디스크·마운트</strong>로 설정해 풀면 이 단원의 명령어 순서와 함정을 바로 확인할 수 있습니다.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">CBT에서 확인하기</a>
+        <a class="secondary-btn" href="./users-groups.html">다음 단원 보기</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>

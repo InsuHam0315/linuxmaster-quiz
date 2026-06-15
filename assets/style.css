@@ -702,6 +702,17 @@ code {
   font-size: 22px;
 }
 
+.concept-section h3 {
+  margin: 18px 0 8px;
+  color: var(--primary-dark);
+  font-size: 18px;
+}
+
+.concept-section p {
+  margin: 10px 0;
+  color: var(--muted);
+}
+
 .concept-table {
   overflow-x: auto;
   margin: 12px 0;

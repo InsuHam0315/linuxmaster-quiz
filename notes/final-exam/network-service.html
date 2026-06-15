@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>네트워크 기초와 서비스 - 운영체제 기말고사</title>
+  <title>7. 네트워크 기초·서비스 - 운영체제 기말고사</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,79 +14,179 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../../index.html">메인으로 돌아가기</a>
       </nav>
-      <h1 class="site-title">네트워크 기초와 서비스</h1>
-      <p class="site-desc">TCP/IP, IP/MAC, 라우팅, DNS, ping, traceroute, SSH, Telnet, FTP, HTTP 서비스를 정리합니다.</p>
+      <h1 class="site-title">7. 네트워크 기초·서비스</h1>
+      <p class="site-desc">IP, MAC, TCP/UDP, 포트, DNS, 라우팅, ping/traceroute/ss, SSH/Telnet/FTP/HTTP/DB 서비스를 기말 범위 중심으로 정리합니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <span class="badge">네트워크</span>
+      <span class="badge">학습 순서 7</span>
       <h2>1. 단원 개요</h2>
-      <p>네트워크는 프로토콜 규칙에 따라 시스템이 데이터를 주고받는 구조입니다. 주소, 라우팅, 이름 해석, 서비스 포트를 함께 봐야 합니다.</p>
+      <p>네트워크는 컴퓨터끼리 데이터를 주고받기 위한 규칙과 장치의 모음입니다. 운영체제 관점에서는 “내 컴퓨터의 주소가 무엇인지”, “어느 서비스가 어느 포트에서 기다리는지”, “문제가 생겼을 때 어디까지 통신되는지”를 확인할 수 있어야 합니다.</p>
+      <p>수업 자료의 네트워크 장에서는 MAC 주소, IP 주소, 라우팅, DNS, ping, traceroute, netstat, ifconfig 같은 기본 도구가 다뤄졌고, 노션 자료에서는 SSH, Telnet, FTP, MariaDB 같은 서비스 실습이 연결됩니다.</p>
       <div class="btn-row">
         <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
-        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+        <a class="secondary-btn" href="./boot-systemd.html">다음: 8. 부팅·systemd</a>
       </div>
     </section>
 
-    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말에서는 ip addr, ip route, ping, traceroute, DNS, SSH/Telnet 차이, FTP 포트가 실습형으로 나오기 쉽습니다.</p></section>
-    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
-          <li>ifconfig/ip addr</li>
-          <li>route/ip route</li>
-          <li>ping/traceroute</li>
-          <li>netstat/ss</li>
-          <li>DNS와 주요 포트</li>
-          <li>SSH와 Telnet 보안 차이</li>
-        </ul></section>
-    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
-          <li>MAC 주소는 네트워크 인터페이스의 물리 주소 성격이 강합니다.</li>
-          <li>IP 주소는 네트워크 계층의 논리 주소입니다.</li>
-          <li>라우팅은 목적지 네트워크로 패킷을 보낼 다음 경로를 결정합니다.</li>
-          <li>DNS는 도메인 이름과 IP 주소를 변환합니다.</li>
-          <li>SSH는 암호화된 원격 접속이고 Telnet은 평문 기반입니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
-              <tr><td><code>ip addr</code></td><td>IP 주소 확인</td></tr>
-              <tr><td><code>ip route</code></td><td>라우팅 테이블 확인</td></tr>
-              <tr><td><code>ping host</code></td><td>연결 가능성 확인</td></tr>
-              <tr><td><code>traceroute host</code></td><td>경로 추적</td></tr>
-              <tr><td><code>ss -tuln</code></td><td>리스닝 포트 확인</td></tr>
-              <tr><td><code>dig domain</code></td><td>DNS 질의</td></tr>
-              <tr><td><code>systemctl status ssh</code></td><td>SSH 서비스 상태 확인</td></tr>
-            </tbody></table></div></section>
-    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
-              <tr><td>SSH</td><td>22/TCP</td><td>암호화 원격 접속</td></tr>
-              <tr><td>Telnet</td><td>23/TCP</td><td>평문 원격 접속</td></tr>
-              <tr><td>FTP</td><td>21/TCP</td><td>파일 전송 제어 연결</td></tr>
-              <tr><td>HTTP</td><td>80/TCP</td><td>웹</td></tr>
-              <tr><td>HTTPS</td><td>443/TCP</td><td>암호화 웹</td></tr>
-              <tr><td>DNS</td><td>53/UDP,TCP</td><td>이름 해석</td></tr>
-            </tbody></table></div></section>
-    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
-          <li>FTP 제어 포트는 21입니다.</li>
-          <li>SSH는 22, Telnet은 23입니다.</li>
-          <li>ping은 경로 전체가 아니라 응답 가능성 확인에 가깝습니다.</li>
-          <li>traceroute는 경로 추적입니다.</li>
-          <li>ss는 netstat 대체로 자주 쓰입니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
-          <li>암호화된 원격 접속 프로토콜은?</li>
-          <li>도메인 이름 해석 서비스는?</li>
-          <li>목적지까지 경로 추적 명령은?</li>
-        </ul></section>
-    <section class="concept-section"><h2>9. 예상문제</h2>
-        <div class="quiz-block"><h3>1. SSH 기본 포트는?</h3><ol><li>① 21</li><li>② 22</li><li>③ 23</li><li>④ 80</li></ol><div class="answer-box">정답: 2. SSH는 기본적으로 TCP 22번 포트를 사용합니다.</div></div>
-        <div class="quiz-block"><h3>2. 목적지까지 라우터 경로를 보는 명령은?</h3><ol><li>① ping</li><li>② traceroute</li><li>③ passwd</li><li>④ chmod</li></ol><div class="answer-box">정답: 2. traceroute는 홉 경로를 추적합니다.</div></div>
+    <section class="concept-section">
+      <h2>2. 기말고사에서 중요한 이유</h2>
+      <ul class="summary-list">
+        <li>서버 접속과 서비스 운영은 대부분 네트워크 포트와 방화벽, 서비스 상태 확인으로 연결됩니다.</li>
+        <li>SSH, Telnet, FTP처럼 비슷해 보이는 원격 접속/전송 서비스의 보안 차이를 구분해야 합니다.</li>
+        <li>네트워크 문제 해결은 단계적으로 해야 합니다. IP 설정, 게이트웨이, DNS, 서비스 포트, 방화벽 순서로 확인합니다.</li>
+        <li>리눅스마스터 유형에서는 주요 포트 번호와 진단 명령의 목적을 묻는 문제가 많습니다.</li>
+      </ul>
     </section>
-    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>ip addr = 주소
-ip route = 라우팅
-ping = 연결 확인
-traceroute = 경로
-SSH 22, Telnet 23, FTP 21, HTTP 80, HTTPS 443, DNS 53</code></pre></section>
-    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
 
-    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+    <section class="concept-section">
+      <h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2>
+      <ul class="summary-list">
+        <li>SSH는 22번 포트를 사용하며 암호화된 원격 접속입니다. Telnet은 23번이며 평문 전송이라 보안상 취약합니다.</li>
+        <li>FTP는 제어 연결 21번, 데이터 연결 20번 개념이 자주 언급됩니다.</li>
+        <li>HTTP는 80, HTTPS는 443, DNS는 53, SMTP는 25, POP3는 110, IMAP은 143을 기본 포트로 기억합니다.</li>
+        <li><code>ping</code>은 ICMP를 이용해 도달 가능성을 확인하고, <code>traceroute</code>는 목적지까지 경로를 확인합니다.</li>
+        <li><code>ss -tuln</code> 또는 <code>netstat -tuln</code>은 열린 포트/리스닝 소켓 확인에 사용됩니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>4. 핵심 개념 설명</h2>
+      <h3>MAC 주소와 IP 주소</h3>
+      <p>MAC 주소는 네트워크 카드에 가까운 하드웨어 주소이고, 같은 네트워크 안에서 프레임을 전달할 때 사용됩니다. IP 주소는 네트워크 계층 주소로, 서로 다른 네트워크 사이에서 목적지를 찾는 데 사용됩니다. 쉽게 말해 MAC은 “근처에서 찾는 이름표”, IP는 “네트워크 전체에서 찾는 주소”에 가깝습니다.</p>
+      <h3>포트는 서비스의 문 번호</h3>
+      <p>서버 한 대에는 여러 서비스가 동시에 실행될 수 있습니다. IP 주소가 서버 위치라면 포트 번호는 그 서버 안에서 어떤 서비스로 들어갈지 정하는 문 번호입니다. 예를 들어 같은 서버라도 22번은 SSH, 80번은 HTTP일 수 있습니다.</p>
+      <h3>TCP와 UDP</h3>
+      <p>TCP는 연결을 맺고 순서와 신뢰성을 챙기는 방식입니다. 웹, SSH, FTP처럼 안정적인 전달이 중요한 서비스에 많이 쓰입니다. UDP는 연결 과정이 단순하고 빠르지만 신뢰성 처리는 응용 프로그램이 담당합니다. DNS 질의나 스트리밍 일부에서 사용됩니다.</p>
+      <h3>DNS와 라우팅</h3>
+      <p>DNS는 도메인 이름을 IP 주소로 바꾸는 시스템입니다. 라우팅은 목적지 네트워크로 가기 위해 다음에 보낼 장치, 즉 게이트웨이를 결정하는 과정입니다. 웹사이트 접속이 안 될 때 IP로는 접속되는데 도메인만 안 되면 DNS 문제를 의심할 수 있습니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>5. 주요 명령어</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>명령어</th><th>기능</th><th>시험 포인트</th></tr></thead>
+          <tbody>
+            <tr><td><code>ip addr</code></td><td>IP 주소와 인터페이스 확인</td><td>현대 리눅스에서 자주 사용</td></tr>
+            <tr><td><code>ifconfig</code></td><td>인터페이스 정보 확인/설정</td><td>구형 도구로 시험에 자주 등장</td></tr>
+            <tr><td><code>ip route</code></td><td>라우팅 테이블 확인</td><td>기본 게이트웨이 확인</td></tr>
+            <tr><td><code>route</code></td><td>라우팅 테이블 확인/설정</td><td>구형 도구</td></tr>
+            <tr><td><code>ping 8.8.8.8</code></td><td>도달 가능성 확인</td><td>ICMP 기반</td></tr>
+            <tr><td><code>traceroute example.com</code></td><td>목적지까지 경로 확인</td><td>중간 라우터 추적</td></tr>
+            <tr><td><code>nslookup example.com</code></td><td>DNS 질의</td><td>도메인 → IP 확인</td></tr>
+            <tr><td><code>dig example.com</code></td><td>상세 DNS 질의</td><td>DNS 레코드 확인</td></tr>
+            <tr><td><code>ss -tuln</code></td><td>TCP/UDP 리스닝 포트 확인</td><td>t/u/l/n 옵션 조합</td></tr>
+            <tr><td><code>netstat -tuln</code></td><td>열린 포트 확인</td><td>구형이지만 출제 빈도 높음</td></tr>
+            <tr><td><code>ssh user@host</code></td><td>암호화 원격 접속</td><td>22번 포트</td></tr>
+            <tr><td><code>scp file user@host:/path</code></td><td>SSH 기반 파일 복사</td><td>암호화 전송</td></tr>
+            <tr><td><code>systemctl status ssh</code></td><td>SSH 서비스 상태 확인</td><td>서비스 관리와 연결</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code-example"><code># 네트워크 문제 해결 기본 순서
+ip addr
+ip route
+ping 8.8.8.8
+ping google.com
+ss -tuln
+systemctl status ssh</code></pre>
+    </section>
+
+    <section class="concept-section">
+      <h2>6. 헷갈리는 비교표</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>서비스</th><th>기본 포트</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>SSH</td><td>22/TCP</td><td>암호화 원격 접속</td></tr>
+            <tr><td>Telnet</td><td>23/TCP</td><td>평문 원격 접속, 보안 취약</td></tr>
+            <tr><td>FTP</td><td>21/TCP 제어, 20/TCP 데이터</td><td>파일 전송, 모드에 따라 동작 차이</td></tr>
+            <tr><td>HTTP</td><td>80/TCP</td><td>웹 서비스</td></tr>
+            <tr><td>HTTPS</td><td>443/TCP</td><td>TLS 암호화 웹 서비스</td></tr>
+            <tr><td>DNS</td><td>53/UDP,TCP</td><td>도메인 이름 해석</td></tr>
+            <tr><td>SMTP</td><td>25/TCP</td><td>메일 전송</td></tr>
+            <tr><td>POP3</td><td>110/TCP</td><td>메일 수신</td></tr>
+            <tr><td>IMAP</td><td>143/TCP</td><td>서버 보관형 메일 접근</td></tr>
+            <tr><td>MariaDB/MySQL</td><td>3306/TCP</td><td>DB 서비스</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>도구</th><th>확인하는 것</th><th>오답 함정</th></tr></thead>
+          <tbody>
+            <tr><td><code>ping</code></td><td>상대 호스트 도달성</td><td>포트 열림 확인 도구는 아님</td></tr>
+            <tr><td><code>traceroute</code></td><td>경로 추적</td><td>DNS 질의 도구가 아님</td></tr>
+            <tr><td><code>nslookup</code>/<code>dig</code></td><td>DNS 질의</td><td>서비스 상태 확인과 다름</td></tr>
+            <tr><td><code>ss</code>/<code>netstat</code></td><td>소켓과 포트</td><td>패키지 설치 명령이 아님</td></tr>
+            <tr><td><code>ip route</code></td><td>라우팅</td><td>IP 주소만 보는 명령이 아님</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>7. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li>SSH와 Telnet은 둘 다 원격 접속이지만 SSH는 암호화, Telnet은 평문입니다.</li>
+        <li><code>ping</code>이 성공해도 특정 포트가 열려 있다는 뜻은 아닙니다. 포트 확인은 <code>ss</code>, <code>netstat</code>, 또는 서비스 접속 테스트가 필요합니다.</li>
+        <li>DNS 문제와 네트워크 단절 문제를 구분합니다. IP로 ping은 되는데 도메인만 안 되면 DNS를 의심합니다.</li>
+        <li>FTP의 20/21 포트, DNS의 53 포트는 자주 뒤섞여 나옵니다.</li>
+        <li><code>ifconfig</code>와 <code>netstat</code>은 구형 도구지만 시험에는 여전히 자주 보입니다. 현대 명령인 <code>ip</code>, <code>ss</code>와 함께 기억하세요.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>8. 자주 나오는 선지 표현</h2>
+      <ul class="summary-list">
+        <li>“암호화된 원격 접속 서비스” → SSH, 22번 포트</li>
+        <li>“도메인 이름을 IP 주소로 변환” → DNS, 53번 포트</li>
+        <li>“목적지까지 거치는 경로 확인” → <code>traceroute</code></li>
+        <li>“현재 리스닝 중인 TCP/UDP 포트 확인” → <code>ss -tuln</code></li>
+        <li>“기본 게이트웨이 확인” → <code>ip route</code></li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>9. 예상문제</h2>
+      <div class="quiz-block">
+        <h3>1. SSH 서비스의 기본 포트와 특징으로 옳은 것은?</h3>
+        <ol><li>21번, 파일 목록 압축</li><li>22번, 암호화 원격 접속</li><li>23번, 암호화 웹 접속</li><li>53번, 메일 전송</li></ol>
+        <div class="answer-box">정답: 2. SSH는 기본 22번 포트를 사용하며 암호화된 원격 접속 서비스입니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>2. 목적지까지 패킷이 거치는 경로를 확인하는 명령은?</h3>
+        <ol><li><code>ping</code></li><li><code>traceroute</code></li><li><code>passwd</code></li><li><code>chmod</code></li></ol>
+        <div class="answer-box">정답: 2. <code>traceroute</code>는 중간 경로를 추적합니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>3. 현재 서버에서 열린 리스닝 포트를 확인하는 명령으로 적절한 것은?</h3>
+        <ol><li><code>ss -tuln</code></li><li><code>tar -tuln</code></li><li><code>useradd -tuln</code></li><li><code>mkfs -tuln</code></li></ol>
+        <div class="answer-box">정답: 1. <code>ss -tuln</code>은 TCP/UDP 리스닝 소켓을 숫자 형식으로 보여 줍니다.</div>
+      </div>
+    </section>
+
+    <section class="memory-box">
+      <h2>10. 최종 암기 요약</h2>
+      <ul>
+        <li>IP는 네트워크 주소, MAC은 장치 주소, 포트는 서비스 문 번호.</li>
+        <li>SSH 22, Telnet 23, FTP 21/20, HTTP 80, HTTPS 443, DNS 53, MySQL/MariaDB 3306.</li>
+        <li><code>ping</code> 도달성, <code>traceroute</code> 경로, <code>dig</code>/<code>nslookup</code> DNS, <code>ss</code> 포트.</li>
+        <li>문제 해결 순서: IP → 게이트웨이 → DNS → 포트/서비스 → 방화벽.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>11. 관련 CBT 링크</h2>
+      <p>CBT에서 카테고리 필터를 <strong>네트워크 기초</strong> 또는 <strong>네트워크 서비스</strong>로 바꿔 포트 번호와 진단 명령 문제를 반복하세요.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">CBT에서 확인하기</a>
+        <a class="secondary-btn" href="./boot-systemd.html">다음 단원 보기</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>

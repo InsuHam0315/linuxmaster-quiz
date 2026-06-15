@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>프로세스 및 작업 관리 - 운영체제 기말고사</title>
+  <title>4. 프로세스 및 작업 관리 - 운영체제 기말고사</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,76 +14,169 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../../index.html">메인으로 돌아가기</a>
       </nav>
-      <h1 class="site-title">프로세스 및 작업 관리</h1>
-      <p class="site-desc">ps, top, kill, signal, jobs, fg/bg, nice, nohup, cron/at을 정리합니다.</p>
+      <h1 class="site-title">4. 프로세스 및 작업 관리</h1>
+      <p class="site-desc">실행 중인 프로그램을 확인하고, 우선순위를 조절하고, 신호로 종료하고, 백그라운드 작업과 예약 작업을 관리하는 방법을 정리합니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <span class="badge">프로세스</span>
+      <span class="badge">학습 순서 4</span>
       <h2>1. 단원 개요</h2>
-      <p>프로세스는 실행 중인 프로그램이며 PID로 식별됩니다. 셸 작업 제어와 시그널 처리를 함께 이해해야 합니다.</p>
+      <p>프로세스는 실행 중인 프로그램입니다. 같은 프로그램을 두 번 실행하면 프로세스도 두 개가 될 수 있고, 각각은 PID라는 고유 번호를 갖습니다. 운영체제는 CPU와 메모리를 여러 프로세스에 나누어 주며, 사용자는 <code>ps</code>, <code>top</code>, <code>kill</code> 같은 명령으로 상태를 확인하고 제어합니다.</p>
+      <p>작업 관리는 현재 터미널에서 실행한 명령을 포그라운드와 백그라운드로 다루는 기능입니다. 긴 작업을 <code>&amp;</code>로 뒤에서 실행하거나, <code>jobs</code>, <code>fg</code>, <code>bg</code>로 전환하는 문제가 자주 나옵니다.</p>
       <div class="btn-row">
         <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
-        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+        <a class="secondary-btn" href="./shell-vi.html">다음: 5. 셸·vi</a>
       </div>
     </section>
 
-    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>실습 시험에서는 ps aux, top, kill -9, jobs/fg/bg, nohup &amp;, nice/renice 구분이 중요합니다.</p></section>
-    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
-          <li>ps 옵션과 top</li>
-          <li>SIGTERM과 SIGKILL 차이</li>
-          <li>jobs/fg/bg 작업 제어</li>
-          <li>nice 값과 우선순위</li>
-          <li>cron과 at 예약 실행</li>
-        </ul></section>
-    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
-          <li>PID는 프로세스 식별 번호입니다.</li>
-          <li>SIGTERM은 종료 요청이고 SIGKILL은 강제 종료입니다.</li>
-          <li>Ctrl+C는 인터럽트, Ctrl+Z는 일시정지입니다.</li>
-          <li>백그라운드 실행은 명령 뒤에 &amp;를 붙입니다.</li>
-          <li>좀비 프로세스는 종료되었지만 부모가 종료 상태를 회수하지 않은 상태입니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
-              <tr><td><code>ps aux</code></td><td>전체 프로세스 자세히 보기</td></tr>
-              <tr><td><code>top</code></td><td>실시간 프로세스 보기</td></tr>
-              <tr><td><code>kill PID</code></td><td>기본 종료 요청</td></tr>
-              <tr><td><code>kill -9 PID</code></td><td>강제 종료</td></tr>
-              <tr><td><code>jobs</code></td><td>작업 목록</td></tr>
-              <tr><td><code>fg %1</code></td><td>포어그라운드 전환</td></tr>
-              <tr><td><code>bg %1</code></td><td>백그라운드 재개</td></tr>
-              <tr><td><code>nohup command &amp;</code></td><td>터미널 종료 후에도 실행</td></tr>
-            </tbody></table></div></section>
-    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
-              <tr><td>Ctrl+C</td><td>SIGINT</td><td>포어그라운드 작업 종료 요청</td></tr>
-              <tr><td>Ctrl+Z</td><td>SIGTSTP</td><td>작업 일시정지</td></tr>
-              <tr><td>fg</td><td>전면 실행</td><td>입력 점유</td></tr>
-              <tr><td>bg</td><td>후면 재개</td><td>백그라운드 실행</td></tr>
-            </tbody></table></div></section>
-    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
-          <li>kill 기본 신호는 SIGTERM입니다.</li>
-          <li>kill -9는 최후 수단으로 보는 것이 좋습니다.</li>
-          <li>nice 값은 낮을수록 우선순위가 높습니다.</li>
-          <li>jobs는 현재 셸의 작업 목록입니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
-          <li>현재 셸의 백그라운드 작업 목록은?</li>
-          <li>강제 종료 시그널 번호는?</li>
-          <li>터미널 종료 후에도 실행하려면?</li>
-        </ul></section>
-    <section class="concept-section"><h2>9. 예상문제</h2>
-        <div class="quiz-block"><h3>1. 현재 셸의 작업 목록을 보는 명령은?</h3><ol><li>① jobs</li><li>② ps</li><li>③ fg</li><li>④ nohup</li></ol><div class="answer-box">정답: 1. jobs는 셸 작업 목록을 보여 줍니다.</div></div>
-        <div class="quiz-block"><h3>2. SIGKILL 번호로 자주 쓰이는 값은?</h3><ol><li>① 1</li><li>② 2</li><li>③ 9</li><li>④ 15</li></ol><div class="answer-box">정답: 3. SIGKILL은 9번입니다.</div></div>
+    <section class="concept-section">
+      <h2>2. 기말고사에서 중요한 이유</h2>
+      <ul class="summary-list">
+        <li>서버 관리에서 “무슨 프로그램이 CPU를 많이 쓰는지”, “어떤 서비스를 종료해야 하는지”를 판단해야 합니다.</li>
+        <li>리눅스마스터 유형에서는 <code>ps aux</code>, <code>top</code>, <code>kill -9</code>, <code>nice</code>, <code>jobs</code>가 반복 출제됩니다.</li>
+        <li>프로세스와 서비스는 연결됩니다. 서비스 관리(systemd)를 이해하려면 먼저 프로세스 개념을 알아야 합니다.</li>
+        <li>예약 작업인 cron/at은 백업, 로그 정리, 자동 실행 문제로 자주 연결됩니다.</li>
+      </ul>
     </section>
-    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>ps aux = 전체 자세히
-top = 실시간
-SIGTERM=15, SIGKILL=9
-Ctrl+Z 후 bg
-nohup command &amp;</code></pre></section>
-    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
 
-    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+    <section class="concept-section">
+      <h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2>
+      <ul class="summary-list">
+        <li><code>ps aux</code>는 전체 사용자 프로세스를 자세히 볼 때 자주 쓰는 조합입니다.</li>
+        <li><code>top</code>은 CPU/메모리 사용량을 실시간으로 확인합니다.</li>
+        <li><code>SIGTERM</code>은 정상 종료 요청, <code>SIGKILL</code>은 잡을 수 없는 강제 종료 신호입니다.</li>
+        <li><code>nice</code> 값은 낮을수록 일반적으로 우선순위가 높고, 높을수록 양보하는 쪽입니다.</li>
+        <li><code>nohup command &amp;</code>는 터미널 종료 후에도 작업을 계속 실행할 때 사용합니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>4. 핵심 개념 설명</h2>
+      <h3>PID와 PPID</h3>
+      <p>PID는 프로세스 번호이고 PPID는 부모 프로세스 번호입니다. 사용자가 터미널에서 명령을 실행하면 셸이 부모가 되고 명령이 자식 프로세스로 실행됩니다. 프로세스 트리를 보면 어떤 프로그램이 무엇을 실행했는지 추적할 수 있습니다.</p>
+      <h3>포그라운드와 백그라운드</h3>
+      <p>포그라운드 작업은 현재 터미널을 점유합니다. 명령 뒤에 <code>&amp;</code>를 붙이면 백그라운드에서 실행되어 터미널을 계속 사용할 수 있습니다. <code>Ctrl+Z</code>는 현재 작업을 일시 중지하고, <code>bg</code>는 백그라운드 재개, <code>fg</code>는 포그라운드 복귀입니다.</p>
+      <h3>신호(signal)</h3>
+      <p>프로세스 제어는 신호를 보내는 방식으로 이루어집니다. <code>kill PID</code>는 기본적으로 SIGTERM을 보내 정상 종료를 요청합니다. <code>kill -9 PID</code>는 SIGKILL로 즉시 종료시키지만 정리 작업을 할 기회를 주지 않으므로 마지막 수단으로 이해합니다.</p>
+      <h3>우선순위와 nice</h3>
+      <p>nice 값은 프로세스가 CPU를 얼마나 “양보”할지를 나타냅니다. 값이 낮을수록 우선순위가 높아지는 방향이고, 값이 높을수록 우선순위가 낮아지는 방향입니다. 일반 사용자는 보통 우선순위를 높이는 데 제한이 있습니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>5. 주요 명령어</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>명령어</th><th>기능</th><th>시험 포인트</th></tr></thead>
+          <tbody>
+            <tr><td><code>ps</code></td><td>현재 셸 관련 프로세스 확인</td><td>순간 상태 스냅샷</td></tr>
+            <tr><td><code>ps aux</code></td><td>전체 사용자 프로세스 자세히 확인</td><td>a/u/x 의미보다 조합을 기억</td></tr>
+            <tr><td><code>pstree</code></td><td>프로세스 부모-자식 관계를 트리로 표시</td><td>PPID 이해</td></tr>
+            <tr><td><code>top</code></td><td>실시간 프로세스 모니터링</td><td>CPU/MEM 사용량</td></tr>
+            <tr><td><code>kill PID</code></td><td>프로세스에 종료 요청</td><td>기본 SIGTERM</td></tr>
+            <tr><td><code>kill -9 PID</code></td><td>강제 종료</td><td>SIGKILL, 마지막 수단</td></tr>
+            <tr><td><code>killall name</code></td><td>이름으로 프로세스 종료</td><td>같은 이름 여러 개 주의</td></tr>
+            <tr><td><code>jobs</code></td><td>현재 셸의 작업 목록</td><td>백그라운드 작업 확인</td></tr>
+            <tr><td><code>fg %1</code></td><td>작업을 포그라운드로 전환</td><td>터미널 점유</td></tr>
+            <tr><td><code>bg %1</code></td><td>중지된 작업을 백그라운드 재개</td><td><code>Ctrl+Z</code> 후 사용</td></tr>
+            <tr><td><code>nohup command &amp;</code></td><td>터미널 종료 후에도 실행</td><td>SIGHUP 회피 + 백그라운드</td></tr>
+            <tr><td><code>nice -n 10 command</code></td><td>낮은 우선순위로 실행</td><td>값이 클수록 더 양보</td></tr>
+            <tr><td><code>renice 5 -p PID</code></td><td>실행 중인 프로세스 nice 값 변경</td><td>권한 제한 주의</td></tr>
+            <tr><td><code>crontab -e</code></td><td>반복 예약 작업 편집</td><td>분 시 일 월 요일</td></tr>
+            <tr><td><code>at 23:00</code></td><td>1회성 예약 작업</td><td>반복 아님</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code-example"><code># CPU를 많이 쓰는 프로세스 확인 후 정상 종료 요청
+ps aux | grep apache
+top
+kill 1234
+
+# 장시간 백업을 터미널 종료와 무관하게 실행
+nohup tar -czf backup.tar.gz /home/user &gt; backup.log 2&gt;&amp;1 &amp;</code></pre>
+    </section>
+
+    <section class="concept-section">
+      <h2>6. 헷갈리는 비교표</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>구분</th><th>의미</th><th>헷갈리는 점</th></tr></thead>
+          <tbody>
+            <tr><td><code>ps</code></td><td>한 순간의 프로세스 목록</td><td>실시간 갱신 아님</td></tr>
+            <tr><td><code>top</code></td><td>실시간 프로세스 상태</td><td>화면이 계속 갱신됨</td></tr>
+            <tr><td>SIGTERM</td><td>정상 종료 요청</td><td>프로세스가 무시하거나 정리할 수 있음</td></tr>
+            <tr><td>SIGKILL</td><td>강제 종료</td><td>프로세스가 잡거나 무시할 수 없음</td></tr>
+            <tr><td><code>&amp;</code></td><td>백그라운드 실행</td><td>터미널 종료 영향은 별도 문제</td></tr>
+            <tr><td><code>nohup</code></td><td>SIGHUP 영향 회피</td><td>보통 <code>&amp;</code>와 함께 사용</td></tr>
+            <tr><td><code>cron</code></td><td>반복 예약</td><td>매일/매주 반복 작업</td></tr>
+            <tr><td><code>at</code></td><td>1회 예약</td><td>한 번 실행 후 끝</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>7. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li><code>kill</code>이라는 이름 때문에 무조건 강제 종료라고 생각하면 안 됩니다. 기본은 SIGTERM입니다.</li>
+        <li><code>kill -9</code>는 강력하지만 정상 정리 없이 종료하므로 항상 첫 선택은 아닙니다.</li>
+        <li><code>jobs</code>는 시스템 전체가 아니라 현재 셸의 작업 목록입니다. 전체 프로세스는 <code>ps</code>나 <code>top</code>으로 봅니다.</li>
+        <li><code>nice</code> 값이 높을수록 좋은 우선순위가 아니라, 더 “친절하게 양보”하는 쪽입니다.</li>
+        <li><code>nohup</code>만으로 백그라운드 실행이 되는 것이 아니라 보통 <code>&amp;</code>를 붙여 터미널을 돌려받습니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>8. 자주 나오는 선지 표현</h2>
+      <ul class="summary-list">
+        <li>“전체 사용자 프로세스를 자세히 확인한다” → <code>ps aux</code></li>
+        <li>“실시간 CPU/메모리 사용량을 확인한다” → <code>top</code></li>
+        <li>“잡을 수 없는 강제 종료 신호” → SIGKILL, <code>kill -9</code></li>
+        <li>“현재 셸의 백그라운드 작업 목록” → <code>jobs</code></li>
+        <li>“터미널 종료 후에도 명령 실행 유지” → <code>nohup command &amp;</code></li>
+        <li>“반복 예약 작업” → cron, “1회 예약 작업” → at</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>9. 예상문제</h2>
+      <div class="quiz-block">
+        <h3>1. SIGTERM과 SIGKILL의 설명으로 옳은 것은?</h3>
+        <ol><li>SIGTERM은 강제 종료, SIGKILL은 종료 요청이다.</li><li>SIGTERM은 정상 종료 요청, SIGKILL은 잡을 수 없는 강제 종료이다.</li><li>둘 다 파일 권한 변경 명령이다.</li><li>둘 다 백업 예약 명령이다.</li></ol>
+        <div class="answer-box">정답: 2. SIGTERM은 정상 종료 요청이고 SIGKILL은 강제 종료입니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>2. 현재 셸의 백그라운드 작업 목록을 확인하는 명령은?</h3>
+        <ol><li><code>jobs</code></li><li><code>fg</code></li><li><code>bg</code></li><li><code>nohup</code></li></ol>
+        <div class="answer-box">정답: 1. <code>jobs</code>는 현재 셸이 관리하는 작업 목록을 보여 줍니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>3. 터미널을 닫아도 장시간 작업이 계속되도록 실행하는 형태로 적절한 것은?</h3>
+        <ol><li><code>nohup command &amp;</code></li><li><code>chmod command &amp;</code></li><li><code>fsck command &amp;</code></li><li><code>umask command</code></li></ol>
+        <div class="answer-box">정답: 1. <code>nohup</code>은 SIGHUP 영향을 피하고, <code>&amp;</code>는 백그라운드 실행을 의미합니다.</div>
+      </div>
+    </section>
+
+    <section class="memory-box">
+      <h2>10. 최종 암기 요약</h2>
+      <ul>
+        <li>프로세스는 실행 중인 프로그램, PID는 프로세스 번호.</li>
+        <li><code>ps</code>는 스냅샷, <code>top</code>은 실시간.</li>
+        <li><code>kill</code> 기본은 SIGTERM, <code>kill -9</code>는 SIGKILL.</li>
+        <li><code>jobs</code>, <code>fg</code>, <code>bg</code>는 현재 셸 작업 제어.</li>
+        <li>cron은 반복 예약, at은 1회 예약.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>11. 관련 CBT 링크</h2>
+      <p>CBT에서 카테고리 필터를 <strong>프로세스 및 작업 관리</strong>로 바꿔 <code>ps</code>, <code>kill</code>, <code>jobs</code>, <code>nice</code> 문제를 풀어 보세요.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">CBT에서 확인하기</a>
+        <a class="secondary-btn" href="./shell-vi.html">다음 단원 보기</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>패키지·압축·백업 - 운영체제 기말고사</title>
+  <title>6. 패키지·압축·백업 - 운영체제 기말고사</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,76 +14,185 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../../index.html">메인으로 돌아가기</a>
       </nav>
-      <h1 class="site-title">패키지·압축·백업</h1>
-      <p class="site-desc">apt/dpkg, rpm/yum/dnf, tar, gzip, bzip2, xz, zip, 백업 명령을 정리합니다.</p>
+      <h1 class="site-title">6. 패키지·압축·백업</h1>
+      <p class="site-desc">APT/DPKG, RPM/DNF, 저장소와 GPG, tar와 압축 도구, 백업·복원 명령을 시험에 나오는 방식으로 정리합니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <span class="badge">패키지</span>
+      <span class="badge">학습 순서 6</span>
       <h2>1. 단원 개요</h2>
-      <p>패키지 관리는 소프트웨어 설치와 업데이트를 담당하고, 압축·아카이브는 여러 파일을 묶거나 보관하는 데 사용됩니다.</p>
+      <p>패키지 관리는 프로그램을 설치, 삭제, 업그레이드하는 체계입니다. 리눅스에서는 배포판 계열에 따라 Debian/Ubuntu 계열의 APT/DPKG와 Red Hat 계열의 RPM/DNF 또는 YUM을 구분합니다.</p>
+      <p>압축과 백업은 여러 파일을 하나로 묶고, 크기를 줄이고, 필요할 때 복원하는 기술입니다. 시험에서는 <code>tar</code> 옵션 <code>c</code>, <code>x</code>, <code>v</code>, <code>f</code>, <code>z</code>, <code>j</code>, <code>J</code>를 구분하는 문제가 많습니다.</p>
       <div class="btn-row">
         <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
-        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+        <a class="secondary-btn" href="./network-service.html">다음: 7. 네트워크</a>
       </div>
     </section>
 
-    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말 범위의 apt update/upgrade/install, systemctl status, tar 옵션 c/x/t/z/j/J가 자주 출제됩니다.</p></section>
-    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
-          <li>apt update와 upgrade 차이</li>
-          <li>dpkg와 apt 차이</li>
-          <li>rpm -qa/-e/-Uvh</li>
-          <li>tar c/x/t 옵션</li>
-          <li>gzip/bzip2/xz 옵션 구분</li>
-        </ul></section>
-    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
-          <li>apt는 저장소 기반으로 의존성을 처리합니다.</li>
-          <li>dpkg와 rpm은 개별 패키지 파일 관리에 가깝습니다.</li>
-          <li>tar는 압축 자체보다 여러 파일을 하나의 아카이브로 묶는 역할이 핵심입니다.</li>
-          <li>gzip은 z, bzip2는 j, xz는 J 옵션으로 연결해 외우면 좋습니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
-              <tr><td><code>apt update</code></td><td>패키지 목록 갱신</td></tr>
-              <tr><td><code>apt upgrade</code></td><td>설치된 패키지 업그레이드</td></tr>
-              <tr><td><code>apt install pkg</code></td><td>패키지 설치</td></tr>
-              <tr><td><code>dpkg -i file.deb</code></td><td>deb 파일 설치</td></tr>
-              <tr><td><code>rpm -qa</code></td><td>설치 RPM 목록</td></tr>
-              <tr><td><code>dnf install pkg</code></td><td>RPM 계열 저장소 설치</td></tr>
-              <tr><td><code>tar -czf a.tar.gz dir</code></td><td>gzip tar 생성</td></tr>
-              <tr><td><code>tar -xzf a.tar.gz</code></td><td>gzip tar 해제</td></tr>
-            </tbody></table></div></section>
-    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
-              <tr><td>apt/yum/dnf</td><td>저장소 기반</td><td>의존성 자동 처리</td></tr>
-              <tr><td>dpkg/rpm</td><td>개별 패키지 기반</td><td>의존성 수동 처리 가능</td></tr>
-              <tr><td>tar -c</td><td>생성</td><td>create</td></tr>
-              <tr><td>tar -x</td><td>해제</td><td>extract</td></tr>
-              <tr><td>tar -t</td><td>목록</td><td>table/list</td></tr>
-            </tbody></table></div></section>
-    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
-          <li>apt update는 설치가 아니라 목록 갱신입니다.</li>
-          <li>rpm -e는 제거, -qa는 전체 조회입니다.</li>
-          <li>tar -czf는 생성, -xzf는 해제입니다.</li>
-          <li>bzip2는 -j, xz는 -J입니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
-          <li>다운로드한 .deb 파일을 설치하는 명령은?</li>
-          <li>tar.gz를 해제하는 옵션은?</li>
-          <li>RPM 전체 패키지 조회 명령은?</li>
-        </ul></section>
-    <section class="concept-section"><h2>9. 예상문제</h2>
-        <div class="quiz-block"><h3>1. gzip tar 파일을 해제하는 명령은?</h3><ol><li>① tar -czf file.tar.gz</li><li>② tar -xzf file.tar.gz</li><li>③ tar -jtvf file.tar.gz</li><li>④ gzip -c file.tar.gz</li></ol><div class="answer-box">정답: 2. -x는 해제, -z는 gzip입니다.</div></div>
-        <div class="quiz-block"><h3>2. 설치된 RPM 전체 목록 조회는?</h3><ol><li>① rpm -qa</li><li>② rpm -e</li><li>③ rpm -Uvh</li><li>④ rpm -i</li></ol><div class="answer-box">정답: 1. q=query, a=all입니다.</div></div>
+    <section class="concept-section">
+      <h2>2. 기말고사에서 중요한 이유</h2>
+      <ul class="summary-list">
+        <li>노션 11주차 자료에서 repository, APT, GPG, MySQL 설치, systemctl 확인 흐름이 강조되었습니다.</li>
+        <li>교수님 PDF 9장 범위에서 deb/rpm 패키지, apt/dpkg, rpm, tar/zip/gzip 계열이 다뤄집니다.</li>
+        <li>패키지 명령은 배포판 계열별로 답이 달라서 “Ubuntu인가 Red Hat 계열인가”를 먼저 읽어야 합니다.</li>
+        <li>백업은 단순 압축이 아니라 “묶기, 압축, 저장 위치, 복원 가능성”을 함께 봐야 합니다.</li>
+      </ul>
     </section>
-    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>apt update = 목록 갱신
-apt install = 설치
-dpkg -i = deb 설치
-rpm -qa = 전체 조회
-tar c/x/t, gzip z, bzip2 j, xz J</code></pre></section>
-    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
 
-    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+    <section class="concept-section">
+      <h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2>
+      <ul class="summary-list">
+        <li><code>apt update</code>는 저장소 패키지 목록 갱신, <code>apt upgrade</code>는 설치된 패키지 업그레이드입니다.</li>
+        <li><code>dpkg -i package.deb</code>는 로컬 deb 파일 설치, <code>dpkg -l</code>은 설치 패키지 목록 확인입니다.</li>
+        <li><code>rpm -qa</code>는 설치된 rpm 패키지 전체 조회, <code>rpm -e</code>는 제거입니다.</li>
+        <li><code>tar -cvf</code>는 새 아카이브 생성, <code>tar -xvf</code>는 해제, <code>tar -tvf</code>는 목록 확인입니다.</li>
+        <li><code>gzip</code>, <code>bzip2</code>, <code>xz</code>는 압축 방식이고, tar는 원래 여러 파일을 묶는 아카이브 도구입니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>4. 핵심 개념 설명</h2>
+      <h3>고수준 도구와 저수준 도구</h3>
+      <p>APT와 DNF/YUM은 저장소에서 패키지를 찾고 의존성까지 해결해 주는 고수준 도구입니다. DPKG와 RPM은 개별 패키지 파일을 직접 다루는 저수준 도구입니다. 그래서 초보자는 보통 <code>apt install</code>이나 <code>dnf install</code>을 먼저 떠올리면 됩니다.</p>
+      <h3>저장소와 GPG</h3>
+      <p>저장소(repository)는 패키지 목록과 패키지 파일을 제공하는 서버입니다. GPG 키는 패키지가 신뢰할 수 있는 출처에서 왔는지 확인하는 데 사용됩니다. 수업 자료의 MySQL 저장소 추가 실습은 “저장소 등록 → 목록 갱신 → 설치 → 서비스 확인” 흐름으로 이해하면 됩니다.</p>
+      <h3>tar는 압축이 아니라 묶기에서 출발한다</h3>
+      <p><code>tar</code>는 여러 파일과 디렉터리를 하나의 아카이브 파일로 묶는 도구입니다. 여기에 gzip, bzip2, xz 같은 압축을 함께 적용할 수 있습니다. 그래서 <code>.tar</code>는 묶기만, <code>.tar.gz</code>는 tar로 묶고 gzip으로 압축한 형태입니다.</p>
+      <h3>백업은 복원까지 생각해야 한다</h3>
+      <p>백업 파일을 만드는 것만으로 끝나지 않습니다. 실제 시험과 실무에서는 “어디에 저장했는지”, “권한과 소유자가 유지되는지”, “복원 명령을 알고 있는지”가 중요합니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>5. 주요 명령어</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>명령어</th><th>기능</th><th>주의점</th></tr></thead>
+          <tbody>
+            <tr><td><code>apt update</code></td><td>저장소 패키지 목록 갱신</td><td>패키지 설치 자체가 아님</td></tr>
+            <tr><td><code>apt upgrade</code></td><td>설치된 패키지 업그레이드</td><td>목록 갱신 후 사용</td></tr>
+            <tr><td><code>apt install nginx</code></td><td>저장소에서 설치</td><td>의존성 처리</td></tr>
+            <tr><td><code>apt remove nginx</code></td><td>패키지 제거</td><td>설정 파일은 남을 수 있음</td></tr>
+            <tr><td><code>apt purge nginx</code></td><td>패키지와 설정 파일 제거</td><td>완전 제거에 가까움</td></tr>
+            <tr><td><code>dpkg -i file.deb</code></td><td>로컬 deb 설치</td><td>의존성 문제는 직접 해결 필요 가능</td></tr>
+            <tr><td><code>dpkg -l</code></td><td>설치 패키지 목록</td><td>Debian 계열</td></tr>
+            <tr><td><code>rpm -qa</code></td><td>설치된 RPM 전체 조회</td><td>query all</td></tr>
+            <tr><td><code>rpm -ivh file.rpm</code></td><td>RPM 설치</td><td>install, verbose, hash</td></tr>
+            <tr><td><code>rpm -Uvh file.rpm</code></td><td>RPM 업그레이드/설치</td><td>Upgrade</td></tr>
+            <tr><td><code>rpm -e package</code></td><td>RPM 제거</td><td>erase</td></tr>
+            <tr><td><code>dnf install package</code></td><td>Red Hat 계열 저장소 설치</td><td>yum의 후속 도구로 자주 사용</td></tr>
+            <tr><td><code>tar -cvf backup.tar dir</code></td><td>아카이브 생성</td><td>c=create</td></tr>
+            <tr><td><code>tar -xvf backup.tar</code></td><td>아카이브 해제</td><td>x=extract</td></tr>
+            <tr><td><code>tar -czvf backup.tar.gz dir</code></td><td>gzip 압축 tar 생성</td><td>z=gzip</td></tr>
+            <tr><td><code>tar -cjvf backup.tar.bz2 dir</code></td><td>bzip2 압축 tar 생성</td><td>j=bzip2</td></tr>
+            <tr><td><code>tar -cJvf backup.tar.xz dir</code></td><td>xz 압축 tar 생성</td><td>J=xz, 대문자</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code-example"><code># Ubuntu 계열 패키지 설치 흐름
+sudo apt update
+sudo apt install mysql-server
+systemctl status mysql
+
+# 홈 디렉터리 백업과 복원
+tar -czvf home-backup.tar.gz /home/user
+tar -xzvf home-backup.tar.gz -C /restore</code></pre>
+    </section>
+
+    <section class="concept-section">
+      <h2>6. 헷갈리는 비교표</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>구분</th><th>Debian/Ubuntu</th><th>Red Hat 계열</th></tr></thead>
+          <tbody>
+            <tr><td>고수준 도구</td><td><code>apt</code>, <code>apt-get</code></td><td><code>dnf</code>, <code>yum</code></td></tr>
+            <tr><td>저수준 도구</td><td><code>dpkg</code></td><td><code>rpm</code></td></tr>
+            <tr><td>패키지 파일</td><td><code>.deb</code></td><td><code>.rpm</code></td></tr>
+            <tr><td>설치 목록</td><td><code>dpkg -l</code></td><td><code>rpm -qa</code></td></tr>
+            <tr><td>로컬 파일 설치</td><td><code>dpkg -i file.deb</code></td><td><code>rpm -ivh file.rpm</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>tar 옵션</th><th>의미</th><th>기억법</th></tr></thead>
+          <tbody>
+            <tr><td><code>c</code></td><td>생성</td><td>create</td></tr>
+            <tr><td><code>x</code></td><td>해제</td><td>extract</td></tr>
+            <tr><td><code>t</code></td><td>목록 보기</td><td>table/list</td></tr>
+            <tr><td><code>v</code></td><td>과정 출력</td><td>verbose</td></tr>
+            <tr><td><code>f</code></td><td>파일명 지정</td><td>file, 보통 마지막에 파일명 뒤따름</td></tr>
+            <tr><td><code>z</code></td><td>gzip</td><td>.gz</td></tr>
+            <tr><td><code>j</code></td><td>bzip2</td><td>.bz2</td></tr>
+            <tr><td><code>J</code></td><td>xz</td><td>.xz, 대문자</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>7. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li><code>apt update</code>는 패키지 목록 갱신이지 설치된 패키지를 업그레이드하는 명령이 아닙니다.</li>
+        <li><code>apt remove</code>와 <code>apt purge</code>를 구분합니다. purge는 설정 파일 제거까지 포함합니다.</li>
+        <li><code>dpkg</code>는 deb, <code>rpm</code>은 rpm입니다. 확장자와 도구를 섞은 선지를 조심합니다.</li>
+        <li><code>tar -cvf</code>와 <code>tar -xvf</code>에서 c와 x 하나 차이가 생성/해제를 바꿉니다.</li>
+        <li><code>xz</code>는 <code>tar -J</code> 대문자 J입니다. <code>j</code>는 bzip2입니다.</li>
+        <li>백업 파일을 만들 때 절대 경로를 그대로 넣으면 복원 위치가 의도와 달라질 수 있습니다. <code>-C</code> 옵션 의미를 알아두세요.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>8. 자주 나오는 선지 표현</h2>
+      <ul class="summary-list">
+        <li>“저장소 패키지 목록을 갱신한다” → <code>apt update</code></li>
+        <li>“설치된 RPM 패키지를 모두 조회한다” → <code>rpm -qa</code></li>
+        <li>“로컬 deb 패키지를 설치한다” → <code>dpkg -i</code></li>
+        <li>“tar 아카이브를 새로 생성한다” → <code>tar -cvf</code></li>
+        <li>“gzip 압축 tar를 만든다” → <code>tar -czvf</code></li>
+        <li>“xz 압축 tar를 만든다” → <code>tar -cJvf</code></li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>9. 예상문제</h2>
+      <div class="quiz-block">
+        <h3>1. Ubuntu에서 저장소 패키지 목록 정보를 갱신하는 명령은?</h3>
+        <ol><li><code>apt update</code></li><li><code>apt remove</code></li><li><code>dpkg -e</code></li><li><code>rpm -qa</code></li></ol>
+        <div class="answer-box">정답: 1. <code>apt update</code>는 저장소 인덱스를 갱신합니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>2. 여러 파일을 gzip 압축 tar 파일로 묶는 명령은?</h3>
+        <ol><li><code>tar -xvf backup.tar.gz dir</code></li><li><code>tar -czvf backup.tar.gz dir</code></li><li><code>gzip -cvf dir.tar</code></li><li><code>rpm -czvf backup.tar.gz dir</code></li></ol>
+        <div class="answer-box">정답: 2. c는 생성, z는 gzip, v는 과정 출력, f는 파일명 지정입니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>3. RPM 계열에서 설치된 모든 패키지를 조회하는 명령은?</h3>
+        <ol><li><code>rpm -qa</code></li><li><code>rpm -e</code></li><li><code>dpkg -l</code></li><li><code>apt list</code></li></ol>
+        <div class="answer-box">정답: 1. q는 query, a는 all입니다.</div>
+      </div>
+    </section>
+
+    <section class="memory-box">
+      <h2>10. 최종 암기 요약</h2>
+      <ul>
+        <li>Ubuntu: apt/dpkg/.deb, Red Hat: dnf 또는 yum/rpm/.rpm.</li>
+        <li><code>apt update</code>는 목록 갱신, <code>apt upgrade</code>는 업그레이드.</li>
+        <li><code>tar -cvf</code> 생성, <code>tar -xvf</code> 해제, <code>tar -tvf</code> 목록.</li>
+        <li>gzip=z, bzip2=j, xz=J.</li>
+        <li>백업은 생성뿐 아니라 복원 위치와 권한 유지까지 생각한다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>11. 관련 CBT 링크</h2>
+      <p>CBT에서 카테고리 필터를 <strong>패키지 관리</strong> 또는 <strong>압축·아카이브·백업</strong>으로 설정해 명령어 옵션 문제를 반복하세요.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">CBT에서 확인하기</a>
+        <a class="secondary-btn" href="./network-service.html">다음 단원 보기</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>

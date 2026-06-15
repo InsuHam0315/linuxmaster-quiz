@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>리눅스마스터 2급 2차 연계 포인트 - 운영체제 기말고사</title>
+  <title>9. 리눅스마스터 2급 2차 연계 포인트 - 운영체제 기말고사</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,78 +14,164 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../../index.html">메인으로 돌아가기</a>
       </nav>
-      <h1 class="site-title">리눅스마스터 2급 2차 연계 포인트</h1>
-      <p class="site-desc">기말고사 범위와 겹치는 리눅스마스터 2급 2차 기출·복원 유형의 출제 포인트만 선별합니다.</p>
+      <h1 class="site-title">9. 리눅스마스터 2급 2차 연계 포인트</h1>
+      <p class="site-desc">기말 범위와 겹치는 리눅스마스터 2급 2차 공개 기출·복원 유형을 원문 복사가 아니라 개념, 선지 함정, 출제 포인트 중심으로 재구성해 정리합니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <span class="badge">연계</span>
+      <span class="badge">학습 순서 9</span>
       <h2>1. 단원 개요</h2>
-      <p>이 페이지는 자격증 전체 대비가 아니라 운영체제 기말 범위와 겹치는 리눅스 실습형 문제만 모아 보는 용도입니다.</p>
+      <p>이 페이지는 자격증 전체 대비가 아니라 운영체제 기말고사를 잘 보기 위한 보조 노트입니다. 리눅스마스터 2급 2차 문제에서 자주 나오는 리눅스 명령어, 권한, 프로세스, 패키지, 네트워크, systemd 유형 중 기말 범위와 겹치는 것만 선별했습니다.</p>
+      <p>중요한 점은 원문 문제를 외우는 것이 아니라, <strong>어떤 개념을 어떤 함정 선지로 물어보는지</strong>를 익히는 것입니다. CBT 문제도 같은 원칙으로 새 문장으로 재구성되어 있습니다.</p>
       <div class="btn-row">
-        <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
-        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">기출 연계 CBT 풀기</a>
+        <a class="secondary-btn" href="./filesystem.html">1번 단원부터 복습</a>
       </div>
     </section>
 
-    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>리눅스마스터 2급 2차는 명령어 옵션, 권한 숫자, 프로세스, 패키지, 네트워크, systemd 같은 객관식 함정이 많아 기말 CBT 유형 설계에 유용합니다.</p></section>
-    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
-          <li>파일/디렉터리 명령 옵션</li>
-          <li>chmod/chown/umask와 특수권한</li>
-          <li>ps/top/kill/jobs</li>
-          <li>bash export/PATH/리다이렉션</li>
-          <li>vi 저장·종료·검색·치환</li>
-          <li>apt/dpkg/rpm/yum/dnf</li>
-          <li>tar/gzip/bzip2/xz</li>
-          <li>mount/LVM/fstab</li>
-          <li>네트워크 포트와 진단 명령</li>
-          <li>GRUB/systemd target</li>
-        </ul></section>
-    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
-          <li>원문 문제를 외우기보다 반복되는 개념과 틀리기 쉬운 선지를 정리합니다.</li>
-          <li>기말 범위 밖인 X 윈도우, 응용 분야, 일부 멀티미디어 영역은 수업자료에 없으면 제외합니다.</li>
-          <li>명령어는 이름, 옵션, 대상 순서를 함께 외워야 합니다.</li>
-          <li>보기에서 비슷한 명령을 섞는 방식이 자주 사용됩니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
-              <tr><td><code>chmod 755</code></td><td>권한 숫자 함정</td></tr>
-              <tr><td><code>usermod -aG</code></td><td>보조 그룹 추가 함정</td></tr>
-              <tr><td><code>tar -czf / -xzf</code></td><td>생성/해제 함정</td></tr>
-              <tr><td><code>systemctl start/enable</code></td><td>즉시 실행/자동 시작 함정</td></tr>
-              <tr><td><code>ip addr / ip route</code></td><td>주소/라우팅 구분</td></tr>
-              <tr><td><code>journalctl -u</code></td><td>서비스 로그 확인</td></tr>
-            </tbody></table></div></section>
-    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
-              <tr><td>시험에 우선 반영</td><td>운영체제 기말 범위와 겹치는 명령어·개념</td><td>CBT 주요 문항</td></tr>
-              <tr><td>보조 반영</td><td>수업 PDF에 포함된 네트워크/서비스/DB 실습</td><td>개념노트 보강</td></tr>
-              <tr><td>제외 또는 후순위</td><td>기말 범위 밖 X 윈도우·응용분야</td><td>자료에 있을 때만 포함</td></tr>
-            </tbody></table></div></section>
-    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
-          <li>원문 문제 암기가 목적이 아닙니다.</li>
-          <li>자격증 전체 범위가 아니라 기말 범위와 겹치는 항목만 봅니다.</li>
-          <li>명령어 옵션 하나 차이로 정답이 갈립니다.</li>
-          <li>start와 enable, update와 upgrade, c와 x를 특히 구분합니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
-          <li>다음 명령 옵션 설명으로 틀린 것은?</li>
-          <li>괄호 안에 들어갈 명령으로 알맞은 것은?</li>
-          <li>다음 중 관련 없는 명령은?</li>
-          <li>설명에 해당하는 서비스 포트는?</li>
-        </ul></section>
-    <section class="concept-section"><h2>9. 예상문제</h2>
-        <div class="quiz-block"><h3>1. 기말 범위와 가장 직접적으로 겹치는 리눅스마스터 유형은?</h3><ol><li>① X 윈도우 역사만 암기</li><li>② chmod와 프로세스 관리 명령</li><li>③ 그래픽 디자인 도구 비교</li><li>④ 프린터 모델명 암기</li></ol><div class="answer-box">정답: 2. 권한과 프로세스 명령은 기말 실습 범위와 직접 겹칩니다.</div></div>
-        <div class="quiz-block"><h3>2. systemctl enable의 의미는?</h3><ol><li>① 즉시 시작만 수행</li><li>② 부팅 시 자동 시작 등록</li><li>③ 파일 압축</li><li>④ DNS 질의</li></ol><div class="answer-box">정답: 2. enable은 자동 시작 등록입니다.</div></div>
+    <section class="concept-section">
+      <h2>2. 기말고사에서 중요한 이유</h2>
+      <ul class="summary-list">
+        <li>기말고사는 수업 실습 중심이지만, 명령어와 옵션을 묻는 방식은 CBT형 자격증 문제와 매우 비슷합니다.</li>
+        <li>리눅스마스터 문제는 선지가 짧고 비슷한 명령을 섞어 내므로, 시험장에서 빠르게 오답을 제거하는 연습에 좋습니다.</li>
+        <li>파일/권한/프로세스/패키지/네트워크/systemd는 운영체제 수업과 리눅스마스터가 가장 많이 겹치는 부분입니다.</li>
+        <li>반대로 X 윈도우, 리눅스 활용 분야, 사무용 응용 등 기말 범위와 직접 관련이 낮은 내용은 이 노트에서 우선순위를 낮췄습니다.</li>
+      </ul>
     </section>
-    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>기말 우선 = 수업자료 + 노션
-리눅스마스터 = 유형과 함정만 재구성
-명령어 옵션 중심
-범위 밖 주제는 제외
-CBT에서 반복 풀이</code></pre></section>
-    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
 
-    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+    <section class="concept-section">
+      <h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>기말 단원</th><th>연계되는 기출 유형</th><th>핵심 함정</th></tr></thead>
+          <tbody>
+            <tr><td>1. 파일시스템·디스크·마운트</td><td>inode, 링크, df/du, mount/fstab, LVM</td><td>하드 링크와 심볼릭 링크, df와 du, PV/VG/LV 순서</td></tr>
+            <tr><td>2. 사용자 및 그룹</td><td>passwd/shadow/group, useradd, usermod</td><td>암호 해시 위치, <code>usermod -aG</code> 누락</td></tr>
+            <tr><td>3. 권한·소유권·특수권한</td><td>chmod 숫자, chown, umask, setuid/setgid/sticky</td><td>644/755 계산, 특수 권한 효과 반대로 설명</td></tr>
+            <tr><td>4. 프로세스 및 작업 관리</td><td>ps/top/kill/jobs/nice/nohup/cron</td><td>SIGTERM과 SIGKILL, jobs 범위, nice 값 방향</td></tr>
+            <tr><td>5. 셸·vi</td><td>export, PATH, redirection, pipe, vi 명령</td><td><code>&gt;</code>와 <code>&gt;&gt;</code>, <code>:wq</code>와 <code>:q!</code></td></tr>
+            <tr><td>6. 패키지·압축·백업</td><td>apt/dpkg, rpm/dnf, tar/gzip/bzip2/xz</td><td>update와 upgrade, dpkg와 rpm, tar c/x/z/j/J</td></tr>
+            <tr><td>7. 네트워크 기초·서비스</td><td>IP/MAC, ping/traceroute, DNS, SSH/FTP/HTTP 포트</td><td>포트 번호, ping의 한계, Telnet 보안</td></tr>
+            <tr><td>8. 부팅·systemd</td><td>부팅 순서, runlevel, target, systemctl</td><td>start와 enable, runlevel 0/6, GRUB 역할</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="concept-section">
+      <h2>4. 핵심 개념 설명</h2>
+      <h3>기출 유형은 “정확한 용어 구분”을 노린다</h3>
+      <p>리눅스마스터형 문제는 긴 설명보다 짧은 선지에서 비슷한 용어를 바꿔 내는 경우가 많습니다. 예를 들어 <code>df</code>와 <code>du</code>, <code>start</code>와 <code>enable</code>, <code>apt update</code>와 <code>apt upgrade</code>는 모두 실제 기능이 다르지만 초보자는 이름만 보고 헷갈리기 쉽습니다.</p>
+      <h3>명령어는 “목적 → 옵션 → 대상”으로 외운다</h3>
+      <p>명령어를 통째로 암기하기보다 먼저 목적을 잡습니다. “사용량 확인”이면 df/du, “권한 변경”이면 chmod, “소유자 변경”이면 chown, “서비스 자동 시작”이면 systemctl enable처럼 목적에서 명령을 떠올려야 선지 제거가 빨라집니다.</p>
+      <h3>기말 범위와 직접 관련 없는 내용은 과감히 뒤로 미룬다</h3>
+      <p>리눅스마스터 전체 범위에는 X 윈도우, 응용 분야, 라이선스, 리눅스 역사 등도 포함될 수 있습니다. 그러나 이번 CBT의 목적은 운영체제 기말고사이므로 수업 자료와 노션 범위에서 직접 다룬 실습 명령어와 시스템 관리 영역을 우선합니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>5. 주요 명령어</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>묶음</th><th>반드시 알아야 할 명령</th><th>한 줄 기억법</th></tr></thead>
+          <tbody>
+            <tr><td>파일/디렉터리</td><td><code>ls -al</code>, <code>cp -r</code>, <code>rm -i</code>, <code>find</code>, <code>ln -s</code></td><td>목록, 복사, 삭제, 검색, 링크</td></tr>
+            <tr><td>디스크</td><td><code>lsblk</code>, <code>fdisk</code>, <code>mkfs</code>, <code>mount</code>, <code>umount</code>, <code>df</code>, <code>du</code></td><td>확인→분할→생성→연결→해제→용량</td></tr>
+            <tr><td>계정</td><td><code>useradd</code>, <code>passwd</code>, <code>groupadd</code>, <code>usermod -aG</code>, <code>id</code></td><td>만들고, 암호, 그룹, 추가, 확인</td></tr>
+            <tr><td>권한</td><td><code>chmod</code>, <code>chown</code>, <code>chgrp</code>, <code>umask</code></td><td>권한, 소유자, 그룹, 기본값</td></tr>
+            <tr><td>프로세스</td><td><code>ps aux</code>, <code>top</code>, <code>kill</code>, <code>jobs</code>, <code>fg</code>, <code>bg</code>, <code>nohup</code></td><td>확인, 실시간, 종료, 작업 제어</td></tr>
+            <tr><td>셸/vi</td><td><code>export</code>, <code>source</code>, <code>&gt;</code>, <code>&gt;&gt;</code>, <code>|</code>, <code>:wq</code>, <code>:q!</code></td><td>환경, 현재 셸, 출력, 연결, 저장/종료</td></tr>
+            <tr><td>패키지/백업</td><td><code>apt</code>, <code>dpkg</code>, <code>rpm</code>, <code>dnf</code>, <code>tar</code>, <code>gzip</code></td><td>설치/조회/묶기/압축</td></tr>
+            <tr><td>네트워크/서비스</td><td><code>ip addr</code>, <code>ping</code>, <code>traceroute</code>, <code>ss -tuln</code>, <code>systemctl</code></td><td>주소, 도달, 경로, 포트, 서비스</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="concept-section">
+      <h2>6. 헷갈리는 비교표</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>비교 쌍</th><th>A</th><th>B</th><th>판별법</th></tr></thead>
+          <tbody>
+            <tr><td>df vs du</td><td>파일시스템 전체</td><td>파일/디렉터리 사용량</td><td>disk filesystem vs disk usage</td></tr>
+            <tr><td>hard link vs symbolic link</td><td>같은 inode</td><td>경로를 가리키는 별도 파일</td><td>inode 공유 여부</td></tr>
+            <tr><td>chmod vs chown</td><td>권한 변경</td><td>소유자 변경</td><td>mode vs owner</td></tr>
+            <tr><td>apt update vs upgrade</td><td>목록 갱신</td><td>패키지 업그레이드</td><td>설치 전 update</td></tr>
+            <tr><td>tar -c vs -x</td><td>생성</td><td>해제</td><td>create vs extract</td></tr>
+            <tr><td>SIGTERM vs SIGKILL</td><td>정상 종료 요청</td><td>강제 종료</td><td>15 vs 9</td></tr>
+            <tr><td>systemctl start vs enable</td><td>지금 시작</td><td>자동 시작 등록</td><td>현재 상태 vs 부팅 설정</td></tr>
+            <tr><td>SSH vs Telnet</td><td>암호화</td><td>평문</td><td>보안 차이</td></tr>
+            <tr><td>cron vs at</td><td>반복 예약</td><td>1회 예약</td><td>주기성 여부</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>7. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li>명령어 이름이 비슷하면 목적어를 먼저 봅니다. 예: <code>df</code>는 파일시스템, <code>du</code>는 디렉터리.</li>
+        <li>옵션 한 글자가 의미를 바꿉니다. <code>tar -c</code>와 <code>tar -x</code>, <code>rm -i</code>와 <code>rm -f</code>를 특히 조심합니다.</li>
+        <li>서비스 문제는 “현재 실행”인지 “부팅 시 자동 실행”인지 질문을 먼저 표시합니다.</li>
+        <li>권한 문제는 숫자를 바로 답하지 말고 user/group/other 세 칸으로 나누어 적습니다.</li>
+        <li>네트워크 포트 문제는 서비스 이름과 보안 특징을 함께 묶어 외우면 덜 헷갈립니다.</li>
+        <li>기말 범위 밖의 리눅스마스터 문제는 보조 학습으로만 보고, 수업 PDF와 노션 범위를 우선합니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>8. 자주 나오는 선지 표현</h2>
+      <ul class="summary-list">
+        <li>“같은 inode를 공유한다” → 하드 링크</li>
+        <li>“기존 보조 그룹을 유지하면서 추가한다” → <code>usermod -aG</code></li>
+        <li>“파일 소유자의 권한으로 실행된다” → setuid</li>
+        <li>“프로세스가 잡을 수 없는 강제 종료” → SIGKILL</li>
+        <li>“표준에러를 표준출력과 같은 대상으로 보낸다” → <code>2&gt;&amp;1</code></li>
+        <li>“설치 패키지 목록 전체 조회” → Debian은 <code>dpkg -l</code>, RPM은 <code>rpm -qa</code></li>
+        <li>“암호화 원격 접속” → SSH</li>
+        <li>“부팅 시 자동 시작 등록” → <code>systemctl enable</code></li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>9. 예상문제</h2>
+      <div class="quiz-block">
+        <h3>1. 다음 중 “현재 실행”이 아니라 “다음 부팅 때 자동 시작 등록”을 의미하는 명령은?</h3>
+        <ol><li><code>systemctl start ssh</code></li><li><code>systemctl enable ssh</code></li><li><code>systemctl status ssh</code></li><li><code>systemctl restart ssh</code></li></ol>
+        <div class="answer-box">정답: 2. enable은 자동 시작 등록이며, start와 구분해야 합니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>2. 리눅스마스터형 문제에서 <code>df</code>와 <code>du</code>를 구분하는 설명으로 가장 적절한 것은?</h3>
+        <ol><li>df는 디렉터리 사용량, du는 사용자 목록이다.</li><li>df는 파일시스템 사용량, du는 파일/디렉터리 사용량이다.</li><li>df는 파일 삭제, du는 파일 복사이다.</li><li>df는 네트워크 포트, du는 DNS 질의이다.</li></ol>
+        <div class="answer-box">정답: 2. df는 파일시스템 단위, du는 특정 파일/디렉터리 단위입니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>3. Ubuntu 계열과 RPM 계열 도구 연결로 옳은 것은?</h3>
+        <ol><li>Ubuntu: rpm, RPM 계열: dpkg</li><li>Ubuntu: apt/dpkg, RPM 계열: dnf/rpm</li><li>Ubuntu: tar, RPM 계열: chmod</li><li>Ubuntu: systemctl, RPM 계열: vi만 사용</li></ol>
+        <div class="answer-box">정답: 2. Debian/Ubuntu 계열은 apt/dpkg, Red Hat 계열은 dnf 또는 yum/rpm을 사용합니다.</div>
+      </div>
+    </section>
+
+    <section class="memory-box">
+      <h2>10. 최종 암기 요약</h2>
+      <ul>
+        <li>이번 CBT의 목적은 자격증 전체가 아니라 운영체제 기말고사 대비다.</li>
+        <li>리눅스마스터형 문제는 “비슷한 명령어 구분”과 “옵션 한 글자”가 핵심이다.</li>
+        <li>기말 우선순위: 수업 노션 → 교수님 PDF → 실습 명령어 → 리눅스마스터 연계 유형.</li>
+        <li>모르는 문제가 나오면 카테고리를 먼저 판단하고, 목적에 맞는 명령어를 떠올린다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>11. 관련 CBT 링크</h2>
+      <p>CBT에서 출처 유형 필터를 <strong>리눅스마스터 2급 2차 기출 연계</strong>로 설정하면 이 페이지의 선지 함정 중심으로 연습할 수 있습니다.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">리눅스마스터 연계 CBT 풀기</a>
+        <a class="secondary-btn" href="./index.html">기말 노트 목록</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>

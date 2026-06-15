@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>운영체제 기말고사 대비 노트</title>
+  <title>운영체제 기말고사 대비 강의노트</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,55 +14,102 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../index.html">전체 개념정리</a>
       </nav>
-      <h1 class="site-title">운영체제 기말고사 대비</h1>
-      <p class="site-desc">노션 정리와 교수님 수업 PDF를 우선 반영하고, 리눅스마스터 2급 2차 기출·복원 유형 중 기말 범위와 겹치는 부분만 재구성했습니다.</p>
+      <h1 class="site-title">운영체제 기말고사 대비 강의노트</h1>
+      <p class="site-desc">노션 정리와 교수님 수업 PDF의 범위를 먼저 잡고, 리눅스마스터 2급 2차 기출·복원 유형에서 겹치는 함정을 CBT식으로 정리한 학습용 강의노트입니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <h2>공부 순서</h2>
+      <span class="badge">처음 시작 안내</span>
+      <h2>이 노트는 “리눅스를 처음 만지는 사람”을 기준으로 만들었습니다</h2>
+      <p>기말 범위는 단순 암기보다 “명령어가 왜 필요한지 → 어떤 파일을 건드리는지 → 시험에서는 어떤 선지로 속이는지”를 연결해야 점수가 올라갑니다. 각 페이지는 개념 설명, 명령어 표, 비교표, 함정 포인트, 예상문제 순서로 읽으면 됩니다.</p>
       <ol class="summary-list">
-        <li>파일시스템·디스크·마운트로 실습 흐름을 먼저 잡습니다.</li>
-        <li>사용자·그룹과 권한 계산을 암기합니다.</li>
-        <li>프로세스, 패키지, 네트워크, 부팅/systemd를 명령어 중심으로 반복합니다.</li>
-        <li>마지막으로 CBT에서 출처 유형과 카테고리 필터를 바꿔 풀어 봅니다.</li>
+        <li><strong>1회독:</strong> 단원 개요와 핵심 개념을 읽으며 용어를 익힙니다. 모르는 명령어는 아직 외우지 말고 “무엇을 확인/변경하는 명령인지”만 표시합니다.</li>
+        <li><strong>2회독:</strong> 주요 명령어 표와 비교표를 보며 비슷한 옵션을 구분합니다. 예: <code>df</code>와 <code>du</code>, <code>apt update</code>와 <code>apt upgrade</code>, <code>systemctl enable</code>과 <code>start</code>.</li>
+        <li><strong>3회독:</strong> 시험 함정 포인트와 예상문제를 먼저 풀고, 틀린 이유를 해설 문장으로 다시 말해 봅니다.</li>
+        <li><strong>마무리:</strong> CBT에서 출처 유형 필터를 바꿔 풀어 봅니다. 수업자료 기반 문제는 기말 범위 확인용, 리눅스마스터 연계 문제는 선지 함정 훈련용입니다.</li>
       </ol>
-      <div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT 풀기</a><a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 포인트</a></div>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT 풀기</a>
+        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 포인트 보기</a>
+      </div>
+    </section>
+
+    <section class="concept-section">
+      <h2>공부할 때 반드시 잡아야 하는 큰 흐름</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>흐름</th><th>초보자용 설명</th><th>대표 시험 포인트</th></tr></thead>
+          <tbody>
+            <tr><td>저장장치 준비</td><td>디스크를 파티션으로 나누고, 파일시스템을 만들고, 디렉터리에 연결합니다.</td><td><code>fdisk</code>, <code>mkfs</code>, <code>mount</code>, <code>/etc/fstab</code>, LVM 순서</td></tr>
+            <tr><td>사용자와 권한</td><td>리눅스는 “누가 실행했는가”에 따라 읽기·쓰기·실행 가능 여부가 달라집니다.</td><td>UID/GID, <code>chmod 755</code>, <code>chown</code>, setuid/setgid/sticky bit</td></tr>
+            <tr><td>프로세스와 서비스</td><td>실행 중인 프로그램은 프로세스이고, 백그라운드에서 계속 제공되는 기능은 서비스로 관리합니다.</td><td><code>ps</code>, <code>kill</code>, <code>jobs</code>, <code>systemctl</code>, target/runlevel</td></tr>
+            <tr><td>패키지와 백업</td><td>프로그램 설치는 패키지 관리자가 담당하고, 여러 파일 묶기와 압축은 tar/gzip 계열이 자주 출제됩니다.</td><td><code>apt</code>/<code>dpkg</code>, <code>rpm</code>/<code>dnf</code>, <code>tar -czvf</code>, 백업 위치</td></tr>
+            <tr><td>네트워크</td><td>IP 주소, 포트, 서비스 이름을 연결해 “어느 프로그램이 어떤 통로로 통신하는지” 이해합니다.</td><td>SSH 22, FTP 21/20, HTTP 80, DNS 53, ping/traceroute/ss</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="concept-section">
+      <h2>기말 직전 추천 학습 순서</h2>
+      <div class="study-flow">
+        <div>
+          <h3>1일차: 파일·디스크·권한</h3>
+          <p>파일시스템, 디스크/마운트, 사용자/그룹, 권한을 묶어서 봅니다. 이 네 단원은 서로 연결되어 “파일을 만들고 누가 접근할 수 있는가”를 묻는 문제가 많습니다.</p>
+        </div>
+        <div>
+          <h3>2일차: 프로세스·셸·vi</h3>
+          <p>프로세스를 확인하고 종료하는 명령, 셸에서 환경변수를 다루는 방식, vi의 모드 전환과 저장/종료 명령을 반복합니다.</p>
+        </div>
+        <div>
+          <h3>3일차: 패키지·백업·네트워크</h3>
+          <p>설치/삭제/조회 명령과 tar 옵션, 주요 서비스 포트, SSH/Telnet/FTP 차이를 표로 외웁니다.</p>
+        </div>
+        <div>
+          <h3>4일차: 부팅·systemd·CBT</h3>
+          <p>부팅 순서와 systemctl 명령을 정리한 뒤 CBT를 최소 2회 풀고, 오답노트에서 틀린 카테고리만 다시 봅니다.</p>
+        </div>
+      </div>
     </section>
 
     <section class="exam-subject-grid" aria-label="운영체제 기말고사 단원">
       <a class="exam-subject-card" href="./filesystem.html">
-        <div><span class="badge">기말</span><h2>파일시스템·디스크</h2><p>파일시스템 구조, inode, 링크, 디스크 파티션, LVM, mkfs, mount를 기말 실습 기준으로 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">1번 저장장치</span><h2>1. 파일시스템·디스크·마운트</h2><p>파일이 디스크에 저장되는 방식, inode, 링크, 파티션, LVM, mkfs, mount, fstab을 실습 흐름대로 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./users-groups.html">
-        <div><span class="badge">기말</span><h2>사용자·그룹</h2><p>사용자 생성, 그룹 추가, UID/GID, /etc/passwd, /etc/shadow, /etc/group을 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">2번 계정</span><h2>2. 사용자 및 그룹</h2><p>사용자 생성, UID/GID, /etc/passwd, /etc/shadow, /etc/group, 보조 그룹 추가 함정을 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./permission.html">
-        <div><span class="badge">기말</span><h2>권한</h2><p>chmod 숫자 계산, chown/chgrp, umask, setuid, setgid, sticky bit를 시험식으로 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">3번 보안</span><h2>3. 권한·소유권·특수권한</h2><p>rwx 계산, chmod 숫자 표기, chown/chgrp, umask, setuid, setgid, sticky bit를 시험식으로 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./process-job.html">
-        <div><span class="badge">기말</span><h2>프로세스</h2><p>ps, top, kill, signal, jobs, fg/bg, nice, nohup, cron/at을 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">4번 실행</span><h2>4. 프로세스 및 작업 관리</h2><p>ps, top, kill, signal, jobs, fg/bg, nohup, cron/at을 “실행 중인 프로그램 관리” 관점에서 봅니다.</p></div>
+        <strong>강의노트 보기</strong>
+      </a>
+      <a class="exam-subject-card" href="./shell-vi.html">
+        <div><span class="badge">5번 도구</span><h2>5. 셸·환경변수·스크립트·vi</h2><p>PATH, export, 리다이렉션, 파이프, 실행 권한, vi 모드/저장/검색/치환을 초보자용으로 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./package-backup.html">
-        <div><span class="badge">기말</span><h2>패키지·백업</h2><p>apt/dpkg, rpm/yum/dnf, tar, gzip, bzip2, xz, zip, 백업 명령을 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">6번 관리</span><h2>6. 패키지·압축·백업</h2><p>apt/dpkg, rpm/dnf, 저장소/GPG, tar, gzip, bzip2, xz, zip, 백업 명령과 복원 관점을 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./network-service.html">
-        <div><span class="badge">기말</span><h2>네트워크</h2><p>TCP/IP, IP/MAC, 라우팅, DNS, ping, traceroute, SSH, Telnet, FTP, HTTP 서비스를 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">7번 통신</span><h2>7. 네트워크 기초·서비스</h2><p>IP/MAC, TCP/UDP, 포트, DNS, ping, traceroute, SSH, Telnet, FTP, HTTP, DB 서비스 관리를 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./boot-systemd.html">
-        <div><span class="badge">기말</span><h2>부팅·systemd</h2><p>BIOS/UEFI, MBR, GRUB, 커널, systemd target, systemctl 서비스 관리를 정리합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">8번 부팅</span><h2>8. 부팅 과정·systemd·서비스</h2><p>BIOS/UEFI, MBR/GPT, GRUB, 커널, initramfs, systemd target, systemctl 명령을 연결합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
       <a class="exam-subject-card" href="./linuxmaster-related.html">
-        <div><span class="badge">기말</span><h2>리눅스마스터 연계</h2><p>기말고사 범위와 겹치는 리눅스마스터 2급 2차 기출·복원 유형의 출제 포인트만 선별합니다.</p></div>
-        <strong>노트 보기</strong>
+        <div><span class="badge">9번 CBT 연계</span><h2>9. 리눅스마스터 2급 2차 연계 포인트</h2><p>기말 범위와 겹치는 공개 기출·복원 유형의 단골 함정만 선별해 “왜 출제되는지”까지 정리합니다.</p></div>
+        <strong>강의노트 보기</strong>
       </a>
     </section>
   </main>

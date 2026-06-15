@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>사용자 및 그룹 - 운영체제 기말고사</title>
+  <title>2. 사용자 및 그룹 - 운영체제 기말고사</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
@@ -14,74 +14,173 @@
         <a href="../../cbt/final_exam_mock.html">기말 CBT 바로 풀기</a>
         <a href="../../index.html">메인으로 돌아가기</a>
       </nav>
-      <h1 class="site-title">사용자 및 그룹</h1>
-      <p class="site-desc">사용자 생성, 그룹 추가, UID/GID, /etc/passwd, /etc/shadow, /etc/group을 정리합니다.</p>
+      <h1 class="site-title">2. 사용자 및 그룹</h1>
+      <p class="site-desc">리눅스 계정의 구조, UID/GID, 기본 그룹과 보조 그룹, 계정 정보 파일, useradd/adduser/usermod/passwd 명령을 정리합니다.</p>
     </div>
   </header>
 
   <main class="main wrap">
     <section class="summary-box">
-      <span class="badge">계정관리</span>
+      <span class="badge">학습 순서 2</span>
       <h2>1. 단원 개요</h2>
-      <p>리눅스는 다중 사용자 운영체제이므로 사용자와 그룹을 기준으로 접근 권한과 자원 사용을 통제합니다.</p>
+      <p>리눅스는 여러 사용자가 동시에 쓰는 운영체제를 전제로 만들어졌습니다. 그래서 파일을 읽거나 명령을 실행할 때 항상 “현재 사용자가 누구인가”, “그 사용자가 어떤 그룹에 속하는가”를 확인합니다.</p>
+      <p>사용자와 그룹 단원은 권한 단원의 기초입니다. <code>chmod</code> 계산을 잘해도 UID, GID, 소유자, 소유 그룹을 모르면 실제 접근 권한을 판단할 수 없습니다.</p>
       <div class="btn-row">
         <a class="primary-btn" href="../../cbt/final_exam_mock.html">관련 CBT 풀기</a>
-        <a class="secondary-btn" href="./linuxmaster-related.html">리눅스마스터 연계 보기</a>
+        <a class="secondary-btn" href="./permission.html">다음: 3. 권한</a>
       </div>
     </section>
 
-    <section class="concept-section"><h2>2. 기말고사에서 중요한 이유</h2><p>기말고사에서는 useradd 옵션, usermod -aG, passwd/shadow/group 파일 역할이 자주 함정으로 나옵니다.</p></section>
-    <section class="concept-section"><h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2><ul class="summary-list">
-          <li>useradd -m -s 옵션</li>
-          <li>usermod -aG와 -G 차이</li>
-          <li>/etc/passwd와 /etc/shadow 구분</li>
-          <li>UID/GID 의미</li>
-          <li>adduser와 useradd 비교</li>
-        </ul></section>
-    <section class="concept-section"><h2>4. 핵심 개념 설명</h2><ul class="summary-list">
-          <li>UID는 시스템이 사용자를 식별하는 번호이고 GID는 그룹 식별 번호입니다.</li>
-          <li>/etc/passwd는 계정 기본 정보를 담고 실제 암호 해시는 보통 /etc/shadow에 저장됩니다.</li>
-          <li>/etc/group은 그룹 이름, GID, 보조 그룹 구성원 정보를 담습니다.</li>
-          <li>보조 그룹 추가 시 기존 그룹을 보존하려면 usermod -aG를 사용합니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>5. 주요 명령어</h2><div class="concept-table"><table><thead><tr><th>명령어</th><th>핵심 의미</th></tr></thead><tbody>
-              <tr><td><code>adduser user1</code></td><td>대화형 사용자 생성</td></tr>
-              <tr><td><code>useradd -m -s /bin/bash user1</code></td><td>홈 디렉터리와 로그인 셸 지정 생성</td></tr>
-              <tr><td><code>passwd user1</code></td><td>암호 설정/변경</td></tr>
-              <tr><td><code>groupadd project</code></td><td>그룹 생성</td></tr>
-              <tr><td><code>usermod -aG project user1</code></td><td>보조 그룹 추가</td></tr>
-              <tr><td><code>id user1</code></td><td>UID/GID와 그룹 확인</td></tr>
-              <tr><td><code>groups user1</code></td><td>소속 그룹 확인</td></tr>
-            </tbody></table></div></section>
-    <section class="concept-section"><h2>6. 헷갈리는 비교표</h2><div class="concept-table"><table><thead><tr><th>구분</th><th>핵심</th><th>암기 포인트</th></tr></thead><tbody>
-              <tr><td>adduser</td><td>배포판에서 제공하는 고수준/대화형 명령</td><td>초보자 실습에 편리</td></tr>
-              <tr><td>useradd</td><td>저수준 계정 생성 명령</td><td>옵션을 직접 지정해야 함</td></tr>
-              <tr><td>-g</td><td>기본 그룹 지정/변경</td><td>하나의 주 그룹</td></tr>
-              <tr><td>-G</td><td>보조 그룹 목록 지정</td><td>-a 없이 쓰면 기존 목록 대체 주의</td></tr>
-            </tbody></table></div></section>
-    <section class="trap-box"><h2>7. 시험 함정 포인트</h2><ul class="summary-list">
-          <li>-aG에서 -a를 빠뜨리면 기존 보조 그룹이 대체될 수 있습니다.</li>
-          <li>/etc/passwd에 암호 해시 전체가 있다고 고르면 틀리기 쉽습니다.</li>
-          <li>그룹 생성은 useradd가 아니라 groupadd입니다.</li>
-          <li>로그인 셸 지정은 useradd -s입니다.</li>
-        </ul></section>
-    <section class="concept-section"><h2>8. 자주 나오는 선지 표현</h2><ul class="summary-list">
-          <li>사용자의 홈 디렉터리를 자동 생성하는 옵션은?</li>
-          <li>기존 보조 그룹을 유지하며 그룹을 추가하는 명령은?</li>
-          <li>/etc/shadow 파일 설명으로 알맞은 것은?</li>
-        </ul></section>
-    <section class="concept-section"><h2>9. 예상문제</h2>
-        <div class="quiz-block"><h3>1. 홈 디렉터리를 만들고 bash를 로그인 셸로 지정하는 명령은?</h3><ol><li>① useradd -m -s /bin/bash user1</li><li>② groupadd -m user1</li><li>③ passwd -s /bin/bash user1</li><li>④ usermod -m /bin/bash user1</li></ol><div class="answer-box">정답: 1. -m은 홈 생성, -s는 셸 지정입니다.</div></div>
-        <div class="quiz-block"><h3>2. 암호 해시가 주로 저장되는 파일은?</h3><ol><li>① /etc/passwd</li><li>② /etc/shadow</li><li>③ /etc/group</li><li>④ /etc/fstab</li></ol><div class="answer-box">정답: 2. 현대 리눅스의 암호 해시는 /etc/shadow에 저장됩니다.</div></div>
+    <section class="concept-section">
+      <h2>2. 기말고사에서 중요한 이유</h2>
+      <ul class="summary-list">
+        <li>수업 노션 자료에서 <code>adduser</code>, <code>useradd</code>, <code>groupadd</code>, <code>usermod -aG</code>가 실습 중심으로 다뤄졌습니다.</li>
+        <li>계정 정보 파일인 <code>/etc/passwd</code>, <code>/etc/shadow</code>, <code>/etc/group</code>의 역할을 구분해야 합니다.</li>
+        <li>기본 그룹과 보조 그룹의 차이를 알아야 협업 디렉터리나 서비스 계정 문제를 이해할 수 있습니다.</li>
+        <li>사용자를 삭제하거나 그룹에 추가하는 명령은 옵션 하나 차이로 결과가 달라져 선지 함정이 많습니다.</li>
+      </ul>
     </section>
-    <section class="memory-box"><h2>10. 최종 암기 요약</h2><pre><code>계정 기본 정보 = /etc/passwd
-암호 해시 = /etc/shadow
-그룹 정보 = /etc/group
-홈 생성 = useradd -m
-보조 그룹 추가 = usermod -aG</code></pre></section>
-    <section class="concept-section"><h2>11. 관련 CBT 링크</h2><p>이 단원은 운영체제 기말고사 CBT의 카테고리 필터로 반복 풀이하세요.</p><div class="btn-row"><a class="primary-btn" href="../../cbt/final_exam_mock.html">운영체제 기말고사 CBT</a><a class="secondary-btn" href="../../review/wrong-notes.html">오답노트</a><a class="secondary-btn" href="../../stats/study-record.html">학습기록</a></div></section>
 
-    <nav class="back-link-row" aria-label="기말 노트 빠른 이동"><a href="./filesystem.html">파일시스템·디스크</a><a href="./users-groups.html">사용자·그룹</a><a href="./permission.html">권한</a><a href="./process-job.html">프로세스</a><a href="./package-backup.html">패키지·백업</a><a href="./network-service.html">네트워크</a><a href="./boot-systemd.html">부팅·systemd</a><a href="./linuxmaster-related.html">리눅스마스터 연계</a></nav>
+    <section class="concept-section">
+      <h2>3. 리눅스마스터 2급 2차 기출 연계 포인트</h2>
+      <ul class="summary-list">
+        <li><code>/etc/passwd</code>는 사용자명, UID, GID, 홈 디렉터리, 로그인 셸 같은 기본 정보를 담습니다.</li>
+        <li><code>/etc/shadow</code>는 암호 해시와 암호 만료 정보를 담으며 일반 사용자에게 제한됩니다.</li>
+        <li><code>/etc/group</code>은 그룹명, GID, 보조 그룹 구성원 정보를 담습니다.</li>
+        <li><code>useradd -m -s /bin/bash user1</code>에서 <code>-m</code>은 홈 디렉터리 생성, <code>-s</code>는 로그인 셸 지정입니다.</li>
+        <li><code>usermod -aG group user</code>는 기존 보조 그룹을 보존하고 새 그룹을 추가합니다. <code>-a</code> 없이 <code>-G</code>만 쓰면 보조 그룹 목록이 대체될 수 있습니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>4. 핵심 개념 설명</h2>
+      <h3>UID와 GID</h3>
+      <p>리눅스 내부는 사용자 이름보다 숫자인 UID를 기준으로 사용자를 구분합니다. root는 일반적으로 UID 0입니다. 그룹도 이름보다 GID라는 숫자를 갖습니다. 파일 목록에서 이름이 보이는 것은 사람이 보기 쉽게 변환된 결과라고 이해하면 됩니다.</p>
+      <h3>기본 그룹과 보조 그룹</h3>
+      <p>사용자는 기본 그룹 하나를 가지고, 필요에 따라 여러 보조 그룹에 들어갈 수 있습니다. 새 파일을 만들 때 기본 그룹이 파일의 그룹 소유자로 지정되는 경우가 많고, 보조 그룹은 프로젝트 디렉터리 접근 권한을 줄 때 자주 사용합니다.</p>
+      <h3>계정 정보 파일 3종 세트</h3>
+      <p><code>/etc/passwd</code>는 계정의 공개 기본 정보, <code>/etc/shadow</code>는 민감한 암호 정보, <code>/etc/group</code>은 그룹 정보를 담당합니다. 예전에는 passwd에 암호가 들어갔지만 현대 리눅스에서는 보안상 shadow로 분리합니다.</p>
+      <h3>adduser와 useradd</h3>
+      <p>배포판에 따라 <code>adduser</code>는 사용자 친화적인 스크립트 형태로 동작하고, <code>useradd</code>는 비교적 낮은 수준의 계정 생성 명령으로 동작합니다. 시험에서는 보통 <code>useradd</code> 옵션의 의미를 묻습니다.</p>
+    </section>
+
+    <section class="concept-section">
+      <h2>5. 주요 명령어</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>명령어</th><th>기능</th><th>주의점</th></tr></thead>
+          <tbody>
+            <tr><td><code>id user1</code></td><td>UID, GID, 소속 그룹 확인</td><td>권한 문제 진단의 시작</td></tr>
+            <tr><td><code>whoami</code></td><td>현재 사용자 확인</td><td>sudo 전후 사용자 확인</td></tr>
+            <tr><td><code>groups user1</code></td><td>사용자의 그룹 목록 확인</td><td>보조 그룹 확인</td></tr>
+            <tr><td><code>useradd -m user1</code></td><td>홈 디렉터리를 만들며 사용자 생성</td><td><code>-m</code> 없으면 홈 생성 정책이 다를 수 있음</td></tr>
+            <tr><td><code>useradd -m -s /bin/bash user1</code></td><td>셸을 지정해 사용자 생성</td><td><code>-s</code>는 shell</td></tr>
+            <tr><td><code>passwd user1</code></td><td>사용자 암호 설정/변경</td><td>암호 해시는 shadow에 저장</td></tr>
+            <tr><td><code>groupadd project</code></td><td>그룹 생성</td><td>그룹 이름 중복 주의</td></tr>
+            <tr><td><code>usermod -aG project user1</code></td><td>보조 그룹 추가</td><td><code>-aG</code>를 한 묶음으로 기억</td></tr>
+            <tr><td><code>usermod -s /bin/zsh user1</code></td><td>로그인 셸 변경</td><td>셸 경로가 존재해야 함</td></tr>
+            <tr><td><code>userdel user1</code></td><td>사용자 삭제</td><td>홈 디렉터리는 남을 수 있음</td></tr>
+            <tr><td><code>userdel -r user1</code></td><td>사용자와 홈 디렉터리 삭제</td><td>데이터 삭제 주의</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="code-example"><code># 프로젝트 그룹을 만들고 user1을 보조 그룹에 추가
+groupadd project
+useradd -m -s /bin/bash user1
+passwd user1
+usermod -aG project user1
+id user1</code></pre>
+    </section>
+
+    <section class="concept-section">
+      <h2>6. 헷갈리는 비교표</h2>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>파일/개념</th><th>담는 정보</th><th>시험 함정</th></tr></thead>
+          <tbody>
+            <tr><td><code>/etc/passwd</code></td><td>사용자명, UID, GID, 설명, 홈, 셸</td><td>암호 해시를 직접 저장한다고 하면 대체로 틀림</td></tr>
+            <tr><td><code>/etc/shadow</code></td><td>암호 해시, 만료 정보</td><td>보안상 접근 권한이 엄격함</td></tr>
+            <tr><td><code>/etc/group</code></td><td>그룹명, GID, 보조 그룹 사용자</td><td>사용자 기본 정보 전체 파일이 아님</td></tr>
+            <tr><td>UID</td><td>사용자 식별 번호</td><td>root는 UID 0</td></tr>
+            <tr><td>GID</td><td>그룹 식별 번호</td><td>권한 판정에서 그룹 영역과 연결</td></tr>
+            <tr><td>기본 그룹</td><td>사용자의 주 그룹</td><td>파일 생성 시 그룹 소유자와 관련</td></tr>
+            <tr><td>보조 그룹</td><td>추가로 속한 그룹</td><td><code>usermod -aG</code>로 추가</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="concept-table">
+        <table>
+          <thead><tr><th>명령</th><th>의미</th><th>차이</th></tr></thead>
+          <tbody>
+            <tr><td><code>useradd</code></td><td>사용자 생성</td><td>옵션을 직접 지정하는 경우가 많음</td></tr>
+            <tr><td><code>adduser</code></td><td>사용자 생성 보조 스크립트</td><td>배포판에 따라 대화형으로 동작</td></tr>
+            <tr><td><code>usermod -G group user</code></td><td>보조 그룹 목록 지정</td><td>기존 목록을 대체할 수 있음</td></tr>
+            <tr><td><code>usermod -aG group user</code></td><td>보조 그룹에 추가</td><td>기존 그룹 보존</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="trap-box">
+      <h2>7. 시험 함정 포인트</h2>
+      <ul class="summary-list">
+        <li><code>/etc/passwd</code>에 암호 해시가 저장된다고 단정하는 선지를 조심합니다. 현대 리눅스에서는 주로 <code>/etc/shadow</code>입니다.</li>
+        <li><code>usermod -G</code>와 <code>usermod -aG</code>의 차이는 매우 자주 나옵니다. “추가”는 <code>-aG</code>입니다.</li>
+        <li><code>userdel</code>만 하면 홈 디렉터리가 남을 수 있고, <code>userdel -r</code>은 홈까지 삭제합니다.</li>
+        <li>UID 0은 root 권한과 연결됩니다. 이름이 root가 아니어도 UID 0이면 위험합니다.</li>
+        <li>사용자 이름과 UID, 그룹 이름과 GID를 혼동하지 마세요. 내부 판단은 숫자 ID 기반입니다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>8. 자주 나오는 선지 표현</h2>
+      <ul class="summary-list">
+        <li>“사용자의 UID와 GID를 확인한다” → <code>id</code></li>
+        <li>“암호 해시와 만료 정보를 저장한다” → <code>/etc/shadow</code></li>
+        <li>“기존 보조 그룹을 유지하면서 새 그룹을 추가한다” → <code>usermod -aG</code></li>
+        <li>“홈 디렉터리를 만들며 사용자를 생성한다” → <code>useradd -m</code></li>
+        <li>“로그인 셸을 지정한다” → <code>useradd -s</code> 또는 <code>usermod -s</code></li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>9. 예상문제</h2>
+      <div class="quiz-block">
+        <h3>1. 기존 사용자 user1을 project 보조 그룹에 추가하면서 기존 보조 그룹을 유지하는 명령은?</h3>
+        <ol><li><code>usermod -G project user1</code></li><li><code>usermod -aG project user1</code></li><li><code>groupadd -a user1 project</code></li><li><code>passwd -G project user1</code></li></ol>
+        <div class="answer-box">정답: 2. <code>-aG</code>는 append + supplementary group으로 기억하면 좋습니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>2. 암호 해시와 암호 만료 정보가 저장되는 파일은?</h3>
+        <ol><li><code>/etc/passwd</code></li><li><code>/etc/shadow</code></li><li><code>/etc/group</code></li><li><code>/etc/fstab</code></li></ol>
+        <div class="answer-box">정답: 2. <code>/etc/shadow</code>는 민감한 암호 정보를 담습니다.</div>
+      </div>
+      <div class="quiz-block">
+        <h3>3. 홈 디렉터리를 만들며 bash 셸을 지정해 user1을 생성하는 명령은?</h3>
+        <ol><li><code>useradd -m -s /bin/bash user1</code></li><li><code>useradd -G /bin/bash -m user1</code></li><li><code>groupadd -m -s /bin/bash user1</code></li><li><code>passwd -m -s /bin/bash user1</code></li></ol>
+        <div class="answer-box">정답: 1. <code>-m</code>은 홈 생성, <code>-s</code>는 로그인 셸 지정입니다.</div>
+      </div>
+    </section>
+
+    <section class="memory-box">
+      <h2>10. 최종 암기 요약</h2>
+      <ul>
+        <li>root는 보통 UID 0이다.</li>
+        <li><code>/etc/passwd</code>는 기본 계정 정보, <code>/etc/shadow</code>는 암호 정보, <code>/etc/group</code>은 그룹 정보.</li>
+        <li>사용자 생성: <code>useradd -m -s /bin/bash user</code>.</li>
+        <li>그룹 추가: <code>usermod -aG group user</code>.</li>
+        <li>권한 단원을 풀기 전 사용자/그룹 소유자를 먼저 확인한다.</li>
+      </ul>
+    </section>
+
+    <section class="concept-section">
+      <h2>11. 관련 CBT 링크</h2>
+      <p>CBT에서 카테고리 필터를 <strong>사용자 및 그룹</strong>으로 설정해 UID/GID, 계정 파일, usermod 옵션 문제를 집중적으로 풀어 보세요.</p>
+      <div class="btn-row">
+        <a class="primary-btn" href="../../cbt/final_exam_mock.html">CBT에서 확인하기</a>
+        <a class="secondary-btn" href="./permission.html">다음 단원 보기</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>
